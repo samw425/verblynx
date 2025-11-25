@@ -7,51 +7,50 @@ import { ArrowRight, Sparkles, Zap, Shield, CheckCircle2, ArrowUpRight, Settings
 export default function LandingPage() {
   return (
     <div className="flex flex-col min-h-screen bg-background text-foreground overflow-hidden font-sans">
-      {/* Hero Section - RED/BLACK BRAND */}
+      {/* Hero Section - ELEVATED DEEP RED THEME */}
       <section className="relative flex min-h-screen items-center justify-center px-6 py-24 overflow-hidden bg-black">
 
-        {/* Red Glow Background */}
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1000px] h-[1000px] bg-red-600/10 rounded-full blur-3xl pointer-events-none" />
-        <div className="absolute top-1/4 right-0 w-[600px] h-[600px] bg-red-500/5 rounded-full blur-3xl pointer-events-none" />
+        {/* Deep Red Spotlight Gradient */}
+        <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(circle_at_top,_var(--tw-gradient-stops))] from-red-900/50 via-black to-black pointer-events-none" />
 
-        <div className="z-10 space-y-10 max-w-5xl mx-auto text-center">
-          <div className="inline-flex items-center gap-2 rounded-full border border-red-500/30 bg-red-500/10 px-5 py-2.5 text-sm font-semibold text-red-400 backdrop-blur-sm animate-in fade-in slide-in-from-bottom-4 duration-1000">
-            <Sparkles className="h-4 w-4" />
-            <span>VERBLYNX</span>
-            <span className="text-red-600">•</span>
-            <span className="text-gray-400">Strategic Copywriting Engine</span>
+        {/* Ambient Grain/Texture (Optional for elevation) */}
+        <div className="absolute inset-0 bg-[url('/noise.png')] opacity-[0.03] pointer-events-none mix-blend-overlay" />
+
+        <div className="z-10 space-y-10 max-w-5xl mx-auto text-center relative">
+
+          {/* Pill Badge */}
+          <div className="inline-flex items-center gap-2 rounded-full border border-red-500/20 bg-red-950/30 px-4 py-1.5 text-sm font-medium text-red-400 backdrop-blur-md shadow-[0_0_15px_-3px_rgba(220,38,38,0.3)] animate-in fade-in slide-in-from-bottom-4 duration-1000">
+            <Sparkles className="h-3.5 w-3.5" />
+            <span>Verblynx</span>
+            <span className="text-red-700 mx-1">•</span>
+            <span className="text-red-200/80">Strategy-First Engine</span>
           </div>
 
           <div className="space-y-6">
-            <h1 className="text-5xl md:text-8xl font-black tracking-tight leading-[1.1] animate-in fade-in slide-in-from-bottom-8 duration-1000 delay-100">
-              <span className="text-white">Not another</span>
-              <br />
-              <span className="text-white">AI wrapper.</span>
-              <br />
-              <span className="bg-gradient-to-r from-red-500 via-red-600 to-red-700 bg-clip-text text-transparent text-5xl md:text-7xl mt-2 inline-block">A copywriting system.</span>
+            <h1 className="text-6xl md:text-8xl font-black tracking-tighter leading-[1.05] animate-in fade-in slide-in-from-bottom-8 duration-1000 delay-100 drop-shadow-2xl">
+              <span className="text-white block">Verblynx.</span>
+              <span className="text-white block">Copy That <span className="text-transparent bg-clip-text bg-gradient-to-b from-red-500 to-red-800">Converts.</span></span>
             </h1>
 
-            <div className="h-px w-32 bg-gradient-to-r from-transparent via-red-500 to-transparent mx-auto my-8" />
-
-            <div className="space-y-4 text-xl md:text-2xl text-gray-300 max-w-3xl mx-auto animate-in fade-in slide-in-from-bottom-8 duration-1000 delay-150">
-              <p className="text-white font-semibold">ChatGPT can't build campaigns. It doesn't understand conversion psychology.</p>
-              <p className="text-gray-400">Verblynx <span className="text-red-500 font-bold">reverse-engineers strategy first</span>, then applies proven frameworks—AIDA, PAS, Hook-Story-Offer—to craft copy that actually converts.</p>
+            <div className="space-y-6 text-xl md:text-2xl text-gray-400 max-w-3xl mx-auto animate-in fade-in slide-in-from-bottom-8 duration-1000 delay-150 font-light leading-relaxed">
+              <p>
+                Stop hiring $10k/month agencies. <strong className="text-white font-medium">Verblynx delivers world-class copy</strong> engineered with psychological frameworks.
+              </p>
             </div>
-
-            <p className="text-lg text-gray-400 max-w-2xl mx-auto pt-2 animate-in fade-in slide-in-from-bottom-8 duration-1000 delay-200">
-              Not a prompt box. <strong className="text-white">A strategic inference engine</strong> that teaches you the mechanics while you work.
-            </p>
           </div>
 
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4 animate-in fade-in slide-in-from-bottom-8 duration-1000 delay-400">
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-5 pt-8 animate-in fade-in slide-in-from-bottom-8 duration-1000 delay-300">
+            {/* Primary CTA - Dark with Red Glow */}
             <Link href="/create">
-              <Button size="lg" className="rounded-full px-10 py-7 text-lg font-bold bg-red-600 hover:bg-red-700 text-white shadow-lg shadow-red-600/30 hover:shadow-red-600/50 transition-all border-0">
+              <Button size="lg" className="h-14 px-8 rounded-full text-lg font-medium bg-black/50 border border-red-600/50 text-white shadow-[0_0_30px_-5px_rgba(220,38,38,0.4)] hover:bg-red-950/30 hover:border-red-500 hover:shadow-[0_0_50px_-10px_rgba(220,38,38,0.6)] transition-all duration-300">
                 Start Writing Free <ArrowRight className="ml-2 h-5 w-5" />
               </Button>
             </Link>
-            <Link href="#how-it-works">
-              <Button size="lg" variant="outline" className="rounded-full px-10 py-7 text-lg font-semibold border-red-500/30 text-white hover:bg-red-500/10">
-                See How It Works
+
+            {/* Secondary CTA - Light/White */}
+            <Link href="/login">
+              <Button size="lg" variant="secondary" className="h-14 px-8 rounded-full text-lg font-medium bg-white text-black hover:bg-gray-200 transition-all duration-300">
+                Sign In
               </Button>
             </Link>
           </div>
