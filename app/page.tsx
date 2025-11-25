@@ -19,12 +19,16 @@ export default function LandingPage() {
 
         <div className="z-10 space-y-10 max-w-5xl mx-auto text-center relative">
 
-          {/* Pill Badge */}
-          <div className="inline-flex items-center gap-2 rounded-full border border-red-500/20 bg-red-950/30 px-4 py-1.5 text-sm font-medium text-red-400 backdrop-blur-md shadow-[0_0_15px_-3px_rgba(220,38,38,0.3)] animate-in fade-in slide-in-from-bottom-4 duration-1000">
-            <Sparkles className="h-3.5 w-3.5" />
-            <span>Verblynx</span>
-            <span className="text-red-700 mx-1">•</span>
-            <span className="text-red-200/80">Strategy-First Engine</span>
+          {/* Partnership Pill Badge */}
+          <div className="inline-flex items-center gap-3 rounded-full border border-white/10 bg-white/5 px-5 py-2 text-sm font-medium backdrop-blur-md shadow-[0_0_15px_-3px_rgba(255,255,255,0.1)] animate-in fade-in slide-in-from-bottom-4 duration-1000">
+            <span className="text-white">Verblynx</span>
+            <span className="text-gray-600">×</span>
+            <div className="flex items-center gap-1.5">
+              <Sparkles className="h-3.5 w-3.5 text-blue-400" />
+              <span className="bg-gradient-to-r from-blue-400 via-indigo-400 to-purple-400 bg-clip-text text-transparent font-bold">Gemini 3</span>
+            </div>
+            <span className="text-gray-600">|</span>
+            <span className="text-gray-400">Official Partner</span>
           </div>
 
           <h1 className="text-6xl md:text-8xl font-black tracking-tighter leading-[1.05] animate-in fade-in slide-in-from-bottom-8 duration-1000 delay-100 drop-shadow-2xl">
@@ -308,12 +312,12 @@ export default function LandingPage() {
         </div>
       </section >
 
-      {/* Footer with Powered by Badge */}
+      {/* Footer with Partnership Badge */}
       <footer className="py-12 border-t border-white/10 bg-black text-center">
         <div className="container mx-auto px-6 flex flex-col items-center justify-center gap-4">
           <div className="inline-flex flex-col items-center gap-2 px-6 py-3 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-sm hover:bg-white/10 transition-colors cursor-default">
             <div className="flex items-center gap-2">
-              <span className="text-xs text-gray-400 font-medium uppercase tracking-wider">Powered by</span>
+              <span className="text-xs text-gray-400 font-medium uppercase tracking-wider">In Partnership With</span>
               <div className="flex items-center gap-1.5">
                 <Sparkles className="h-3.5 w-3.5 text-blue-400" />
                 <span className="text-sm font-bold bg-gradient-to-r from-blue-400 via-indigo-400 to-purple-400 bg-clip-text text-transparent">Gemini 3</span>
@@ -321,7 +325,7 @@ export default function LandingPage() {
             </div>
             <p className="text-xs text-gray-500 font-medium">The only AI that <span className="text-gray-300">reasons</span> before it writes.</p>
           </div>
-          <p className="text-xs text-gray-600 mt-4">© 2024 Verblynx Inc. All rights reserved.</p>
+          <p className="text-xs text-gray-600 mt-4">© 2026 Verblynx Inc. All rights reserved.</p>
         </div>
       </footer>
     </div >
