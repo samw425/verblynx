@@ -1,0 +1,33 @@
+import { NextResponse } from 'next/server';
+import Stripe from 'stripe';
+import { supabase } from '@/utils/supabase'; // adjust import as needed
+
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
+    apiVersion: '2024-06-20',
+});
+
+export async function POST(req: Request) {
+    const sig = req.headers.get('stripe-signature') || '';
+    const buf = await req.text();
+    let event: Stripe.Event;
+    try {
+        event = stripe.webhooks.constructEvent(buf, sig, process.env.STRIPE_WEBHOOK_SECRET!);
+    } catch (err) {
+        console.error('⚠️ Webhook signature verification failed.', err);
+        return new Response('Webhook Error', { status: 400 });
+    }
+
+    if (event.type === 'checkout.session.completed') {
+        const session = event.data.object as Stripe.Checkout.Session;
+        const userId = session.metadata?.userId;
+        if (userId) {
+            // Update Supabase user record to mark as pro
+            const { error } = await supabase
+                .from('users')
+                .update({ is_pro: true })
+                .eq('id', userId);
+            if (error) console.error('Supabase update error', error);
+        }
+    }
+    return new Response(JSON.stringify({ received: true }), { status: 200 });
+}

@@ -1,6 +1,7 @@
 "use client"
 
 import Link from "next/link"
+import StripeButton from "@/components/ui/StripeButton";
 import { Button } from "@/components/ui/button"
 import { ArrowRight, Sparkles, Zap, Shield, CheckCircle2, ArrowUpRight, Settings } from "lucide-react"
 import { NoTalkJustWalkSection } from "@/components/landing/no-talk-just-walk"
@@ -302,11 +303,7 @@ export default function LandingPage() {
                   <span>Early Access to New Features</span>
                 </li>
               </ul>
-              <form action="/api/stripe/checkout" method="POST">
-                <Button size="lg" className="w-full rounded-full font-bold shadow-lg bg-red-600 hover:bg-red-700 text-white border-none" type="submit">
-                  Upgrade to Pro
-                </Button>
-              </form>
+              <StripeButton priceId={process.env.NEXT_PUBLIC_STRIPE_PRICE_ID!} className="w-full rounded-full font-bold shadow-lg bg-red-600 hover:bg-red-700 text-white" >Upgrade to Pro</StripeButton>
             </div>
           </div>
         </div>
