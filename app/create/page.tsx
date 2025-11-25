@@ -32,12 +32,51 @@ export default function CreateProjectPage() {
 
     const handleSubmit = async () => {
         setIsLoading(true)
-        // Simulate API call
-        await new Promise(resolve => setTimeout(resolve, 1500))
+        try {
+            // Step 1: Get strategic inference
+            const inferenceRes = await fetch('/api/infer', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    prompt: `${formData.goal} for ${formData.audience}`
+                })
+            })
+            const inference = await inferenceRes.json()
 
-        toast.success("Strategy Engine Initialized")
-        // Redirect to editor (to be built)
-        router.push(`/editor/new-project-id`)
+            // Step 2: Generate actual copy
+            const generateRes = await fetch('/api/generate', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    prompt: formData.goal,
+                    context: inference,
+                    type: inference.type || 'marketing copy',
+                    audience: formData.audience,
+                    goal: formData.goal,
+                    tone: {
+                        formal: formData.tone === 'Authoritative' ? 8 : formData.tone === 'Empathetic' ? 4 : 6,
+                        direct: formData.tone === 'Urgent' ? 9 : formData.tone === 'Witty' ? 5 : 7,
+                        emotional: formData.tone === 'Empathetic' ? 8 : formData.tone === 'Witty' ? 6 : 5
+                    }
+                })
+            })
+            const result = await generateRes.json()
+
+            // Store result in localStorage for the editor page
+            localStorage.setItem('verblynx_latest_copy', JSON.stringify({
+                ...result,
+                projectName: formData.name,
+                createdAt: new Date().toISOString()
+            }))
+
+            toast.success("Copy Generated Successfully!")
+            // Redirect to dashboard which will show the result
+            router.push(`/dashboard`)
+        } catch (error) {
+            console.error('Generation error:', error)
+            toast.error("Failed to generate copy. Please try again.")
+            setIsLoading(false)
+        }
     }
 
     return (
@@ -127,8 +166,8 @@ export default function CreateProjectPage() {
                                             key={tone}
                                             onClick={() => setFormData({ ...formData, tone })}
                                             className={`cursor-pointer p-4 rounded-xl border transition-all ${formData.tone === tone
-                                                    ? "bg-red-900/20 border-red-500 text-white"
-                                                    : "bg-gray-900/30 border-white/10 text-gray-400 hover:border-white/30"
+                                                ? "bg-red-900/20 border-red-500 text-white"
+                                                : "bg-gray-900/30 border-white/10 text-gray-400 hover:border-white/30"
                                                 }`}
                                         >
                                             <div className="font-bold">{tone}</div>

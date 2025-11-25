@@ -1,10 +1,32 @@
+"use client"
+
 import { DashboardHeader } from "@/components/dashboard/header"
 import { Button } from "@/components/ui/button"
-import { Plus, Sparkles, ArrowRight } from "lucide-react"
+import { Plus, Sparkles, ArrowRight, Copy, Check } from "lucide-react"
 import Link from "next/link"
 import * as motion from "framer-motion/client"
+import { useEffect, useState } from "react"
 
 export default function DashboardPage() {
+    const [latestCopy, setLatestCopy] = useState<any>(null)
+    const [copied, setCopied] = useState(false)
+
+    useEffect(() => {
+        // Check for latest generated copy
+        const stored = localStorage.getItem('verblynx_latest_copy')
+        if (stored) {
+            setLatestCopy(JSON.parse(stored))
+        }
+    }, [])
+
+    const handleCopy = () => {
+        if (latestCopy?.copy) {
+            navigator.clipboard.writeText(latestCopy.copy)
+            setCopied(true)
+            setTimeout(() => setCopied(false), 2000)
+        }
+    }
+
     // Mock data for now - eventually fetch from Supabase
     const projects = [
         { id: 1, name: "Q4 Email Sequence", date: "2 days ago", status: "Draft" },
@@ -35,6 +57,58 @@ export default function DashboardPage() {
                         </Link>
                     )}
                 </motion.div>
+
+                {/* Latest Generated Copy Section */}
+                {latestCopy && (
+                    <motion.div
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.5, delay: 0.2 }}
+                        className="mb-8 bg-gradient-to-br from-red-900/20 to-black border border-red-500/20 rounded-2xl p-8"
+                    >
+                        <div className="flex items-center justify-between mb-6">
+                            <div>
+                                <h2 className="text-2xl font-bold text-white mb-1">{latestCopy.projectName || 'Latest Generation'}</h2>
+                                <p className="text-gray-400 text-sm">Generated {new Date(latestCopy.createdAt).toLocaleString()}</p>
+                            </div>
+                            <Button
+                                onClick={handleCopy}
+                                className="bg-white/10 hover:bg-white/20 text-white border border-white/20"
+                            >
+                                {copied ? (
+                                    <>
+                                        <Check className="mr-2 h-4 w-4" /> Copied!
+                                    </>
+                                ) : (
+                                    <>
+                                        <Copy className="mr-2 h-4 w-4" /> Copy
+                                    </>
+                                )}
+                            </Button>
+                        </div>
+
+                        {/* The Generated Copy */}
+                        <div className="bg-black/50 rounded-xl p-6 mb-6 border border-white/5">
+                            <h3 className="text-sm font-semibold text-red-400 uppercase tracking-wider mb-3">Your Copy</h3>
+                            <div className="text-white whitespace-pre-wrap leading-relaxed">
+                                {latestCopy.copy}
+                            </div>
+                        </div>
+
+                        {/* The "Why" Explanation */}
+                        {latestCopy.explanation && (
+                            <div className="bg-blue-900/10 rounded-xl p-6 border border-blue-500/20">
+                                <h3 className="text-sm font-semibold text-blue-400 uppercase tracking-wider mb-3 flex items-center gap-2">
+                                    <Sparkles className="h-4 w-4" />
+                                    Why This Works
+                                </h3>
+                                <p className="text-gray-300 leading-relaxed">
+                                    {latestCopy.explanation}
+                                </p>
+                            </div>
+                        )}
+                    </motion.div>
+                )}
 
                 {projects.length === 0 ? (
                     <motion.div
