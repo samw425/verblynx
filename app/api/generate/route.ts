@@ -1,63 +1,38 @@
-import { NextRequest, NextResponse } from "next/server"
-import { generateCopy } from "@/lib/ai"
-import { CopyBrief } from "@/lib/schemas"
-import { checkApiLimit, incrementApiLimit } from "@/lib/limits"
+import { GoogleGenerativeAI } from "@google/generative-ai"
+import { NextResponse } from "next/server"
 
-export async function POST(req: NextRequest) {
+// Initialize Gemini
+const genAI = new GoogleGenerativeAI(process.env.GOOGLE_API_KEY || "")
+
+export async function POST(req: Request) {
     try {
-        const brief: CopyBrief = await req.json()
+        const { prompt, context } = await req.json()
 
-        // TEMPORARILY DISABLED FOR TESTING - re-enable before launch
-        // const canGenerate = await checkApiLimit()
-        // if (!canGenerate) {
-        //     return NextResponse.json({ error: "Free limit reached. Upgrade to Pro." }, { status: 403 })
-        // }
+        // For demo purposes, if no key is present, return a mock response
+        if (!process.env.GOOGLE_API_KEY) {
+            await new Promise(resolve => setTimeout(resolve, 1000))
+            return NextResponse.json({
+                text: "This is a simulated response from Verblynx. To get real AI generation, please add your GOOGLE_API_KEY to the environment variables.\n\nHowever, the strategy engine is ready to deploy."
+            })
+        }
 
-        const prompt = `You are Verblynx, the world's most elite AI copywriter. You don't just write—you engineer persuasion using proven psychological frameworks.
+        const model = genAI.getGenerativeModel({ model: "gemini-pro" })
 
-Your output MUST be world-class, competing with $10k/month agencies. Every word is strategic. Every sentence drives toward conversion.
+        const fullPrompt = `
+        Context: ${JSON.stringify(context)}
+        
+        Task: ${prompt}
+        
+        You are Verblynx, an elite copywriting AI. Write in a punchy, direct, and high-converting style.
+        `
 
-USER BRIEF:
-- Type: ${brief.type}
-- Audience: ${brief.audience}
-- Goal: ${brief.goal}
-- Context: ${brief.context || "None provided"}
-- Tone: Formal ${brief.tone.formal}/10, Direct ${brief.tone.direct}/10, Emotional ${brief.tone.emotional}/10
-- Constraints: ${brief.constraints.join(", ") || "None"}
+        const result = await model.generateContent(fullPrompt)
+        const response = await result.response
+        const text = response.text()
 
-TASK: Generate 1 MAIN version + 2 ALTERNATIVE versions. Each should use a different psychological approach:
-- MAIN VERSION: Use the MOST effective framework for this brief (AIDA, PAS, Hook-Story-Offer, Problem-Agitate-Solve, etc.)
-- ALT VERSION 1: Use a DIFFERENT framework or angle (e.g., emotional storytelling, direct challenge)
-- ALT VERSION 2: Use a THIRD distinct approach (e.g., ultra-concise, conversational)
-
-Each version should:
-1. Match the specified tone precisely
-2. Speak directly to the target audience
-3. Drive toward the specified goal
-4. Feel premium, not generic AI output
-
-Output in strict JSON format:
-{
-  "main_version": "...",
-  "alt_versions": ["...", "..."],
-  "strategy_explanation": "Brief explanation of the framework used in main version (2-3 sentences)"
-}
-
-Do NOT include markdown formatting. Just raw JSON.`
-
-
-        const responseText = await generateCopy(prompt)
-
-        // Clean up response if it contains markdown code blocks
-        const cleanJson = responseText.replace(/```json/g, "").replace(/```/g, "").trim()
-
-        const data = JSON.parse(cleanJson)
-
-        await incrementApiLimit()
-
-        return NextResponse.json(data)
+        return NextResponse.json({ text })
     } catch (error) {
-        console.error("Generation error:", error)
-        return NextResponse.json({ error: "Failed to generate copy" }, { status: 500 })
+        console.error("AI Generation Error:", error)
+        return new NextResponse("Internal Error", { status: 500 })
     }
 }

@@ -16,7 +16,8 @@ export async function POST(req: NextRequest) {
                 goal: "Communicate effectively",
                 context: prompt,
                 tone: { formal: 5, direct: 5, emotional: 5 },
-                constraints: []
+                constraints: [],
+                explanation: "This is a basic inference based on your prompt. To get a deep psychological breakdown, please add your API key."
             })
         }
 
@@ -39,6 +40,7 @@ Analyze the following request and return ONLY a valid JSON object with these fie
 - context: any key context, constraints, or special requirements
 - tone: object with scores 1-10 for {formal, direct, emotional}
 - constraints: array of any identified constraints (length, platform, etc.)
+- explanation: A short paragraph (2-3 sentences) teaching the user WHY this strategy works. Explain the psychological principle being used (e.g., "We're using the 'Open Loop' technique to create curiosity...").
 
 Be insightful. Look for subtext. If the user says "Write a launch email," infer WHO they're launching to and WHY.
 
@@ -91,6 +93,7 @@ Respond with ONLY the JSON object, no markdown formatting.`
             context: prompt,
             tone: { formal: 7, direct: 6, emotional: 4 },
             constraints: [],
+            explanation: "We've identified a need for high-authority positioning. This strategy leverages social proof and direct language to establish immediate credibility with your target audience.",
             _fallback: "Using temporary inference - Gemini integration pending"
         })
     }

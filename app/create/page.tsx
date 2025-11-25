@@ -1,195 +1,174 @@
 "use client"
 
 import { useState } from "react"
-import { motion, AnimatePresence } from "framer-motion"
-import { Button } from "@/components/ui/button"
-import { Textarea } from "@/components/ui/textarea"
-import { ArrowRight, Sparkles, Loader2, Edit2 } from "lucide-react"
 import { useRouter } from "next/navigation"
+import { Button } from "@/components/ui/button"
+import { Input } from "@/components/ui/input"
+import { Label } from "@/components/ui/label"
+import { Textarea } from "@/components/ui/textarea"
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
+import { ArrowLeft, Sparkles, Target, Users, Zap, Loader2 } from "lucide-react"
+import Link from "next/link"
 import { toast } from "sonner"
-import { CopyBrief } from "@/lib/schemas"
 
-export default function CreatePage() {
+export default function CreateProjectPage() {
     const router = useRouter()
-    const [prompt, setPrompt] = useState("")
-    const [isInferring, setIsInferring] = useState(false)
-    const [inferredBrief, setInferredBrief] = useState<CopyBrief | null>(null)
-    const [isGenerating, setIsGenerating] = useState(false)
+    const [isLoading, setIsLoading] = useState(false)
+    const [step, setStep] = useState(1)
+    const [formData, setFormData] = useState({
+        name: "",
+        audience: "",
+        goal: "",
+        tone: "Authoritative",
+    })
 
-    const handleInfer = async () => {
-        if (!prompt.trim()) return
-        setIsInferring(true)
-        try {
-            const res = await fetch("/api/infer", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ prompt })
-            })
-            if (!res.ok) throw new Error("Inference failed")
-            const data = await res.json()
-            setInferredBrief(data)
-        } catch (error) {
-            toast.error("Could not understand request. Try again.")
-        } finally {
-            setIsInferring(false)
-        }
+    const handleNext = () => {
+        if (step < 3) setStep(step + 1)
     }
 
-    const handleGenerate = async () => {
-        if (!inferredBrief) return
-        setIsGenerating(true)
-        try {
-            const response = await fetch("/api/generate", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(inferredBrief),
-            })
+    const handleBack = () => {
+        if (step > 1) setStep(step - 1)
+    }
 
-            if (!response.ok) throw new Error("Generation failed")
-            const result = await response.json()
+    const handleSubmit = async () => {
+        setIsLoading(true)
+        // Simulate API call
+        await new Promise(resolve => setTimeout(resolve, 1500))
 
-            const tempId = Date.now().toString()
-            localStorage.setItem(`draft-${tempId}`, JSON.stringify({
-                ...result,
-                brief: inferredBrief,
-                createdAt: new Date().toISOString()
-            }))
-
-            // Small delay to ensure storage persistence before navigation
-            setTimeout(() => {
-                router.push(`/editor/${tempId}`)
-            }, 100)
-        } catch (error) {
-            toast.error("Failed to generate copy.")
-        } finally {
-            setIsGenerating(false)
-        }
+        toast.success("Strategy Engine Initialized")
+        // Redirect to editor (to be built)
+        router.push(`/editor/new-project-id`)
     }
 
     return (
-        <div className="flex min-h-[calc(100vh-4rem)] flex-col items-center justify-center p-6 md:p-24 bg-background relative overflow-hidden">
+        <div className="min-h-screen bg-black text-foreground flex flex-col relative overflow-hidden">
+            {/* Background Effects */}
+            <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(circle_at_top,_var(--tw-gradient-stops))] from-red-900/20 via-black to-black pointer-events-none" />
 
-            {/* Background Ambient Glow */}
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-primary/5 rounded-full blur-3xl pointer-events-none" />
+            {/* Header */}
+            <header className="p-6 flex items-center justify-between relative z-10">
+                <Link href="/dashboard" className="text-gray-400 hover:text-white flex items-center gap-2 transition-colors">
+                    <ArrowLeft className="h-4 w-4" /> Cancel
+                </Link>
+                <div className="flex items-center gap-2">
+                    <div className={`h-2 w-2 rounded-full ${step >= 1 ? "bg-red-500" : "bg-gray-800"}`} />
+                    <div className={`h-2 w-2 rounded-full ${step >= 2 ? "bg-red-500" : "bg-gray-800"}`} />
+                    <div className={`h-2 w-2 rounded-full ${step >= 3 ? "bg-red-500" : "bg-gray-800"}`} />
+                </div>
+            </header>
 
-            <div className="w-full max-w-3xl z-10 space-y-8">
-
-                <AnimatePresence mode="wait">
-                    {!inferredBrief ? (
-                        <motion.div
-                            key="input"
-                            initial={{ opacity: 0, y: 20 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            exit={{ opacity: 0, y: -20 }}
-                            className="space-y-6 text-center"
-                        >
-                            <h1 className="text-4xl md:text-5xl font-bold tracking-tight bg-gradient-to-b from-foreground to-foreground/70 bg-clip-text text-transparent">
-                                What do you want to write?
-                            </h1>
-                            <p className="text-lg text-muted-foreground">
-                                Describe your goal, and Verblynx will handle the strategy.
-                            </p>
-
-                            <div className="relative group">
-                                <div className="absolute -inset-0.5 bg-gradient-to-r from-primary/20 to-purple-500/20 rounded-xl blur opacity-75 group-hover:opacity-100 transition duration-1000 group-hover:duration-200" />
-                                <div className="relative bg-card rounded-xl shadow-2xl border border-border/50">
-                                    <Textarea
-                                        value={prompt}
-                                        onChange={(e) => setPrompt(e.target.value)}
-                                        placeholder="e.g. Write a VSL script for a B2B SaaS offer targeting CTOs who are tired of slow deployments..."
-                                        className="min-h-[150px] w-full resize-none border-0 bg-transparent p-6 text-xl placeholder:text-muted-foreground/50 focus-visible:ring-0"
-                                        onKeyDown={(e) => {
-                                            if (e.key === "Enter" && !e.shiftKey) {
-                                                e.preventDefault()
-                                                handleInfer()
-                                            }
-                                        }}
+            <main className="flex-1 flex items-center justify-center p-6 relative z-10">
+                <Card className="w-full max-w-2xl bg-black/50 border-red-900/20 backdrop-blur-xl shadow-[0_0_50px_-10px_rgba(220,38,38,0.1)]">
+                    <CardHeader className="text-center">
+                        <div className="mx-auto mb-4 h-12 w-12 rounded-full bg-red-900/20 flex items-center justify-center border border-red-500/20">
+                            {step === 1 && <Target className="h-6 w-6 text-red-500" />}
+                            {step === 2 && <Users className="h-6 w-6 text-red-500" />}
+                            {step === 3 && <Zap className="h-6 w-6 text-red-500" />}
+                        </div>
+                        <CardTitle className="text-2xl font-black text-white">
+                            {step === 1 && "Define the Objective"}
+                            {step === 2 && "Identify the Target"}
+                            {step === 3 && "Calibrate the Engine"}
+                        </CardTitle>
+                        <CardDescription className="text-gray-400">
+                            {step === 1 && "What are we selling or achieving today?"}
+                            {step === 2 && "Who are we persuading?"}
+                            {step === 3 && "How should the voice sound?"}
+                        </CardDescription>
+                    </CardHeader>
+                    <CardContent className="space-y-6">
+                        {step === 1 && (
+                            <div className="space-y-4 animate-in fade-in slide-in-from-right-4 duration-300">
+                                <div className="space-y-2">
+                                    <Label htmlFor="name" className="text-gray-300">Project Name</Label>
+                                    <Input
+                                        id="name"
+                                        placeholder="e.g. Q4 Email Sequence"
+                                        className="bg-gray-900/50 border-white/10 text-white focus:border-red-500/50"
+                                        value={formData.name}
+                                        onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                                         autoFocus
                                     />
-                                    <div className="flex justify-between items-center p-4 border-t border-border/50 bg-muted/20 rounded-b-xl">
-                                        <span className="text-xs text-muted-foreground font-medium px-2">
-                                            Press Enter to strategize
-                                        </span>
-                                        <Button
-                                            onClick={handleInfer}
-                                            disabled={!prompt.trim() || isInferring}
-                                            className="rounded-full px-6"
+                                </div>
+                                <div className="space-y-2">
+                                    <Label htmlFor="goal" className="text-gray-300">Primary Goal</Label>
+                                    <Textarea
+                                        id="goal"
+                                        placeholder="e.g. Get 50 signups for the webinar..."
+                                        className="bg-gray-900/50 border-white/10 text-white focus:border-red-500/50 min-h-[100px]"
+                                        value={formData.goal}
+                                        onChange={(e) => setFormData({ ...formData, goal: e.target.value })}
+                                    />
+                                </div>
+                            </div>
+                        )}
+
+                        {step === 2 && (
+                            <div className="space-y-4 animate-in fade-in slide-in-from-right-4 duration-300">
+                                <div className="space-y-2">
+                                    <Label htmlFor="audience" className="text-gray-300">Target Audience</Label>
+                                    <Textarea
+                                        id="audience"
+                                        placeholder="e.g. SaaS Founders with $1M+ ARR who are struggling with churn..."
+                                        className="bg-gray-900/50 border-white/10 text-white focus:border-red-500/50 min-h-[150px]"
+                                        value={formData.audience}
+                                        onChange={(e) => setFormData({ ...formData, audience: e.target.value })}
+                                        autoFocus
+                                    />
+                                </div>
+                            </div>
+                        )}
+
+                        {step === 3 && (
+                            <div className="space-y-4 animate-in fade-in slide-in-from-right-4 duration-300">
+                                <div className="grid grid-cols-2 gap-4">
+                                    {["Authoritative", "Empathetic", "Urgent", "Witty"].map((tone) => (
+                                        <div
+                                            key={tone}
+                                            onClick={() => setFormData({ ...formData, tone })}
+                                            className={`cursor-pointer p-4 rounded-xl border transition-all ${formData.tone === tone
+                                                    ? "bg-red-900/20 border-red-500 text-white"
+                                                    : "bg-gray-900/30 border-white/10 text-gray-400 hover:border-white/30"
+                                                }`}
                                         >
-                                            {isInferring ? (
-                                                <Loader2 className="h-4 w-4 animate-spin" />
-                                            ) : (
-                                                <>
-                                                    Strategize <ArrowRight className="ml-2 h-4 w-4" />
-                                                </>
-                                            )}
-                                        </Button>
-                                    </div>
+                                            <div className="font-bold">{tone}</div>
+                                        </div>
+                                    ))}
                                 </div>
                             </div>
-                        </motion.div>
-                    ) : (
-                        <motion.div
-                            key="strategy"
-                            initial={{ opacity: 0, scale: 0.95 }}
-                            animate={{ opacity: 1, scale: 1 }}
-                            className="w-full max-w-2xl mx-auto"
-                        >
-                            <div className="bg-card rounded-2xl border shadow-2xl overflow-hidden">
-                                <div className="p-8 space-y-6">
-                                    <div className="flex items-center justify-between">
-                                        <div className="flex items-center space-x-2 text-primary">
-                                            <Sparkles className="h-5 w-5" />
-                                            <span className="font-semibold tracking-wide uppercase text-sm">Strategy Detected</span>
-                                        </div>
-                                        <Button variant="ghost" size="sm" onClick={() => setInferredBrief(null)}>
-                                            <Edit2 className="h-4 w-4 mr-2" /> Edit Brief
-                                        </Button>
-                                    </div>
+                        )}
+                    </CardContent>
+                    <CardFooter className="flex justify-between">
+                        {step > 1 ? (
+                            <Button variant="ghost" onClick={handleBack} className="text-gray-400 hover:text-white">
+                                Back
+                            </Button>
+                        ) : (
+                            <div />
+                        )}
 
-                                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                                        <div className="space-y-1">
-                                            <label className="text-xs font-medium text-muted-foreground uppercase">Format</label>
-                                            <p className="text-lg font-medium capitalize">{inferredBrief.type}</p>
-                                        </div>
-                                        <div className="space-y-1">
-                                            <label className="text-xs font-medium text-muted-foreground uppercase">Audience</label>
-                                            <p className="text-lg font-medium">{inferredBrief.audience}</p>
-                                        </div>
-                                        <div className="space-y-1">
-                                            <label className="text-xs font-medium text-muted-foreground uppercase">Goal</label>
-                                            <p className="text-lg font-medium">{inferredBrief.goal}</p>
-                                        </div>
-                                    </div>
-
-                                    <div className="p-4 bg-muted/30 rounded-lg border border-border/50">
-                                        <label className="text-xs font-medium text-muted-foreground uppercase mb-2 block">Context</label>
-                                        <p className="text-sm text-foreground/80 italic">"{inferredBrief.context}"</p>
-                                    </div>
-                                </div>
-
-                                <div className="p-6 bg-muted/20 border-t flex justify-end">
-                                    <Button
-                                        size="lg"
-                                        onClick={handleGenerate}
-                                        disabled={isGenerating}
-                                        className="w-full md:w-auto text-lg px-8 py-6 rounded-xl shadow-lg shadow-primary/20 hover:shadow-primary/40 transition-all"
-                                    >
-                                        {isGenerating ? (
-                                            <>
-                                                <Loader2 className="mr-2 h-5 w-5 animate-spin" /> Writing...
-                                            </>
-                                        ) : (
-                                            <>
-                                                <Sparkles className="mr-2 h-5 w-5" /> Generate Magic Copy
-                                            </>
-                                        )}
-                                    </Button>
-                                </div>
-                            </div>
-                        </motion.div>
-                    )}
-                </AnimatePresence>
-            </div>
+                        {step < 3 ? (
+                            <Button onClick={handleNext} className="bg-white text-black hover:bg-gray-200">
+                                Next Step
+                            </Button>
+                        ) : (
+                            <Button onClick={handleSubmit} disabled={isLoading} className="bg-red-600 hover:bg-red-700 text-white shadow-[0_0_20px_-5px_rgba(220,38,38,0.4)]">
+                                {isLoading ? (
+                                    <>
+                                        <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                                        Initializing...
+                                    </>
+                                ) : (
+                                    <>
+                                        <Sparkles className="mr-2 h-4 w-4" />
+                                        Initialize Engine
+                                    </>
+                                )}
+                            </Button>
+                        )}
+                    </CardFooter>
+                </Card>
+            </main>
         </div>
     )
 }
