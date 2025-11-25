@@ -19,32 +19,27 @@ export default function LandingPage() {
             <Sparkles className="h-4 w-4" />
             <span>VERBLYNX</span>
             <span className="text-red-600">•</span>
-            <span className="text-gray-400">Strategy-First Copywriting</span>
+            <span className="text-gray-400">Strategic Copywriting Engine</span>
           </div>
 
           <div className="space-y-6">
             <h1 className="text-5xl md:text-8xl font-black tracking-tight leading-[1.1] animate-in fade-in slide-in-from-bottom-8 duration-1000 delay-100">
-              <span className="text-white">What is the point</span>
+              <span className="text-white">Not another</span>
               <br />
-              <span className="text-white">of great copy?</span>
+              <span className="text-white">AI wrapper.</span>
+              <br />
+              <span className="bg-gradient-to-r from-red-500 via-red-600 to-red-700 bg-clip-text text-transparent text-5xl md:text-7xl mt-2 inline-block">A copywriting system.</span>
             </h1>
 
             <div className="h-px w-32 bg-gradient-to-r from-transparent via-red-500 to-transparent mx-auto my-8" />
 
-            <div className="space-y-3 text-2xl md:text-3xl text-gray-300 max-w-3xl mx-auto animate-in fade-in slide-in-from-bottom-8 duration-1000 delay-150">
-              <p className="text-white font-semibold">Trust. Attention. Action.</p>
-              <p className="text-gray-400 text-xl md:text-2xl">Sometimes all three. Sometimes just one.</p>
-              <p className="text-gray-400 text-xl md:text-2xl">
-                <span className="text-red-500 font-bold">That's the craft.</span>
-              </p>
+            <div className="space-y-4 text-xl md:text-2xl text-gray-300 max-w-3xl mx-auto animate-in fade-in slide-in-from-bottom-8 duration-1000 delay-150">
+              <p className="text-white font-semibold">ChatGPT can't build campaigns. It doesn't understand conversion psychology.</p>
+              <p className="text-gray-400">Verblynx <span className="text-red-500 font-bold">reverse-engineers strategy first</span>, then applies proven frameworks—AIDA, PAS, Hook-Story-Offer—to craft copy that actually converts.</p>
             </div>
 
-            <p className="text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed pt-4 animate-in fade-in slide-in-from-bottom-8 duration-1000 delay-200">
-              Every word either <span className="text-white font-semibold">moves someone closer</span> or <span className="text-gray-500">pushes them away</span>. <span className="text-red-500 font-bold">Verblynx engineers the former.</span>
-            </p>
-
-            <p className="text-lg text-gray-400 max-w-2xl mx-auto animate-in fade-in slide-in-from-bottom-8 duration-1000 delay-300">
-              No fluff. No filler. No generic AI slop. Just <strong className="text-white">copy that works</strong>—engineered with psychological frameworks that turn browsers into believers, and believers into buyers.
+            <p className="text-lg text-gray-400 max-w-2xl mx-auto pt-2 animate-in fade-in slide-in-from-bottom-8 duration-1000 delay-200">
+              Not a prompt box. <strong className="text-white">A strategic inference engine</strong> that teaches you the mechanics while you work.
             </p>
           </div>
 
