@@ -9,12 +9,12 @@ export default function DashboardPage() {
         { label: "Social Post", icon: MessageSquare, href: "/create?type=social", color: "text-pink-500" },
         { label: "Website Copy", icon: FileText, href: "/create?type=website", color: "text-purple-500" },
         { label: "Ad Copy", icon: PenTool, href: "/create?type=ad", color: "text-orange-500" },
-        { label: "Essay", icon: GraduationCap, href: "/create?type=essay", color: "text-green-500" },
-        { label: "Resume", icon: Briefcase, href: "/create?type=resume", color: "text-slate-500" },
+        { label: "VSL Script", icon: GraduationCap, href: "/create?type=vsl", color: "text-green-500" },
+        { label: "Landing Page", icon: Briefcase, href: "/create?type=landing_page", color: "text-slate-500" },
     ]
 
     const recentProjects = [
-        { id: 1, title: "Cold Email to Investors", type: "Email", date: "2 hours ago", status: "Draft" },
+        { id: 1, title: "VSL Script for High-Ticket Offer", type: "VSL", date: "2 hours ago", status: "Draft" },
         { id: 2, title: "Landing Page Hero", type: "Website", date: "Yesterday", status: "Completed" },
         { id: 3, title: "LinkedIn About Section", type: "Social", date: "2 days ago", status: "Completed" },
     ]

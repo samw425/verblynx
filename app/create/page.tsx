@@ -96,7 +96,7 @@ export default function CreatePage() {
                                     <Textarea
                                         value={prompt}
                                         onChange={(e) => setPrompt(e.target.value)}
-                                        placeholder="e.g. Write a polite email to a client delaying the project launch by one week..."
+                                        placeholder="e.g. Write a VSL script for a B2B SaaS offer targeting CTOs who are tired of slow deployments..."
                                         className="min-h-[150px] w-full resize-none border-0 bg-transparent p-6 text-xl placeholder:text-muted-foreground/50 focus-visible:ring-0"
                                         onKeyDown={(e) => {
                                             if (e.key === "Enter" && !e.shiftKey) {
