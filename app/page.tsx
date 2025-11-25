@@ -144,7 +144,7 @@ export default function LandingPage() {
               <div className="relative space-y-4 text-center p-6 bg-card rounded-2xl border border-border/50 shadow-sm">
                 <div className="w-16 h-16 mx-auto bg-background rounded-2xl shadow-sm border flex items-center justify-center text-2xl font-bold text-primary">1</div>
                 <h3 className="text-xl font-semibold">Command Center</h3>
-                <p className="text-muted-foreground">One input, infinite possibilities. "Craft an investor pitch email for a climate tech startup."</p>
+                <p className="text-muted-foreground">One input, infinite possibilities. "Write a VSL hook for a high-ticket offer targeting skeptics."</p>
               </div>
             </div>
 
