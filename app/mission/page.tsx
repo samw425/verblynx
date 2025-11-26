@@ -46,7 +46,7 @@ export default function MissionPage() {
                             The world doesn't need more noise. It needs clarity.
                         </p>
                         <p>
-                            Most AI tools are "content vomit" machines. They produce generic, soulless text that clogs up inboxes and feeds.
+                            Most automated tools are "content vomit" machines. They produce generic, soulless text that clogs up inboxes and feeds.
                         </p>
                         <p>
                             Verblynx is different. We built a system that respects the human on the other end of the screen. We use psychology, empathy, and strategy to create communication that actually connects.
