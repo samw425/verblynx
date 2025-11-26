@@ -1,8 +1,9 @@
 import { GoogleGenerativeAI } from "@google/generative-ai"
 import { NextResponse } from "next/server"
 
-// Initialize Gemini (use GEMINI_API_KEY to match .env.local)
-const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY || process.env.GOOGLE_API_KEY || "")
+// Initialize Gemini only if API key exists
+const apiKey = process.env.GEMINI_API_KEY || process.env.GOOGLE_API_KEY
+const genAI = apiKey ? new GoogleGenerativeAI(apiKey) : null
 
 export async function POST(req: Request) {
     let body: any = {}
@@ -18,6 +19,14 @@ export async function POST(req: Request) {
         // For demo purposes, if no key is present, return a mock response
         if (!process.env.GEMINI_API_KEY && !process.env.GOOGLE_API_KEY) {
             await new Promise(resolve => setTimeout(resolve, 1000))
+            return NextResponse.json({
+                copy: `[Demo Mode] Here's your ${type || 'copy'} for ${audience || 'your audience'}:\n\nThis is a simulated response. Add your GEMINI_API_KEY to generate real copy.`,
+                explanation: "Demo mode active. Real copy generation with psychological breakdown requires API key.",
+                strategy: context
+            })
+        }
+
+        if (!genAI) {
             return NextResponse.json({
                 copy: `[Demo Mode] Here's your ${type || 'copy'} for ${audience || 'your audience'}:\n\nThis is a simulated response. Add your GEMINI_API_KEY to generate real copy.`,
                 explanation: "Demo mode active. Real copy generation with psychological breakdown requires API key.",
