@@ -16,19 +16,22 @@ import { Toaster } from "@/components/ui/sonner";
 
 export const metadata: Metadata = {
   title: "Verblynx | Elite Copywriting System",
-  description: "Stop pitching. Start proving. The AI strategy engine for elite copywriters.",
+  description: "Stop pitching. Start proving. The strategy engine for elite copywriters.",
 };
+
+import { Navbar } from "@/components/layout/Navbar"
 
 export default function RootLayout({
   children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+}: {
+  children: React.ReactNode
+}) {
   return (
     <html lang="en" className="dark">
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased bg-black text-foreground`}
       >
+        <Navbar />
         {children}
         <Toaster position="top-center" theme="dark" />
       </body>
