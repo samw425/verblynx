@@ -24,7 +24,7 @@ export async function POST(req: NextRequest) {
         // Elite Gemini-powered strategic inference
         const genAI = new GoogleGenerativeAI(apiKey)
         const model = genAI.getGenerativeModel({
-            model: "gemini-1.5-pro",
+            model: "gemini-flash-latest",
             generationConfig: {
                 temperature: 0.3, // Lower temperature for more consistent strategic analysis
                 responseMimeType: "application/json"

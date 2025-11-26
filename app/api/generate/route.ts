@@ -34,7 +34,7 @@ export async function POST(req: Request) {
             })
         }
 
-        const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash-latest" })
+        const model = genAI.getGenerativeModel({ model: "gemini-flash-latest" })
 
         // Generate the actual copy
         const copyPrompt = `You are Verblynx, an elite copywriting system. Generate high-quality ${type || 'marketing copy'} based on these parameters:
