@@ -20,7 +20,8 @@ export default function LandingPage() {
       <nav className="fixed top-0 left-0 right-0 z-50 px-6 py-6 transition-all duration-300">
         <div className="max-w-7xl mx-auto bg-black/40 backdrop-blur-2xl border border-white/5 rounded-full px-8 py-4 flex items-center justify-between shadow-2xl shadow-black/50">
           <div className="flex items-center gap-3 cursor-pointer hover:opacity-80 transition-opacity" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
-            <img src="/verblynx-logo-final.png" alt="Verblynx" className="h-14 w-auto rounded-lg" />
+            <img src="/verblynx-icon.png" alt="Verblynx Icon" className="h-10 w-10 rounded-xl" />
+            <span className="text-2xl font-black tracking-tighter text-white">VERBLYNX</span>
           </div>
 
           <div className="hidden md:flex items-center gap-8 text-sm font-medium text-gray-400">
@@ -53,13 +54,13 @@ export default function LandingPage() {
 
           {/* Headline */}
           <h1 className="text-6xl md:text-8xl font-black tracking-tighter text-white leading-[0.9] animate-slide-up">
-            The Architecture of <br />
-            <span className="text-transparent bg-clip-text bg-gradient-to-b from-red-500 to-red-800">Influence.</span>
+            The Operating System for <br />
+            <span className="text-transparent bg-clip-text bg-gradient-to-b from-red-500 to-red-800">Elite Copywriters.</span>
           </h1>
 
           {/* Subheadline */}
           <p className="text-xl md:text-2xl text-gray-400 max-w-3xl mx-auto leading-relaxed animate-slide-up" style={{ animationDelay: '0.1s' }}>
-            Deploy the world's most advanced persuasion engine. Verblynx fuses deep psychological inference with generative precision to engineer copy that converts.
+            Stop relying on generic AI. Verblynx combines proven psychological frameworks with advanced inference to generate copy that actually converts.
           </p>
 
           {/* CTAs */}
@@ -269,7 +270,8 @@ export default function LandingPage() {
       <footer className="py-12 border-t border-white/5 bg-black/50 backdrop-blur-xl text-center">
         <div className="container mx-auto px-6 flex flex-col items-center gap-6">
           <div className="flex items-center gap-3 opacity-50 grayscale hover:grayscale-0 transition-all duration-500">
-            <img src="/verblynx-logo-final.png" alt="Verblynx" className="h-12 w-auto rounded-lg" />
+            <img src="/verblynx-icon.png" alt="Verblynx Icon" className="h-8 w-8 rounded-lg" />
+            <span className="text-xl font-black tracking-tighter text-white">VERBLYNX</span>
           </div>
 
           <div className="flex items-center justify-center gap-2 opacity-50">
