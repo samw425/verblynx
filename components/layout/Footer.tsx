@@ -84,12 +84,18 @@ export function Footer() {
 
                 {/* Bottom Bar */}
                 <div className="pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-4">
-                    <p className="text-gray-500 text-sm">
-                        © 2025 Verblynx. All rights reserved.
-                    </p>
-                    <div className="flex items-center gap-2 text-sm text-gray-500">
-                        <span>Powered by</span>
-                        <span className="text-gray-300 font-medium">Gemini 1.5 Flash</span>
+                    <div className="text-gray-500 text-sm">
+                        &copy; {new Date().getFullYear()} Verblynx. All rights reserved.
+                    </div>
+
+                    <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/5 border border-white/10">
+                        <div className="relative flex h-2 w-2">
+                            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
+                            <span className="relative inline-flex rounded-full h-2 w-2 bg-red-500"></span>
+                        </div>
+                        <span className="text-xs font-mono text-gray-400 uppercase tracking-widest">
+                            POWERED BY GEMINI 3
+                        </span>
                     </div>
                 </div>
             </div>
