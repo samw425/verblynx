@@ -40,7 +40,7 @@ export default function PricingPage() {
                             <ul className="space-y-3">
                                 <li className="flex items-start gap-3 text-white">
                                     <CheckCircle2 className="h-5 w-5 text-red-500 shrink-0 mt-0.5" />
-                                    <span><strong>Unlimited Generations</strong> — No daily caps. Ever.</span>
+                                    <span><strong>500 Generations / mo</strong> — Enough for any pro.</span>
                                 </li>
                                 <li className="flex items-start gap-3 text-white">
                                     <CheckCircle2 className="h-5 w-5 text-red-500 shrink-0 mt-0.5" />

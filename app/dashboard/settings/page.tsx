@@ -81,7 +81,7 @@ export default function SettingsPage() {
                                         <div className="font-bold text-white flex items-center gap-2">
                                             Pro Plan <span className="text-xs bg-red-600 text-white px-2 py-0.5 rounded-full">RECOMMENDED</span>
                                         </div>
-                                        <div className="text-sm text-gray-400">Unlimited generations, priority support</div>
+                                        <div className="text-sm text-gray-400">500 generations/mo, priority support</div>
                                     </div>
                                     <form action="/api/stripe/checkout" method="POST">
                                         <Button className="bg-red-600 hover:bg-red-700 text-white shadow-[0_0_15px_-3px_rgba(220,38,38,0.5)]">Upgrade - $19/mo</Button>
