@@ -103,9 +103,9 @@ export default function DashboardPage() {
                                     <Sparkles className="h-4 w-4" />
                                     Why This Works
                                 </h3>
-                                <p className="text-gray-300 leading-relaxed">
+                                <div className="text-gray-300 leading-relaxed whitespace-pre-wrap">
                                     {latestCopy.explanation}
-                                </p>
+                                </div>
                             </div>
                         )}
                     </motion.div>
