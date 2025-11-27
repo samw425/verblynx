@@ -62,9 +62,9 @@ export function Navbar() {
                                 Sign In
                             </Button>
                         </Link>
-                        <Link href="/signup">
-                            <Button className="rounded-full bg-white text-black hover:bg-gray-200 font-medium px-6">
-                                Start Free
+                        <Link href="/pricing">
+                            <Button size="sm" className="rounded-full bg-white text-black hover:bg-gray-200 font-bold">
+                                Get Access
                             </Button>
                         </Link>
                     </div>

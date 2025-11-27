@@ -20,6 +20,7 @@ export function ContactSection() {
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault()
         setIsLoading(true)
+        setStatus('idle')
 
         try {
             const res = await fetch('/api/notify', {
@@ -27,16 +28,28 @@ export function ContactSection() {
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
                     type: 'contact',
-                    ...formData
+                    email: formData.email,
+                    name: formData.name,
+                    message: formData.message
                 })
             })
 
-            if (!res.ok) throw new Error("Failed to send message")
+            const data = await res.json()
 
-            toast.success("Message sent! We'll be in touch shortly.")
-            setFormData({ name: "", email: "", message: "" })
+            if (!data.success) {
+                console.error('Contact Email Failed:', data)
+                toast.error(`Message Failed: ${data.error || 'Unknown Error'}`)
+                setStatus('error')
+            } else {
+                console.log('Contact Email Sent:', data)
+                setStatus('success')
+                setFormData({ name: "", email: "", message: "" })
+                toast.success("Message sent directly to the engineer.")
+            }
         } catch (error) {
+            console.error('Network or unexpected error:', error)
             toast.error("Failed to send message. Please try again.")
+            setStatus('error')
         } finally {
             setIsLoading(false)
         }
