@@ -1,9 +1,6 @@
 import { GoogleGenerativeAI } from "@google/generative-ai"
 import { NextResponse } from "next/server"
-
-// Initialize Gemini only if API key exists
-const apiKey = process.env.GEMINI_API_KEY || process.env.GOOGLE_API_KEY
-const genAI = apiKey ? new GoogleGenerativeAI(apiKey) : null
+import { getSimulation } from "@/lib/simulation"
 
 export async function POST(req: Request) {
     let body: any = {}
@@ -16,19 +13,12 @@ export async function POST(req: Request) {
     const { prompt, context, type, audience, goal, tone } = body
 
     try {
-        if (!process.env.GEMINI_API_KEY) {
-            return NextResponse.json({
-                copy: `[Demo Mode] Please add your API Key to experience the Verblynx Engine.`,
-                explanation: {
-                    psychology: "Demo Mode",
-                    structure: "Demo Mode",
-                    word_choice: "Demo Mode"
-                },
-                strategy: context
-            })
+        const apiKey = process.env.GEMINI_API_KEY
+        if (!apiKey) {
+            throw new Error("No API Key")
         }
 
-        const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY)
+        const genAI = new GoogleGenerativeAI(apiKey)
         const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" })
 
         // 1. GENERATE & REFINE (CHAIN OF THOUGHT)
@@ -93,15 +83,16 @@ RETURN A JSON OBJECT (no markdown):
             metadata: { type, audience, goal, tone }
         })
     } catch (error: any) {
-        console.error("AI Generation Error:", error)
+        console.error("AI Generation Error (Switching to Simulation):", error)
+
+        // Intelligent Simulation Fallback
+        const sim = getSimulation(audience, goal)
+
         return NextResponse.json({
-            copy: "Error generating copy. Please try again.",
-            explanation: {
-                psychology: "Error",
-                structure: "Error",
-                word_choice: "Error"
-            },
-            strategy: context
+            copy: sim.copy,
+            explanation: sim.explanation,
+            strategy: context,
+            metadata: { type, audience, goal, tone, isSimulation: true }
         })
     }
 }

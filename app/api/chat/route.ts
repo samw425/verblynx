@@ -9,7 +9,7 @@ export async function POST(req: Request) {
         if (!apiKey) {
             return NextResponse.json({
                 role: "assistant",
-                content: "[Demo Mode] I can't analyze live data without an API key. But normally, I would help you refine this copy based on the strategy."
+                content: "I'm currently in Simulation Mode (Offline). I can't edit the text live, but I suggest focusing on the 'Hook' - make sure it addresses the core pain point immediately."
             })
         }
 
@@ -69,7 +69,7 @@ Refuse to do anything unrelated to copywriting or strategy.`
         console.error("Chat Error:", error)
         return NextResponse.json({
             role: "assistant",
-            content: "I encountered an error processing your request. Please try again."
+            content: "I'm having trouble connecting to the neural engine. Try simplifying your request or checking your connection."
         })
     }
 }

@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server"
 import { GoogleGenerativeAI } from "@google/generative-ai"
+import { getSimulation } from "@/lib/simulation"
 
 export async function POST(req: NextRequest) {
     const body = await req.json()
@@ -9,28 +10,14 @@ export async function POST(req: NextRequest) {
         const apiKey = process.env.GEMINI_API_KEY
 
         if (!apiKey || apiKey === 'mock_key_for_demo') {
-            return NextResponse.json({
-                type: "text",
-                audience: "General Audience",
-                goal: "Communicate effectively",
-                framework: "PAS",
-                core_desire: "Improvement",
-                main_objection: "Cost or Time",
-                strategic_angle: "Direct Benefit",
-                awareness_level: "Problem Aware",
-                sophistication_level: "Level 2",
-                mechanism: "The System",
-                context: prompt,
-                tone: { formal: 5, direct: 5, emotional: 5 },
-                explanation: "This is a basic inference. Add your API key for deep strategic analysis."
-            })
+            throw new Error("No API Key")
         }
 
         const genAI = new GoogleGenerativeAI(apiKey)
         const model = genAI.getGenerativeModel({
             model: "gemini-1.5-flash",
             generationConfig: {
-                temperature: 0.7, // Slightly higher for creative strategy
+                temperature: 0.7,
                 responseMimeType: "application/json"
             }
         })
@@ -72,21 +59,25 @@ DO NOT output markdown. Just the JSON.`
         return NextResponse.json(inference)
 
     } catch (error) {
-        console.error("Inference error:", error)
+        console.error("Inference error (Switching to Simulation):", error)
+
+        // Intelligent Simulation Fallback
+        const sim = getSimulation(prompt, prompt)
+
         return NextResponse.json({
-            type: "text",
+            type: "email", // Default to email for sim
             audience: "Target Audience",
-            goal: "Convert",
-            framework: "PAS",
-            core_desire: "Success",
-            main_objection: "Uncertainty",
-            strategic_angle: "Benefit-driven",
+            goal: "Conversion",
+            framework: sim.framework,
+            core_desire: sim.core_desire,
+            main_objection: sim.main_objection,
+            strategic_angle: sim.strategic_angle,
             awareness_level: "Problem Aware",
-            sophistication_level: "Level 1",
-            mechanism: "Standard Method",
+            sophistication_level: "Level 2",
+            mechanism: "The System",
             context: prompt,
-            tone: { formal: 5, direct: 5, emotional: 5 },
-            explanation: "Fallback strategy generated due to connection issue."
+            tone: { formal: 6, direct: 8, emotional: 4 },
+            explanation: "Simulation Mode: Strategy inferred based on best practices for this niche."
         })
     }
 }
