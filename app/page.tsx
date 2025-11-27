@@ -80,7 +80,6 @@ export default function LandingPage() {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
-            transition={{ duration: 0.6, delay: 0.25 }}
             className="text-xl text-gray-400 max-w-3xl mx-auto leading-relaxed pt-4"
           >
             The first system that doesn't just write copy—it <span className="text-white font-bold">teaches you to dominate your market</span>. Every word. Every trigger. Every conversion.
