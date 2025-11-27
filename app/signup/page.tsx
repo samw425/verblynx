@@ -42,14 +42,17 @@ export default function SignupPage() {
 
             // Send notification email to owner
             try {
-                await fetch('/api/notify-signup', {
+                await fetch('/api/notify', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ email, full_name: fullName })
+                    body: JSON.stringify({
+                        type: 'signup',
+                        email,
+                        name: fullName
+                    })
                 })
             } catch (notifyError) {
                 console.error('Failed to send notification:', notifyError)
-                // Don't block signup if notification fails
             }
 
             toast.success("Welcome to Beta! Check your email to verify.")
