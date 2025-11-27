@@ -67,6 +67,13 @@ export default function CreateProjectPage() {
 
             // Step 2: Generate actual copy
             addLog("> Engaging Generative Engine...")
+            await new Promise(r => setTimeout(r, 800))
+            addLog("> DRAFTING INITIAL VERSION...")
+            await new Promise(r => setTimeout(r, 600))
+            addLog("> CRITIQUING AGAINST ELITE STANDARDS...")
+            await new Promise(r => setTimeout(r, 600))
+            addLog("> REFINING FOR MAXIMUM IMPACT...")
+
             const generateRes = await fetch('/api/generate', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },

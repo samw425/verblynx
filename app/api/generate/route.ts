@@ -13,14 +13,17 @@ export async function POST(req: Request) {
         // Body parsing failed
     }
 
-    // "context" now contains the full inference object (framework, desire, objection, etc.)
     const { prompt, context, type, audience, goal, tone } = body
 
     try {
         if (!process.env.GEMINI_API_KEY) {
             return NextResponse.json({
                 copy: `[Demo Mode] Please add your API Key to experience the Verblynx Engine.`,
-                explanation: "Demo mode active.",
+                explanation: {
+                    psychology: "Demo Mode",
+                    structure: "Demo Mode",
+                    word_choice: "Demo Mode"
+                },
                 strategy: context
             })
         }
@@ -28,47 +31,52 @@ export async function POST(req: Request) {
         const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY)
         const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" })
 
-        // 1. GENERATE ELITE COPY
+        // 1. GENERATE & REFINE (CHAIN OF THOUGHT)
         const copyPrompt = `You are Verblynx, the world's most advanced copywriting engine.
-        
+
 CONTEXT:
 - Format: ${type}
-- Audience: ${audience} (Desire: ${context.core_desire || 'Success'}, Objection: ${context.main_objection || 'Risk'})
-- Goal: ${goal}
+- Audience: ${audience}
+- Awareness Level: ${context.awareness_level || 'Problem Aware'}
+- Market Sophistication: ${context.sophistication_level || 'Level 2'}
+- Core Desire: ${context.core_desire}
+- Main Objection: ${context.main_objection}
+- Mechanism: ${context.mechanism || 'The Solution'}
 - Framework: ${context.framework || 'PAS'}
-- Strategic Angle: ${context.strategic_angle || 'Direct Benefit'}
 - Tone: Formal=${tone?.formal}/10, Direct=${tone?.direct}/10, Emotional=${tone?.emotional}/10
 
-YOUR DIRECTIVE:
+DIRECTIVE:
 Write the ${type} using the **${context.framework || 'PAS'}** framework.
-1. **Hook**: Grab attention immediately. Address the "${context.core_desire}" or the "${context.main_objection}".
-2. **Body**: Build tension/desire. Prove the value.
-3. **Close**: Clear, commanding CTA.
 
-CONSTRAINTS (The "Elite" Standard):
-- No fluff. No "In today's fast-paced world".
-- No generic adjectives ("game-changing", "revolutionary").
-- Use short, punchy sentences.
-- Write like a human speaking to a human, not a marketing bot.
+CRITICAL INSTRUCTIONS FOR ELITE COPY:
+1. **Rhythm**: Use a mix of short, punchy sentences and longer, flowing ones. Fragment sentences are allowed.
+2. **Specificity**: Don't say "save time". Say "save 12 hours a week".
+3. **The "You" Focus**: Talk about the user, not the product.
+4. **Visceral Language**: Use sensory words. Make them FEEL the pain and the relief.
+5. **No Jargon**: Avoid "synergy", "paradigm shift", "revolutionary".
+
+STEP 1: Draft the copy.
+STEP 2: Critique it. Is it boring? Is it generic? Does it sound like AI?
+STEP 3: REWRITE it to be 10x better.
 
 OUTPUT:
-Return ONLY the final copy.`
+Return ONLY the final, polished rewrite. No "Here is the copy" preamble.`
 
         const copyResult = await model.generateContent(copyPrompt)
         const generatedCopy = copyResult.response.text()
 
-        // 2. GENERATE THE "TEACHING" BREAKDOWN
-        const explanationPrompt = `You are a world-class copywriting professor. You just wrote this piece of copy:
+        // 2. GENERATE THE "MASTERCLASS" BREAKDOWN
+        const explanationPrompt = `You are a legendary copywriting professor (Eugene Schwartz). You just wrote this piece of copy:
 
 "${generatedCopy}"
 
-Teach the user WHY it works. Don't just describe it; explain the MECHANICS of persuasion used.
+Teach the user WHY it works.
 
-Return a JSON object with this structure (no markdown):
+RETURN A JSON OBJECT (no markdown):
 {
-    "psychology": "Explain the core psychological trigger used (e.g. Loss Aversion, Status Seeking).",
-    "structure": "Explain how the ${context.framework} framework was applied line-by-line.",
-    "word_choice": "Highlight 1-2 specific power words used and why."
+    "psychology": "Explain the deep psychological trigger used (e.g. 'Future Pacing', 'Identity Shifting'). Why does this specific audience respond to it?",
+    "structure": "Break down the structure. How did you apply the ${context.framework} framework? Be specific about the flow.",
+    "word_choice": "Pick 3 'Power Words' or phrases you used. Explain why they are persuasive (e.g. 'evokes scarcity', 'implies authority')."
 }`
 
         const explanationResult = await model.generateContent({
@@ -78,14 +86,9 @@ Return a JSON object with this structure (no markdown):
 
         const explanationJson = JSON.parse(explanationResult.response.text())
 
-        // Format explanation for frontend (converting JSON to string if needed or keeping as object)
-        // For now, we'll format it as a string to match existing frontend expectation, 
-        // or we can update frontend to handle object. Let's keep it compatible but richer.
-        const formattedExplanation = `**Psychology:** ${explanationJson.psychology}\n\n**Structure:** ${explanationJson.structure}\n\n**Power Words:** ${explanationJson.word_choice}`
-
         return NextResponse.json({
             copy: generatedCopy,
-            explanation: formattedExplanation,
+            explanation: explanationJson, // Return raw JSON object
             strategy: context,
             metadata: { type, audience, goal, tone }
         })
@@ -93,7 +96,11 @@ Return a JSON object with this structure (no markdown):
         console.error("AI Generation Error:", error)
         return NextResponse.json({
             copy: "Error generating copy. Please try again.",
-            explanation: "System error.",
+            explanation: {
+                psychology: "Error",
+                structure: "Error",
+                word_choice: "Error"
+            },
             strategy: context
         })
     }
