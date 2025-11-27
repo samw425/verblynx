@@ -14,7 +14,7 @@ export default function PricingPage() {
                         SIMPLE <span className="text-red-600">PRICING.</span>
                     </h1>
                     <p className="text-xl text-gray-400 leading-relaxed max-w-2xl mx-auto">
-                        Get full access during beta. Lock in $0/month forever.
+                        Free beta access while we build. Pricing TBD after launch.
                     </p>
                 </div>
 
@@ -30,7 +30,7 @@ export default function PricingPage() {
                             <div className="text-6xl font-black text-white">$0</div>
                             <div className="text-2xl font-medium text-gray-500 line-through">$49</div>
                         </div>
-                        <div className="text-sm text-red-400 mb-8 font-bold">Limited Beta Access • Lock in $0/mo forever</div>
+                        <div className="text-sm text-red-400 mb-8 font-bold">Limited Beta • Free during development • Improving daily</div>
                         <p className="text-gray-300 mb-8 leading-relaxed">
                             Full unrestricted access to The Engine. All features. No limits. Forever.
                         </p>
@@ -48,7 +48,7 @@ export default function PricingPage() {
                                 </li>
                                 <li className="flex items-start gap-3 text-white">
                                     <CheckCircle2 className="h-5 w-5 text-red-500 shrink-0 mt-0.5" />
-                                    <span><strong>Priority Inference Engine</strong> — Powered by Gemini 1.5 Pro</span>
+                                    <span><strong>Priority Inference Engine</strong> — Production-grade speed</span>
                                 </li>
                                 <li className="flex items-start gap-3 text-white">
                                     <CheckCircle2 className="h-5 w-5 text-red-500 shrink-0 mt-0.5" />
@@ -116,7 +116,7 @@ export default function PricingPage() {
                 <div className="mt-16 text-center">
                     <div className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-yellow-900/20 border border-yellow-500/30 text-yellow-400 text-sm font-bold">
                         <Zap className="h-4 w-4" />
-                        <span>Limited Beta Slots • Join now to lock in $0/month forever</span>
+                        <span>Limited Beta Slots • Free access while we build & iterate</span>
                     </div>
                 </div>
 

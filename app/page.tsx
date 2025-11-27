@@ -620,7 +620,7 @@ export default function LandingPage() {
                 <div className="text-5xl font-black text-white">$0</div>
                 <div className="text-2xl font-medium text-gray-500 line-through">$49</div>
               </div>
-              <div className="text-sm text-red-400 mb-8 font-bold">Limited Beta • Lock in $0/mo for life</div>
+              <div className="text-sm text-red-400 mb-8 font-bold">Limited Beta Access • Free while we build • Gets better daily</div>
               <p className="text-gray-300 mb-8 leading-relaxed">
                 For professionals who demand unlimited power, deep psychological insights, and mastery-level education.
               </p>
@@ -638,7 +638,7 @@ export default function LandingPage() {
                   </li>
                   <li className="flex items-start gap-3 text-white">
                     <CheckCircle2 className="h-5 w-5 text-red-500 shrink-0 mt-0.5" />
-                    <span><strong>Priority Inference Engine</strong> — Powered by Gemini 1.5 Pro</span>
+                    <span><strong>Priority Inference Engine</strong> — Production-grade performance</span>
                   </li>
                   <li className="flex items-start gap-3 text-white">
                     <CheckCircle2 className="h-5 w-5 text-red-500 shrink-0 mt-0.5" />
@@ -673,7 +673,7 @@ export default function LandingPage() {
             <div className="p-8 rounded-2xl bg-white/5 border border-white/10 hover:border-white/20 transition-colors">
               <h3 className="text-xl font-bold text-white mb-3">Is this just another ChatGPT wrapper?</h3>
               <p className="text-gray-400 leading-relaxed">
-                No. While we use advanced LLMs (Gemini 1.5 Pro), Verblynx has a proprietary 3-phase "Inference-First" architecture. We force the AI through a rigid strategic protocol (Awareness Mapping, Framework Selection, Critique Loop) before generating a single word. This isn't prompt engineering—it's copywriting engineering.
+                No. Verblynx has a proprietary 3-phase "Inference-First" architecture built on top of advanced language models. We force the system through a rigid strategic protocol (Awareness Mapping, Framework Selection, Critique Loop) before generating a single word. This isn't prompt engineering—it's copywriting engineering.
               </p>
             </div>
             <div className="p-8 rounded-2xl bg-white/5 border border-white/10 hover:border-white/20 transition-colors">
