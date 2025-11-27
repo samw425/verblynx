@@ -6,35 +6,13 @@ import { Button } from "@/components/ui/button"
 import { Copy, Save, RefreshCw } from "lucide-react"
 import { toast } from "sonner"
 
-export function DocumentEditor() {
-    const [content, setContent] = useState("")
-    const [projectName, setProjectName] = useState("Untitled Project")
+interface DocumentEditorProps {
+    content: string
+    setContent: (content: string) => void
+    projectName: string
+}
 
-    useEffect(() => {
-        const stored = localStorage.getItem('verblynx_latest_copy')
-        if (stored) {
-            const data = JSON.parse(stored)
-            setContent(data.copy || "")
-            setProjectName(data.projectName || "Untitled Project")
-        } else {
-            // Fallback for demo if nothing in local storage
-            setContent(`Subject: Stop burning cash on ads.
-
-[Name],
-
-I analyzed your Q3 ad spend. You're bleeding ~20% on unoptimized creatives. 
-
-Most founders try to fix this by increasing budget. That's a mistake.
-
-I ran a model to fix it. Here is the recovered revenue forecast if we optimize your creative strategy:
-
-[Link to Forecast]
-
-Let's stop the bleeding.
-
-- [Your Name]`)
-        }
-    }, [])
+export function DocumentEditor({ content, setContent, projectName }: DocumentEditorProps) {
 
     const handleCopy = () => {
         navigator.clipboard.writeText(content)
@@ -54,7 +32,7 @@ Let's stop the bleeding.
                     <Button variant="ghost" size="sm" className="text-gray-400 hover:text-white" onClick={handleCopy}>
                         <Copy className="mr-2 h-4 w-4" /> Copy
                     </Button>
-                    <Button size="sm" className="bg-red-600 hover:bg-red-700 text-white">
+                    <Button size="sm" className="bg-red-600 hover:bg-red-700 text-white shadow-[0_0_15px_-5px_rgba(220,38,38,0.4)]">
                         <RefreshCw className="mr-2 h-4 w-4" /> Regenerate
                     </Button>
                 </div>
