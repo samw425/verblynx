@@ -27,12 +27,8 @@ export default function DashboardPage() {
         }
     }
 
-    // Mock data for now - eventually fetch from Supabase
-    const projects = [
-        { id: 1, name: "Q4 Email Sequence", date: "2 days ago", status: "Draft" },
-        { id: 2, name: "SaaS Landing Page V2", date: "5 days ago", status: "Completed" },
-        { id: 3, name: "LinkedIn Authority Posts", date: "1 week ago", status: "In Progress" },
-    ]
+    // Real projects would come from Supabase. For Beta, we rely on the latest generation.
+    const projects: any[] = []
 
     return (
         <div className="min-h-full flex flex-col">
@@ -85,6 +81,11 @@ export default function DashboardPage() {
                                     </>
                                 )}
                             </Button>
+                            <Link href="/editor/latest">
+                                <Button className="ml-2 bg-red-600 hover:bg-red-700 text-white shadow-[0_0_15px_-5px_rgba(220,38,38,0.4)]">
+                                    Open in Editor
+                                </Button>
+                            </Link>
                         </div>
 
                         {/* The Generated Copy */}

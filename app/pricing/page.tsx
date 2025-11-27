@@ -55,7 +55,7 @@ export default function PricingPage() {
                         </div>
 
                         <h3 className="text-2xl font-bold text-white mb-2">Dominion</h3>
-                        <div className="text-4xl font-black text-white mb-6">$19<span className="text-lg font-medium text-gray-500">/mo</span></div>
+                        <div className="text-4xl font-black text-white mb-6">$0<span className="text-lg font-medium text-gray-500"> (Beta Access)</span></div>
                         <p className="text-gray-400 mb-8 h-12">Uncapped access to the world's most powerful copywriting engine.</p>
 
                         <ul className="space-y-4 mb-10">
@@ -77,9 +77,14 @@ export default function PricingPage() {
                             </li>
                         </ul>
 
-                        <StripeButton priceId={process.env.NEXT_PUBLIC_STRIPE_PRICE_ID!} className="w-full h-14 rounded-full bg-red-600 hover:bg-red-700 text-white font-bold shadow-lg shadow-red-900/20 transition-all hover:scale-[1.02]">
+                        {/* <StripeButton priceId={process.env.NEXT_PUBLIC_STRIPE_PRICE_ID!} className="w-full h-14 rounded-full bg-red-600 hover:bg-red-700 text-white font-bold shadow-lg shadow-red-900/20 transition-all hover:scale-[1.02]">
                             Upgrade to Pro
-                        </StripeButton>
+                        </StripeButton> */}
+                        <Link href="/create">
+                            <Button className="w-full h-14 rounded-full bg-red-600 hover:bg-red-700 text-white font-bold shadow-lg shadow-red-900/20 transition-all hover:scale-[1.02]">
+                                Get Beta Access
+                            </Button>
+                        </Link>
                     </div>
                 </div>
 
