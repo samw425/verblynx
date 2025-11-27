@@ -59,7 +59,7 @@ export default function LandingPage() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 text-gray-400 text-xs font-mono mb-4 hover:border-purple-500/30 hover:bg-purple-500/10 transition-all group cursor-pointer"
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 text-gray-400 text-xs font-mono mb-4 hover:border-blue-500/30 hover:bg-blue-500/10 transition-all group cursor-pointer"
           >
             <a
               href="https://aether-architect.vercel.app/"
@@ -68,8 +68,8 @@ export default function LandingPage() {
               className="flex items-center gap-2"
             >
               <span className="relative flex h-2 w-2">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-purple-400 opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-purple-500"></span>
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-blue-500"></span>
               </span>
               <span className="tracking-widest text-gray-400 group-hover:text-white transition-colors uppercase">ARCHITECTED BY AETHER</span>
             </a>
