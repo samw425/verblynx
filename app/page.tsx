@@ -19,15 +19,15 @@ export default function LandingPage() {
       {/* Navbar - Sticky Glass */}
       <nav className="fixed top-0 left-0 right-0 z-50 px-6 py-6 transition-all duration-300">
         <div className="max-w-7xl mx-auto bg-black/40 backdrop-blur-2xl border border-white/5 rounded-full px-8 py-4 flex items-center justify-between shadow-2xl shadow-black/50">
-          <div className="flex items-center gap-3 cursor-pointer hover:opacity-80 transition-opacity" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
+          <Link href="/" className="flex items-center gap-3 cursor-pointer hover:opacity-80 transition-opacity">
             <img src="/verblynx-icon.png" alt="Verblynx Icon" className="h-10 w-10 rounded-xl" />
             <span className="text-2xl font-black tracking-tighter text-white">VERBLYNX</span>
-          </div>
+          </Link>
 
           <div className="hidden md:flex items-center gap-8 text-sm font-medium text-gray-400">
-            <button onClick={() => scrollToSection('engine')} className="hover:text-white transition-colors">The Engine</button>
-            <button onClick={() => scrollToSection('protocol')} className="hover:text-white transition-colors">The Protocol</button>
-            <button onClick={() => scrollToSection('access')} className="hover:text-white transition-colors">Access</button>
+            <Link href="/engine" className="hover:text-white transition-colors">The Engine</Link>
+            <Link href="/protocol" className="hover:text-white transition-colors">The Protocol</Link>
+            <Link href="/pricing" className="hover:text-white transition-colors">Access</Link>
           </div>
 
           <div className="flex items-center gap-4">
