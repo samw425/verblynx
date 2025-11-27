@@ -10,103 +10,91 @@ export async function POST(req: Request) {
     try {
         body = await req.json()
     } catch (e) {
-        // Body parsing failed, use empty object
+        // Body parsing failed
     }
 
+    // "context" now contains the full inference object (framework, desire, objection, etc.)
     const { prompt, context, type, audience, goal, tone } = body
 
     try {
-        // For demo purposes, if no key is present, return a mock response
-        if (!process.env.GEMINI_API_KEY && !process.env.GOOGLE_API_KEY) {
-            await new Promise(resolve => setTimeout(resolve, 1000))
+        if (!process.env.GEMINI_API_KEY) {
             return NextResponse.json({
-                copy: `[Demo Mode] Here's your ${type || 'copy'} for ${audience || 'your audience'}:\n\nThis is a simulated response. Add your GEMINI_API_KEY to generate real copy.`,
-                explanation: "Demo mode active. Real copy generation with psychological breakdown requires API key.",
+                copy: `[Demo Mode] Please add your API Key to experience the Verblynx Engine.`,
+                explanation: "Demo mode active.",
                 strategy: context
             })
         }
 
-        if (!genAI) {
-            return NextResponse.json({
-                copy: `[Demo Mode] Here's your ${type || 'copy'} for ${audience || 'your audience'}:\n\nThis is a simulated response. Add your GEMINI_API_KEY to generate real copy.`,
-                explanation: "Demo mode active. Real copy generation with psychological breakdown requires API key.",
-                strategy: context
-            })
-        }
+        const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY)
+        const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" })
 
-        const model = genAI.getGenerativeModel({ model: "gemini-flash-latest" })
-
-        // Generate the actual copy with ELITE constraints
-        const copyPrompt = `You are Verblynx, the world's most advanced copywriting engine. You do not write "content". You engineer persuasion.
-
+        // 1. GENERATE ELITE COPY
+        const copyPrompt = `You are Verblynx, the world's most advanced copywriting engine.
+        
 CONTEXT:
-- Target Audience: ${audience || 'General audience'}
-- Primary Goal: ${goal || 'Engage and convert'}
-- Strategic Context: ${JSON.stringify(context)}
-- Tone Profile: ${tone ? `Formal=${tone.formal}/10, Direct=${tone.direct}/10, Emotional=${tone.emotional}/10` : 'Balanced'}
+- Format: ${type}
+- Audience: ${audience} (Desire: ${context.core_desire || 'Success'}, Objection: ${context.main_objection || 'Risk'})
+- Goal: ${goal}
+- Framework: ${context.framework || 'PAS'}
+- Strategic Angle: ${context.strategic_angle || 'Direct Benefit'}
+- Tone: Formal=${tone?.formal}/10, Direct=${tone?.direct}/10, Emotional=${tone?.emotional}/10
 
 YOUR DIRECTIVE:
-Generate ${type || 'marketing copy'} that adheres to the "Deep Work" protocol:
-1. **Zero Fluff**: Every word must earn its place. Delete adjectives that don't add value.
-2. **Psychological Hook**: Start with a pattern interrupt or a deep insight into the user's pain.
-3. **Framework**: Use the PAS (Problem-Agitation-Solution) or AIDA (Attention-Interest-Desire-Action) framework implicitly. Do not label the sections.
-4. **Formatting**: Use short paragraphs, punchy sentences, and visual breaks (bullet points) where appropriate.
-5. **Call to Action**: End with a single, clear, commanding directive.
+Write the ${type} using the **${context.framework || 'PAS'}** framework.
+1. **Hook**: Grab attention immediately. Address the "${context.core_desire}" or the "${context.main_objection}".
+2. **Body**: Build tension/desire. Prove the value.
+3. **Close**: Clear, commanding CTA.
 
-${prompt ? `SPECIFIC INSTRUCTION: ${prompt}` : ''}
+CONSTRAINTS (The "Elite" Standard):
+- No fluff. No "In today's fast-paced world".
+- No generic adjectives ("game-changing", "revolutionary").
+- Use short, punchy sentences.
+- Write like a human speaking to a human, not a marketing bot.
 
 OUTPUT:
-Return ONLY the final copy. No "Here is your copy" preambles. No markdown code blocks unless requested. Just the raw, high-converting text.`
+Return ONLY the final copy.`
 
         const copyResult = await model.generateContent(copyPrompt)
         const generatedCopy = copyResult.response.text()
 
-        // Generate explanation of WHY this copy works (The "Teaching" Engine)
-        const explanationPrompt = `You are a world-class copywriting mentor. The user has just generated the following copy:
-    
-    "${generatedCopy}"
-    
-    Your goal is to TEACH the user why this copy is effective. 
-    
-    Provide a "Masterclass Breakdown" in 3 bullet points:
-    1. **Psychological Trigger**: Identify the core psychological lever used (e.g., Scarcity, Social Proof, Fear of Missing Out).
-    2. **Structural Analysis**: Explain why the sentence structure or formatting works (e.g., "Short sentences build momentum").
-    3. **The "Why"**: Explain the strategic reasoning behind the tone or specific word choices.
-    
-    Keep it concise, educational, and empowering. Make the user feel like they are learning the craft.`
+        // 2. GENERATE THE "TEACHING" BREAKDOWN
+        const explanationPrompt = `You are a world-class copywriting professor. You just wrote this piece of copy:
 
-        const explanationResult = await model.generateContent(explanationPrompt)
-        const explanation = explanationResult.response.text()
+"${generatedCopy}"
+
+Teach the user WHY it works. Don't just describe it; explain the MECHANICS of persuasion used.
+
+Return a JSON object with this structure (no markdown):
+{
+    "psychology": "Explain the core psychological trigger used (e.g. Loss Aversion, Status Seeking).",
+    "structure": "Explain how the ${context.framework} framework was applied line-by-line.",
+    "word_choice": "Highlight 1-2 specific power words used and why."
+}`
+
+        const explanationResult = await model.generateContent({
+            contents: [{ role: "user", parts: [{ text: explanationPrompt }] }],
+            generationConfig: { responseMimeType: "application/json" }
+        })
+
+        const explanationJson = JSON.parse(explanationResult.response.text())
+
+        // Format explanation for frontend (converting JSON to string if needed or keeping as object)
+        // For now, we'll format it as a string to match existing frontend expectation, 
+        // or we can update frontend to handle object. Let's keep it compatible but richer.
+        const formattedExplanation = `**Psychology:** ${explanationJson.psychology}\n\n**Structure:** ${explanationJson.structure}\n\n**Power Words:** ${explanationJson.word_choice}`
 
         return NextResponse.json({
             copy: generatedCopy,
-            explanation: explanation,
+            explanation: formattedExplanation,
             strategy: context,
-            metadata: {
-                type: type || 'text',
-                audience: audience || 'General audience',
-                goal: goal || 'Engage and convert',
-                tone: tone || { formal: 5, direct: 5, emotional: 5 }
-            }
+            metadata: { type, audience, goal, tone }
         })
     } catch (error: any) {
         console.error("AI Generation Error:", error)
-
-        // Fallback simulation if API fails (e.g. 404 model not found, invalid key)
-        const fallbackCopy = generateFallbackCopy(type, audience, goal)
-        const fallbackExplanation = generateFallbackExplanation(type, audience, goal)
-
         return NextResponse.json({
-            copy: fallbackCopy,
-            explanation: fallbackExplanation,
-            strategy: "Simulated Strategy (API Key/Model Issue)",
-            metadata: {
-                type: type || 'text',
-                audience: audience || 'General audience',
-                goal: goal || 'Engage and convert',
-                tone: tone || { formal: 5, direct: 5, emotional: 5 },
-                isFallback: true
-            }
+            copy: "Error generating copy. Please try again.",
+            explanation: "System error.",
+            strategy: context
         })
     }
 }
