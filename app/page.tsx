@@ -499,8 +499,30 @@ export default function LandingPage() {
         </div>
       </section>
 
+      {/* INTERSTITIAL: THE PROOF */}
+      <section className="py-20 bg-gradient-to-b from-black to-red-950/5 border-t border-white/5 relative overflow-hidden">
+        <div className="absolute inset-0 bg-[url('/grid.svg')] opacity-5" />
+        <div className="container mx-auto px-6 text-center relative z-10">
+          <div className="max-w-4xl mx-auto space-y-8">
+            <h2 className="text-5xl md:text-7xl font-black tracking-tighter text-white leading-tight">
+              MEN LIE. WOMEN LIE. <br />
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-red-500 to-red-800">REAL COPY DOESN'T.</span>
+            </h2>
+            <p className="text-2xl text-gray-400 leading-relaxed">
+              Forget the hype. Forget the promises. Let the output speak for itself.
+            </p>
+            <div className="pt-4">
+              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 text-gray-400 text-sm">
+                <TrendingUp className="h-4 w-4 text-red-500" />
+                <span>LIVE COMPARISON BELOW</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* SECTION: COMPARISON (BEFORE/AFTER) */}
-      <section className="py-32 bg-black/50 border-t border-white/5 relative">
+      <section className="py-32 bg-black border-t border-white/5 relative">
         <div className="container mx-auto px-6">
           <div className="text-center mb-16">
             <h2 className="text-4xl md:text-5xl font-bold mb-6 text-white">The Difference Is Brutal.</h2>
