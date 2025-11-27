@@ -94,11 +94,11 @@ export function Footer() {
                             </span>
                         </div>
 
-                        <a href="https://aether-architect.vercel.app/" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 group opacity-60 hover:opacity-100 transition-opacity">
-                            <span className="text-[10px] text-gray-500 uppercase tracking-widest group-hover:text-white transition-colors">
-                                An Aether Built Product
+                        <a href="https://aether-architect.vercel.app/" target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 group opacity-80 hover:opacity-100 transition-opacity mt-2">
+                            <span className="text-sm font-bold text-gray-300 tracking-widest group-hover:text-white transition-colors">
+                                AN AETHER BUILT PRODUCT
                             </span>
-                            <div className="h-3 w-3 rounded-sm bg-gradient-to-tr from-blue-500 to-purple-500 opacity-80 group-hover:opacity-100 transition-opacity" />
+                            <div className="h-4 w-4 rounded-sm bg-gradient-to-tr from-blue-500 to-purple-600 shadow-[0_0_10px_rgba(147,51,234,0.5)] group-hover:shadow-[0_0_15px_rgba(147,51,234,0.8)] transition-all" />
                         </a>
                     </div>
                 </div>
