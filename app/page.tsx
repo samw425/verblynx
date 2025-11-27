@@ -43,39 +43,31 @@ export default function LandingPage() {
 
       {/* Hero Section */}
       <section className="relative min-h-screen flex items-center justify-center px-6 pt-32 pb-20 overflow-hidden">
-
-        {/* Animated Background Blobs */}
-        <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none">
-          <div className="absolute top-[-10%] left-[-10%] w-[500px] h-[500px] bg-red-600/20 rounded-full blur-[100px] animate-blob mix-blend-screen" />
-          <div className="absolute top-[20%] right-[-10%] w-[400px] h-[400px] bg-blue-900/10 rounded-full blur-[100px] animate-blob animation-delay-2000 mix-blend-screen" />
-          <div className="absolute bottom-[-10%] left-[20%] w-[600px] h-[600px] bg-purple-900/10 rounded-full blur-[120px] animate-blob animation-delay-4000 mix-blend-screen" />
+        {/* Animated Background */}
+        <div className="absolute inset-0 z-0">
+          <div className="absolute top-[-20%] left-[-10%] w-[500px] h-[500px] bg-red-600/20 rounded-full blur-[120px] animate-blob" />
+          <div className="absolute bottom-[-20%] right-[-10%] w-[500px] h-[500px] bg-red-900/20 rounded-full blur-[120px] animate-blob animation-delay-2000" />
+          <div className="absolute top-[40%] left-[50%] transform -translate-x-1/2 w-[800px] h-[800px] bg-red-500/5 rounded-full blur-[100px] animate-pulse" />
         </div>
 
         <div className="z-10 max-w-5xl mx-auto text-center relative space-y-10">
-
           {/* Badge */}
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass-card animate-fade-in">
-            <span className="relative flex h-2 w-2">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
-              <span className="relative inline-flex rounded-full h-2 w-2 bg-red-500"></span>
-            </span>
-            <span className="text-sm font-medium text-gray-300 tracking-wide">SYSTEM V3.0 ONLINE</span>
+          <div className="inline-flex items-center gap-2 rounded-full border border-red-500/20 bg-red-950/30 px-4 py-1.5 text-sm font-medium text-red-400 animate-fade-in backdrop-blur-md">
+            <div className="h-2 w-2 rounded-full bg-red-500 animate-pulse" />
+            SYSTEM V3.0 ONLINE
           </div>
 
           {/* Headline */}
-          <h1 className="text-6xl md:text-8xl font-bold tracking-tight leading-[1.1] animate-slide-up" style={{ animationDelay: '0.1s' }}>
-            <span className="bg-clip-text text-transparent bg-gradient-to-b from-white via-white to-gray-500">
-              Master The Art of
-            </span>
-            <br />
-            <span className="bg-clip-text text-transparent bg-gradient-to-r from-red-500 via-red-600 to-red-800">
-              Persuasion.
-            </span>
+          <h1 className="text-6xl md:text-8xl font-black tracking-tighter text-white leading-[0.9] animate-slide-up">
+            Dominate With <br />
+            <span className="text-transparent bg-clip-text bg-gradient-to-b from-red-500 to-red-800">Psychological Precision.</span>
           </h1>
 
           {/* Subheadline */}
-          <p className="text-xl text-gray-400 max-w-2xl mx-auto leading-relaxed animate-slide-up" style={{ animationDelay: '0.2s' }}>
-            Verblynx is the only system that <strong>generates elite copy</strong> AND <strong>teaches you the psychology behind it</strong>. Don't just get the fish. Learn to hunt.
+          <p className="text-xl md:text-2xl text-gray-400 max-w-3xl mx-auto leading-relaxed animate-slide-up" style={{ animationDelay: '0.1s' }}>
+            Verblynx is the world's first <strong>Strategic Inference Engine</strong>. We don't just generate copy; we engineer high-converting assets backed by deep psychological frameworks.
+            <br /><br />
+            <span className="text-white font-medium">Stop guessing. Start converting. Deploy elite strategy at scale.</span>
           </p>
 
           {/* CTAs */}
@@ -85,19 +77,10 @@ export default function LandingPage() {
                 Initialize System <ChevronRight className="ml-2 h-5 w-5" />
               </Button>
             </Link>
-            <button onClick={() => scrollToSection('how-it-works')} className="h-14 px-8 rounded-full text-gray-400 hover:text-white hover:bg-white/5 border border-white/10 text-lg transition-all flex items-center justify-center">
-              See How It Works
+            <button onClick={() => scrollToSection('how-it-works')} className="text-gray-400 hover:text-white font-medium transition-colors flex items-center gap-2 group">
+              <span className="border-b border-transparent group-hover:border-white transition-all">See How It Works</span>
+              <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
             </button>
-          </div>
-
-          {/* Social Proof */}
-          <div className="pt-12 animate-fade-in" style={{ animationDelay: '0.5s' }}>
-            <p className="text-sm text-gray-500 mb-4 uppercase tracking-widest">Deployed By Elite Founders</p>
-            <div className="flex justify-center gap-2">
-              {[1, 2, 3, 4, 5].map((i) => (
-                <Star key={i} className="h-5 w-5 text-red-500 fill-red-500" />
-              ))}
-            </div>
           </div>
         </div>
       </section>
@@ -106,8 +89,8 @@ export default function LandingPage() {
       <section id="how-it-works" className="py-32 relative border-t border-white/5 bg-black/50">
         <div className="container mx-auto px-6">
           <div className="text-center mb-20">
-            <h2 className="text-4xl md:text-5xl font-bold mb-6">How It Works</h2>
-            <p className="text-xl text-gray-400">A dual-engine approach to mastery.</p>
+            <h2 className="text-4xl md:text-5xl font-bold mb-6">The Architecture of Persuasion</h2>
+            <p className="text-xl text-gray-400">A dual-engine approach to market dominance.</p>
           </div>
 
           <div className="grid md:grid-cols-3 gap-8 relative">
@@ -119,9 +102,9 @@ export default function LandingPage() {
               <div className="h-16 w-16 rounded-2xl bg-red-900/20 flex items-center justify-center mb-6 border border-red-500/30 mx-auto group-hover:scale-110 transition-transform duration-500">
                 <Target className="h-8 w-8 text-red-500" />
               </div>
-              <h3 className="text-xl font-bold text-white mb-3 text-center">1. Strategic Input</h3>
+              <h3 className="text-xl font-bold text-white mb-3 text-center">1. Strategic Calibration</h3>
               <p className="text-gray-400 leading-relaxed text-center group-hover:text-gray-300 transition-colors">
-                You don't just ask for "an email". You define the Objective, Audience, and Tone. Our system forces you to think like a strategist before you begin.
+                Define the Objective, Audience, and Tone. Our system forces you to think like a master strategist, aligning every word with your core business goals.
               </p>
             </div>
 
@@ -130,9 +113,9 @@ export default function LandingPage() {
               <div className="h-16 w-16 rounded-2xl bg-red-900/20 flex items-center justify-center mb-6 border border-red-500/30 mx-auto group-hover:scale-110 transition-transform duration-500">
                 <Brain className="h-8 w-8 text-red-500" />
               </div>
-              <h3 className="text-xl font-bold text-white mb-3 text-center">2. Inference & Generation</h3>
+              <h3 className="text-xl font-bold text-white mb-3 text-center">2. Inference Engine</h3>
               <p className="text-gray-400 leading-relaxed text-center group-hover:text-gray-300 transition-colors">
-                Our Gemini 3-powered engine analyzes your inputs against 50+ proven copywriting frameworks (PAS, AIDA, StoryBrand) to generate high-converting copy.
+                Powered by Gemini 3, our engine analyzes your inputs against 50+ proven frameworks (PAS, AIDA, StoryBrand) to generate copy that doesn't just read well—it sells.
               </p>
             </div>
 
@@ -141,9 +124,9 @@ export default function LandingPage() {
               <div className="h-16 w-16 rounded-2xl bg-red-900/20 flex items-center justify-center mb-6 border border-red-500/30 mx-auto group-hover:scale-110 transition-transform duration-500">
                 <GraduationCap className="h-8 w-8 text-red-500" />
               </div>
-              <h3 className="text-xl font-bold text-white mb-3 text-center">3. The Breakdown</h3>
+              <h3 className="text-xl font-bold text-white mb-3 text-center">3. Masterclass Deconstruction</h3>
               <p className="text-gray-400 leading-relaxed text-center group-hover:text-gray-300 transition-colors">
-                Here is the magic. We don't just give you the text. We provide a <strong>line-by-line psychological breakdown</strong> of WHY it works, so you learn the craft.
+                We don't just hand you the asset. We provide a <strong>line-by-line psychological breakdown</strong> of the strategy, empowering you to understand the "Why" behind the win.
               </p>
             </div>
           </div>
