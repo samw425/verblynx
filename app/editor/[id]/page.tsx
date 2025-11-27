@@ -8,7 +8,7 @@ import * as motion from "framer-motion/client"
 import { useState, useEffect } from "react"
 import { createClient } from "@/lib/supabase/client"
 
-export default function EditorPage() {
+export default function EditorPage({ params }: { params: { id: string } }) {
     const [copy, setCopy] = useState("")
     const [strategy, setStrategy] = useState<any>(null)
     const [projectName, setProjectName] = useState("Untitled Project")

@@ -166,41 +166,9 @@ export default function DashboardPage() {
                                 </Button>
                             </Link>
                         </div>
-                                        <div className="text-gray-300 leading-relaxed whitespace-pre-wrap">
-                                            {latestCopy.explanation}
-                                        </div>
-                                    </div>
-                                )}
+                    )}
+                </div>
             </div>
-                        )}
-        </motion.div>
-    )
-}
-
-{
-    projects.length === 0 && !latestCopy && (
-        <motion.div
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.5, delay: 0.1 }}
-            className="h-[60vh] flex flex-col items-center justify-center rounded-3xl border border-dashed border-white/10 bg-white/5"
-        >
-            <div className="h-20 w-20 rounded-full bg-red-900/20 flex items-center justify-center mb-6 border border-red-500/20 shadow-[0_0_30px_-5px_rgba(220,38,38,0.2)]">
-                <Sparkles className="h-10 w-10 text-red-500" />
-            </div>
-            <h2 className="text-2xl font-bold text-white mb-2">Ready to Master the Art?</h2>
-            <p className="text-gray-400 max-w-md text-center mb-8">
-                You haven't created any campaigns yet. Initialize the strategy engine to start generating high-converting copy.
-            </p>
-            <Link href="/create">
-                <Button size="lg" className="h-12 px-8 rounded-full bg-red-600 hover:bg-red-700 text-white shadow-[0_0_30px_-5px_rgba(220,38,38,0.4)] transition-all hover:scale-105">
-                    Initialize Project <ArrowRight className="ml-2 h-4 w-4" />
-                </Button>
-            </Link>
-        </motion.div>
-    )
-}
-            </div >
-        </div >
+        </div>
     )
 }
