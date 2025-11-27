@@ -18,17 +18,11 @@ export default function DashboardPage() {
     useEffect(() => {
         const fetchProjects = async () => {
             try {
-                // 1. Check localStorage for immediate feedback (latest generation)
-                const stored = localStorage.getItem('verblynx_latest_copy')
-                if (stored) {
-                    setLatestCopy(JSON.parse(stored))
-                }
-
-                // 2. Fetch history from Supabase
                 const supabase = createClient()
                 const { data: { user } } = await supabase.auth.getUser()
 
                 if (user) {
+                    // Logged in: Fetch from Supabase
                     const { data, error } = await supabase
                         .from('projects')
                         .select('*')
@@ -36,6 +30,25 @@ export default function DashboardPage() {
 
                     if (error) throw error
                     if (data) setProjects(data)
+
+                    // Only use localStorage if it's VERY recent (e.g. just generated) AND we have no DB data yet
+                    // This prevents showing old/stale data to a new user
+                    const stored = localStorage.getItem('verblynx_latest_copy')
+                    if (stored && (!data || data.length === 0)) {
+                        const parsed = JSON.parse(stored)
+                        const created = new Date(parsed.createdAt).getTime()
+                        const now = new Date().getTime()
+                        // Only show if created in last 5 minutes
+                        if (now - created < 5 * 60 * 1000) {
+                            setLatestCopy(parsed)
+                        }
+                    }
+                } else {
+                    // Not logged in: Show localStorage
+                    const stored = localStorage.getItem('verblynx_latest_copy')
+                    if (stored) {
+                        setLatestCopy(JSON.parse(stored))
+                    }
                 }
             } catch (error) {
                 console.error('Failed to load dashboard data:', error)

@@ -42,7 +42,7 @@ export default function SignupPage() {
 
             // Send notification email to owner
             try {
-                await fetch('/api/notify', {
+                const notifyRes = await fetch('/api/notify', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
@@ -51,8 +51,16 @@ export default function SignupPage() {
                         name: fullName
                     })
                 })
+                const notifyData = await notifyRes.json()
+                if (!notifyData.success) {
+                    console.error('Email Notification Failed:', notifyData)
+                    toast.error(`Admin Alert Failed: ${notifyData.error || 'Unknown Error'}`)
+                } else {
+                    console.log('Email Notification Sent:', notifyData)
+                }
             } catch (notifyError) {
                 console.error('Failed to send notification:', notifyError)
+                toast.error("Network Error sending admin alert")
             }
 
             toast.success("Welcome to Beta! Check your email to verify.")
