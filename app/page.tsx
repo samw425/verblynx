@@ -197,7 +197,7 @@ export default function LandingPage() {
                     Most tools are "black boxes". You put a prompt in, you get text out. You learn nothing. You remain dependent.
                   </p>
                   <p className="text-lg text-gray-500 leading-relaxed">
-                    Verblynx is a "glass box". We show you the mechanics of persuasion. We reveal the hidden triggers. We turn you into a master copywriter, with AI as your exoskeleton.
+                    Verblynx is a "glass box". We show you the mechanics of persuasion. We reveal the hidden triggers. We turn you into a master copywriter, with the System as your exoskeleton.
                   </p>
 
                   <div className="grid grid-cols-2 gap-6 pt-4">
