@@ -140,9 +140,15 @@ export default function DashboardPage() {
                                                 </div>
                                                 <span className="font-bold text-yellow-200">Power Words</span>
                                             </div>
-                                            <p className="text-sm text-yellow-100/80 leading-relaxed">
-                                                {latestCopy.explanation.word_choice}
-                                            </p>
+                                            <div className="flex flex-wrap gap-2">
+                                                {latestCopy.explanation.power_words?.map((word: string, i: number) => (
+                                                    <span key={i} className="px-2 py-1 rounded bg-yellow-500/10 border border-yellow-500/20 text-xs text-yellow-200">
+                                                        {word}
+                                                    </span>
+                                                )) || (
+                                                        <span className="text-sm text-yellow-100/50">N/A</span>
+                                                    )}
+                                            </div>
                                         </div>
                                     </div>
                                 ) : (
@@ -157,7 +163,7 @@ export default function DashboardPage() {
                     </motion.div>
                 )}
 
-                {projects.length === 0 ? (
+                {projects.length === 0 && !latestCopy && (
                     <motion.div
                         initial={{ opacity: 0, scale: 0.95 }}
                         animate={{ opacity: 1, scale: 1 }}
@@ -177,43 +183,6 @@ export default function DashboardPage() {
                             </Button>
                         </Link>
                     </motion.div>
-                ) : (
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                        {projects.map((project, index) => (
-                            <motion.div
-                                key={project.id}
-                                initial={{ opacity: 0, scale: 0.95 }}
-                                animate={{ opacity: 1, scale: 1 }}
-                                transition={{ delay: index * 0.1 + 0.3 }}
-                                className="group relative bg-black/40 border border-white/10 rounded-xl p-6 hover:border-red-500/30 hover:bg-red-900/5 transition-all duration-300"
-                            >
-                                <div className="flex justify-between items-start mb-4">
-                                    <div className="h-10 w-10 rounded-lg bg-gray-900 flex items-center justify-center border border-white/5 group-hover:border-red-500/20 group-hover:bg-red-900/20 transition-colors">
-                                        <Sparkles className="h-5 w-5 text-gray-400 group-hover:text-red-400" />
-                                    </div>
-                                    <span className={`text-xs font-medium px-2 py-1 rounded-full ${project.status === "Completed" ? "bg-green-900/20 text-green-400" :
-                                        project.status === "In Progress" ? "bg-blue-900/20 text-blue-400" :
-                                            "bg-gray-800 text-gray-400"
-                                        }`}>
-                                        {project.status}
-                                    </span>
-                                </div>
-
-                                <h3 className="text-lg font-bold text-white mb-1 group-hover:text-red-400 transition-colors">
-                                    <Link href={`/editor/${project.id}`} className="hover:underline">
-                                        {project.name}
-                                    </Link>
-                                </h3>
-                                <p className="text-sm text-gray-500 mb-4">Last edited {project.date}</p>
-
-                                <Link href={`/editor/${project.id}`}>
-                                    <Button variant="ghost" size="sm" className="w-full border border-white/5 hover:bg-white/10 hover:text-white">
-                                        Open Project
-                                    </Button>
-                                </Link>
-                            </motion.div>
-                        ))}
-                    </div>
                 )}
             </div>
         </div>

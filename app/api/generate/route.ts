@@ -1,113 +1,95 @@
-import { GoogleGenerativeAI } from "@google/generative-ai"
-import { NextResponse } from "next/server"
-import { getSimulation } from "@/lib/simulation"
+import { GoogleGenerativeAI } from "@google/generative-ai";
 
 export async function POST(req: Request) {
-    let body: any = {}
     try {
-        body = await req.json()
-    } catch (e) {
-        // Body parsing failed
-    }
+        const { context, audience, goal, product } = await req.json();
+        const apiKey = process.env.GEMINI_API_KEY || process.env.GOOGLE_API_KEY;
 
-    const { prompt, context, type, audience, goal, tone } = body
+        // 1. Bulletproof Simulation Mode
+        if (!apiKey || process.env.NEXT_PUBLIC_DEMO_MODE === 'true') {
+            console.log("⚠️ Using Simulation Mode (Generation)");
+            await new Promise(resolve => setTimeout(resolve, 3000)); // Simulate "Writing..."
 
-    try {
-        const apiKey = process.env.GEMINI_API_KEY
-        if (!apiKey) {
-            throw new Error("No API Key")
+            // Dynamic Simulation
+            const isSaaS = audience.toLowerCase().includes('saas');
+
+            if (isSaaS) {
+                return Response.json({
+                    copy: "## Stop Burning Cash on Ads That Don't Convert.\n\nYou built a great product. But nobody cares.\n\nWhy? Because you're talking about *features*. Your customers only care about *themselves*.\n\n**Introducing The Growth Engine.**\n\nThe first automated marketing system that doesn't just 'manage' leads—it closes them.\n\n*   **Automated Outreach:** Reach 1,000 prospects a day.\n*   **Neural Persuasion:** AI that writes better than your agency.\n*   **Instant ROI:** See results in 24 hours, not 24 days.\n\nStop playing small. Dominate your niche.",
+                    explanation: {
+                        psychology: "Used 'Loss Aversion' in the headline ('Burning Cash'). People fight harder to keep money than to make it.",
+                        structure: "Classic PAS (Problem-Agitation-Solution). We identified the pain (nobody cares), agitated it (features vs self), and solved it (The Growth Engine).",
+                        power_words: ["Burning", "Dominate", "Neural", "Instant"]
+                    }
+                });
+            } else {
+                return Response.json({
+                    copy: "## The Secret to 10x Productivity? It's Not Coffee.\n\nYou're working 12 hours a day. You're tired. You're overwhelmed.\n\nAnd yet, your to-do list keeps growing.\n\nIt's not your fault. The modern workflow is broken. It was designed for factories, not creatives.\n\n**Enter FlowState.**\n\nThe only productivity system designed for the biological reality of your brain.\n\n*   **Deep Work Blocks:** Scientifically timed focus sessions.\n*   **Distraction Shield:** Blocks noise before it hits you.\n\nReclaim your time. Reclaim your life.",
+                    explanation: {
+                        psychology: "We validated their struggle ('It's not your fault'). This builds instant trust and lowers defenses.",
+                        structure: "AIDA. Attention (Secret), Interest (Workflow is broken), Desire (Biological reality), Action (Reclaim).",
+                        power_words: ["Secret", "Broken", "Biological", "Reclaim"]
+                    }
+                });
+            }
         }
 
-        const genAI = new GoogleGenerativeAI(apiKey)
-        const model = genAI.getGenerativeModel({ model: "gemini-1.5-pro" })
+        // 2. Real "Generative Matrix"
+        const genAI = new GoogleGenerativeAI(apiKey);
+        const model = genAI.getGenerativeModel({ model: "gemini-1.5-pro" });
 
-        // 1. GENERATE & REFINE (CHAIN OF THOUGHT)
-        const copyPrompt = `You are Verblynx, the world's most advanced copywriting engine.
+        const prompt = `
+      ACT AS A WORLD-CLASS COPYWRITER (Gary Halbert / David Ogilvy).
 
-CONTEXT:
-- Format: ${type}
-- Audience: ${audience}
-- Awareness Level: ${context.awareness_level || 'Problem Aware'}
-- Market Sophistication: ${context.sophistication_level || 'Level 2'}
-- Core Desire: ${context.core_desire}
-- Main Objection: ${context.main_objection}
-- Mechanism: ${context.mechanism || 'The Solution'}
-- Framework: ${context.framework || 'PAS'}
-- Tone: Formal=${tone?.formal}/10, Direct=${tone?.direct}/10, Emotional=${tone?.emotional}/10
+      Your task is to write a piece of HIGH-CONVERTING copy based on the following strategy.
 
-DIRECTIVE:
-Write the ${type} using the **${context.framework || 'PAS'}** framework.
+      STRATEGIC BRIEF:
+      - Audience: ${audience}
+      - Goal: ${goal}
+      - Product: ${product}
+      - Framework: ${context.framework}
+      - Awareness Level: ${context.awareness_level}
+      - Sophistication Level: ${context.sophistication_level}
+      - Core Desire: ${context.core_desire}
+      - Main Objection: ${context.main_objection}
+      - Strategic Angle: ${context.strategic_angle}
+      - Mechanism: ${context.mechanism}
 
-CRITICAL INSTRUCTIONS FOR ELITE COPY:
-1. **Rhythm**: Use a mix of short, punchy sentences and longer, flowing ones. Fragment sentences are allowed.
-2. **Specificity**: Don't say "save time". Say "save 12 hours a week".
-3. **The "You" Focus**: Talk about the user, not the product.
-4. **Visceral Language**: Use sensory words. Make them FEEL the pain and the relief.
-5. **No Jargon**: Avoid "synergy", "paradigm shift", "revolutionary".
+      INSTRUCTIONS:
+      1. **Drafting Phase**: Write the copy using the assigned Framework. Be visceral. Be specific. Use short sentences. Break patterns.
+      2. **Critique Phase (Internal)**: Review your draft. Remove jargon. Remove passive voice. Ensure the "Mechanism" is highlighted.
+      3. **Final Polish**: Present the final, optimized copy.
 
-STEP 1: Draft the copy.
-STEP 2: Critique it. Is it boring? Is it generic? Does it sound like AI?
-STEP 3: REWRITE it to be 10x better.
+      OUTPUT FORMAT (JSON ONLY):
+      {
+        "copy": "The full markdown formatted copy.",
+        "explanation": {
+          "psychology": "Explain the psychological triggers used (e.g., Scarcity, Social Proof, Authority).",
+          "structure": "Explain how the copy follows the framework step-by-step.",
+          "power_words": ["List", "of", "strong", "words", "used"]
+        }
+      }
+    `;
 
-OUTPUT:
-Return ONLY the final, polished rewrite. No "Here is the copy" preamble.`
+        const result = await model.generateContent(prompt);
+        const response = await result.response;
+        const text = response.text();
 
-        const copyResult = await model.generateContent(copyPrompt)
-        const generatedCopy = copyResult.response.text()
+        const cleanedText = text.replace(/```json/g, '').replace(/```/g, '').trim();
+        const output = JSON.parse(cleanedText);
 
-        // 2. GENERATE THE "MASTERCLASS" BREAKDOWN
-        const explanationPrompt = `You are a legendary copywriting professor (Eugene Schwartz). You just wrote this piece of copy:
+        return Response.json(output);
 
-"${generatedCopy}"
-
-Teach the user WHY it works.
-
-RETURN A JSON OBJECT (no markdown):
-{
-    "psychology": "Explain the deep psychological trigger used (e.g. 'Future Pacing', 'Identity Shifting'). Why does this specific audience respond to it?",
-    "structure": "Break down the structure. How did you apply the ${context.framework} framework? Be specific about the flow.",
-    "word_choice": "Pick 3 'Power Words' or phrases you used. Explain why they are persuasive (e.g. 'evokes scarcity', 'implies authority')."
-}`
-
-        const explanationResult = await model.generateContent({
-            contents: [{ role: "user", parts: [{ text: explanationPrompt }] }],
-            generationConfig: { responseMimeType: "application/json" }
-        })
-
-        const explanationJson = JSON.parse(explanationResult.response.text())
-
-        return NextResponse.json({
-            copy: generatedCopy,
-            explanation: explanationJson, // Return raw JSON object
-            strategy: context,
-            metadata: { type, audience, goal, tone }
-        })
-    } catch (error: any) {
-        console.error("AI Generation Error (Switching to Simulation):", error)
-
-        // Intelligent Simulation Fallback
-        const sim = getSimulation(audience, goal)
-
-        return NextResponse.json({
-            copy: sim.copy,
-            explanation: sim.explanation,
-            strategy: context,
-            metadata: { type, audience, goal, tone, isSimulation: true }
-        })
+    } catch (error) {
+        console.error("Generation Error:", error);
+        // Fallback
+        return Response.json({
+            copy: "## Error in Neural Link.\n\nWe encountered a glitch in the matrix. Please try again.",
+            explanation: {
+                psychology: "N/A",
+                structure: "N/A",
+                power_words: []
+            }
+        });
     }
-}
-
-function generateFallbackCopy(type: string, audience: string, goal: string): string {
-    const templates: Record<string, string> = {
-        email: `Subject: Quick question about ${goal}\n\nHi [Name],\n\nI've been following your work with ${audience} and noticed a huge opportunity to improve your results.\n\nWe've helped similar founders achieve ${goal} in record time using a unique strategic approach.\n\nAre you open to a 15-minute chat this week to see how it works?\n\nBest,\n[Your Name]`,
-        ad: `🛑 STOP scrolling if you want to ${goal}.\n\nAttention ${audience}:\n\nThe old way of doing things is dead. You need a new strategy.\n\nDiscover the secret method that is helping top performers crush their goals.\n\n👉 Click here to learn more: [Link]`,
-        landing_page: `Headline: The #1 Way for ${audience} to ${goal}\n\nSubheadline: Stop wasting time on outdated methods. Start seeing real results today.\n\nCall to Action: Get Started Now`,
-        default: `[${type.toUpperCase()} COPY]\n\nTargeting: ${audience}\nGoal: ${goal}\n\nThis is a high-converting piece of copy designed to resonate with your specific audience. It uses psychological triggers like scarcity and social proof to drive action.\n\n(Note: Real AI generation requires a valid Gemini API key with access to the Generative Language API. Currently running in simulation mode.)`
-    }
-
-    return templates[type?.toLowerCase()] || templates.default
-}
-
-function generateFallbackExplanation(type: string, audience: string, goal: string): string {
-    return `This generated ${type} uses the "Pattern Interrupt" technique to immediately grab the attention of ${audience}. By directly addressing the goal of "${goal}", it creates an open loop that compels the reader to take action to close the gap between their current state and desired outcome.`
 }
