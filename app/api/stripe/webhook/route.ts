@@ -26,7 +26,25 @@ export async function POST(req: Request) {
                 .from('users')
                 .update({ is_pro: true })
                 .eq('id', userId);
-            if (error) console.error('Supabase update error', error);
+            if (error) {
+                console.error('Supabase update error', error);
+            } else {
+                // Send notification email to owner
+                try {
+                    await fetch(`${process.env.NEXT_PUBLIC_APP_URL || 'https://verblynx.vercel.app'}/api/notify`, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            type: 'sale',
+                            email: session.customer_details?.email || 'Unknown',
+                            name: session.customer_details?.name || 'Unknown',
+                            amount: session.amount_total ? (session.amount_total / 100).toFixed(2) : '0.00'
+                        })
+                    })
+                } catch (notifyError) {
+                    console.error('Failed to send sale notification:', notifyError)
+                }
+            }
         }
     }
     return new Response(JSON.stringify({ received: true }), { status: 200 });
