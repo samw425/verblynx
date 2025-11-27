@@ -6,6 +6,7 @@ import { ArrowLeft } from "lucide-react"
 import Link from "next/link"
 import * as motion from "framer-motion/client"
 import { useState, useEffect } from "react"
+import { createClient } from "@/lib/supabase/client"
 
 export default function EditorPage() {
     const [copy, setCopy] = useState("")
@@ -14,23 +15,46 @@ export default function EditorPage() {
     const [isLoaded, setIsLoaded] = useState(false)
 
     useEffect(() => {
-        const stored = localStorage.getItem('verblynx_latest_copy')
-        if (stored) {
-            try {
-                const data = JSON.parse(stored)
-                if (data && data.copy) {
-                    setCopy(data.copy)
-                    setStrategy(data.strategy || {})
-                    setProjectName(data.projectName || "Untitled Project")
-                } else {
-                    console.error("Invalid data in localStorage")
+        const loadProject = async () => {
+            // 1. If ID is "latest", try localStorage
+            if (params.id === 'latest') {
+                const stored = localStorage.getItem('verblynx_latest_copy')
+                if (stored) {
+                    try {
+                        const data = JSON.parse(stored)
+                        if (data && data.copy) {
+                            setCopy(data.copy)
+                            setStrategy(data.strategy || {})
+                            setProjectName(data.projectName || "Untitled Project")
+                        }
+                    } catch (e) {
+                        console.error("Failed to parse localStorage data", e)
+                    }
                 }
-            } catch (e) {
-                console.error("Failed to parse localStorage data", e)
+                setIsLoaded(true)
+                return
             }
+
+            // 2. If ID is UUID, fetch from Supabase
+            const supabase = createClient()
+            const { data, error } = await supabase
+                .from('projects')
+                .select('*')
+                .eq('id', params.id)
+                .single()
+
+            if (data) {
+                setCopy(data.copy)
+                setStrategy(data.strategy || {})
+                setProjectName(data.name || "Untitled Project")
+            } else if (error) {
+                console.error("Failed to fetch project:", error)
+            }
+            setIsLoaded(true)
         }
-        setIsLoaded(true)
-    }, [])
+
+        loadProject()
+    }, [params.id])
 
     return (
         <div className="h-screen flex flex-col bg-black text-foreground overflow-hidden">

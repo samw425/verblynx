@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useRef } from "react"
 import { useRouter } from "next/navigation"
+import { createClient } from "@/lib/supabase/client"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
@@ -123,7 +124,35 @@ export default function CreateProjectPage() {
                 throw new Error("Generation failed: No copy returned")
             }
 
-            // Store result in localStorage for the editor page
+            // Save to Supabase (Persistence)
+            try {
+                const supabase = createClient()
+                const { data: { user } } = await supabase.auth.getUser()
+
+                if (user) {
+                    const { error: saveError } = await supabase
+                        .from('projects')
+                        .insert({
+                            user_id: user.id,
+                            name: formData.name,
+                            audience: formData.audience,
+                            goal: formData.goal,
+                            tone: formData.tone,
+                            copy: result.copy,
+                            strategy: result.strategy || inference,
+                        })
+
+                    if (saveError) {
+                        console.error('Failed to save to Supabase:', saveError)
+                    } else {
+                        console.log('Project saved to Supabase')
+                    }
+                }
+            } catch (dbError) {
+                console.error('Database operation failed:', dbError)
+            }
+
+            // Store result in localStorage for immediate access (fallback/cache)
             localStorage.setItem('verblynx_latest_copy', JSON.stringify({
                 ...result,
                 projectName: formData.name,

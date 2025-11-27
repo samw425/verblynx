@@ -2,189 +2,205 @@
 
 import { DashboardHeader } from "@/components/dashboard/header"
 import { Button } from "@/components/ui/button"
-import { Plus, Sparkles, ArrowRight, Copy, Check, Brain, Layers, Zap } from "lucide-react"
+import { Plus, Sparkles, ArrowRight, Copy, Check, Brain, Layers, Zap, Clock, FileText, Target } from "lucide-react"
 import Link from "next/link"
 import * as motion from "framer-motion/client"
 import { useEffect, useState } from "react"
+import { createClient } from "@/lib/supabase/client"
+import { toast } from "sonner"
 
 export default function DashboardPage() {
     const [latestCopy, setLatestCopy] = useState<any>(null)
+    const [projects, setProjects] = useState<any[]>([])
+    const [isLoading, setIsLoading] = useState(true)
     const [copied, setCopied] = useState(false)
 
     useEffect(() => {
-        // Check for latest generated copy
-        const stored = localStorage.getItem('verblynx_latest_copy')
-        if (stored) {
-            setLatestCopy(JSON.parse(stored))
+        const fetchProjects = async () => {
+            try {
+                // 1. Check localStorage for immediate feedback (latest generation)
+                const stored = localStorage.getItem('verblynx_latest_copy')
+                if (stored) {
+                    setLatestCopy(JSON.parse(stored))
+                }
+
+                // 2. Fetch history from Supabase
+                const supabase = createClient()
+                const { data: { user } } = await supabase.auth.getUser()
+
+                if (user) {
+                    const { data, error } = await supabase
+                        .from('projects')
+                        .select('*')
+                        .order('created_at', { ascending: false })
+
+                    if (error) throw error
+                    if (data) setProjects(data)
+                }
+            } catch (error) {
+                console.error('Failed to load dashboard data:', error)
+            } finally {
+                setIsLoading(false)
+            }
         }
+
+        fetchProjects()
     }, [])
 
-    const handleCopy = () => {
-        if (latestCopy?.copy) {
-            navigator.clipboard.writeText(latestCopy.copy)
+    const handleCopy = (text: string) => {
+        if (text) {
+            navigator.clipboard.writeText(text)
             setCopied(true)
+            toast.success("Copy to clipboard")
             setTimeout(() => setCopied(false), 2000)
         }
     }
-
-    // Real projects would come from Supabase. For Beta, we rely on the latest generation.
-    const projects: any[] = []
 
     return (
         <div className="min-h-full flex flex-col">
             <DashboardHeader />
 
-            <div className="flex-1 p-8">
+            <div className="flex-1 p-8 max-w-7xl mx-auto w-full">
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.5 }}
-                    className="flex items-center justify-between mb-8"
+                    className="flex items-center justify-between mb-12"
                 >
                     <div>
                         <h1 className="text-3xl font-bold text-white tracking-tight">Command Center</h1>
                         <p className="text-gray-400 mt-1">Manage your strategic assets.</p>
                     </div>
-                    {projects.length > 0 && (
-                        <Link href="/create">
-                            <Button className="bg-red-600 hover:bg-red-700 text-white shadow-[0_0_20px_-5px_rgba(220,38,38,0.4)]">
-                                <Plus className="mr-2 h-4 w-4" /> New Project
-                            </Button>
-                        </Link>
-                    )}
+                    <Link href="/create">
+                        <Button className="bg-red-600 hover:bg-red-700 text-white shadow-[0_0_20px_-5px_rgba(220,38,38,0.4)]">
+                            <Plus className="mr-2 h-4 w-4" /> New Project
+                        </Button>
+                    </Link>
                 </motion.div>
 
-                {/* Latest Generated Copy Section */}
+                {/* Latest Generation (Hero Card) */}
                 {latestCopy && (
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.5, delay: 0.2 }}
-                        className="mb-8 bg-gradient-to-br from-red-900/20 to-black border border-red-500/20 rounded-2xl p-8"
+                        transition={{ duration: 0.5, delay: 0.1 }}
+                        className="mb-12"
                     >
-                        <div className="flex items-center justify-between mb-6">
-                            <div>
-                                <h2 className="text-2xl font-bold text-white mb-1">{latestCopy.projectName || 'Latest Generation'}</h2>
-                                <p className="text-gray-400 text-sm">Generated {new Date(latestCopy.createdAt).toLocaleString()}</p>
+                        <div className="flex items-center gap-2 mb-4">
+                            <Sparkles className="h-4 w-4 text-red-500" />
+                            <span className="text-sm font-bold text-gray-400 uppercase tracking-wider">Latest Generation</span>
+                        </div>
+                        <div className="bg-black border border-white/10 rounded-2xl overflow-hidden hover:border-red-500/30 transition-colors group">
+                            <div className="p-6 border-b border-white/10 bg-white/5 flex justify-between items-start">
+                                <div>
+                                    <h2 className="text-2xl font-bold text-white mb-2">{latestCopy.projectName || "Untitled Project"}</h2>
+                                    <div className="flex items-center gap-4 text-sm text-gray-400">
+                                        <span className="flex items-center gap-1"><Brain className="h-3 w-3" /> {latestCopy.strategy?.framework || "Strategic Copy"}</span>
+                                        <span className="flex items-center gap-1"><Clock className="h-3 w-3" /> {new Date(latestCopy.createdAt).toLocaleString()}</span>
+                                    </div>
+                                </div>
+                                <div className="flex gap-2">
+                                    <Button variant="outline" size="sm" className="border-white/10 hover:bg-white/10 text-gray-300" onClick={() => handleCopy(latestCopy.copy)}>
+                                        {copied ? <Check className="h-4 w-4 mr-2" /> : <Copy className="h-4 w-4 mr-2" />}
+                                        {copied ? "Copied" : "Copy"}
+                                    </Button>
+                                    <Link href="/editor/latest">
+                                        <Button size="sm" className="bg-red-600 hover:bg-red-700 text-white">
+                                            Open in Editor
+                                        </Button>
+                                    </Link>
+                                </div>
                             </div>
-                            <Button
-                                onClick={handleCopy}
-                                className="bg-white/10 hover:bg-white/20 text-white border border-white/20"
-                            >
-                                {copied ? (
-                                    <>
-                                        <Check className="mr-2 h-4 w-4" /> Copied!
-                                    </>
-                                ) : (
-                                    <>
-                                        <Copy className="mr-2 h-4 w-4" /> Copy
-                                    </>
-                                )}
-                            </Button>
-                            <Link href="/editor/latest">
-                                <Button className="ml-2 bg-red-600 hover:bg-red-700 text-white shadow-[0_0_15px_-5px_rgba(220,38,38,0.4)]">
-                                    Open in Editor
+                            <div className="p-6 bg-black/50">
+                                <div className="font-mono text-sm text-gray-300 whitespace-pre-wrap line-clamp-6 opacity-80 group-hover:opacity-100 transition-opacity">
+                                    {latestCopy.copy}
+                                </div>
+                            </div>
+                        </div>
+                    </motion.div>
+                )}
+
+                {/* Project History */}
+                <div className="space-y-6">
+                    <div className="flex items-center gap-2 border-b border-white/10 pb-4">
+                        <Layers className="h-4 w-4 text-gray-500" />
+                        <span className="text-sm font-bold text-gray-400 uppercase tracking-wider">Project History</span>
+                    </div>
+
+                    {isLoading ? (
+                        <div className="text-center py-12 text-gray-500">Loading history...</div>
+                    ) : projects.length > 0 ? (
+                        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                            {projects.map((project) => (
+                                <Link href={`/editor/${project.id}`} key={project.id}>
+                                    <motion.div
+                                        whileHover={{ y: -5 }}
+                                        className="bg-white/5 border border-white/10 rounded-xl p-6 hover:border-red-500/30 transition-all cursor-pointer h-full flex flex-col"
+                                    >
+                                        <div className="flex justify-between items-start mb-4">
+                                            <div className="p-2 rounded-lg bg-red-900/20 text-red-400">
+                                                <FileText className="h-5 w-5" />
+                                            </div>
+                                            <span className="text-xs text-gray-500 font-mono">
+                                                {new Date(project.created_at).toLocaleDateString()}
+                                            </span>
+                                        </div>
+                                        <h3 className="text-lg font-bold text-white mb-2 line-clamp-1">{project.name}</h3>
+                                        <p className="text-sm text-gray-400 line-clamp-3 mb-4 flex-1">
+                                            {project.copy}
+                                        </p>
+                                        <div className="flex items-center gap-2 text-xs text-gray-500 mt-auto pt-4 border-t border-white/5">
+                                            <Target className="h-3 w-3" />
+                                            <span className="truncate">{project.goal || "Marketing Copy"}</span>
+                                        </div>
+                                    </motion.div>
+                                </Link>
+                            ))}
+                        </div>
+                    ) : (
+                        <div className="text-center py-12 border border-dashed border-white/10 rounded-xl">
+                            <p className="text-gray-500 mb-4">No saved projects yet.</p>
+                            <Link href="/create">
+                                <Button variant="outline" className="border-white/10 hover:bg-white/5 text-white">
+                                    Start Your First Project
                                 </Button>
                             </Link>
                         </div>
-
-                        {/* The Generated Copy */}
-                        <div className="bg-black/50 rounded-xl p-6 mb-6 border border-white/5">
-                            <h3 className="text-sm font-semibold text-red-400 uppercase tracking-wider mb-3">Your Copy</h3>
-                            <div className="text-white whitespace-pre-wrap leading-relaxed">
-                                {latestCopy.copy}
-                            </div>
-                        </div>
-
-                        {/* The "Why" Explanation - Masterclass Breakdown */}
-                        {latestCopy.explanation && (
-                            <div className="space-y-4">
-                                <h3 className="text-sm font-semibold text-gray-400 uppercase tracking-wider flex items-center gap-2">
-                                    <Sparkles className="h-4 w-4 text-red-500" />
-                                    Masterclass Breakdown
-                                </h3>
-
-                                {typeof latestCopy.explanation === 'object' ? (
-                                    <div className="grid md:grid-cols-3 gap-6">
-                                        {/* Psychology Card */}
-                                        <div className="bg-purple-900/10 border border-purple-500/20 rounded-xl p-6">
-                                            <div className="flex items-center gap-2 mb-3">
-                                                <div className="h-8 w-8 rounded-lg bg-purple-500/20 flex items-center justify-center">
-                                                    <Brain className="h-4 w-4 text-purple-400" />
-                                                </div>
-                                                <span className="font-bold text-purple-200">Psychology</span>
-                                            </div>
-                                            <p className="text-sm text-purple-100/80 leading-relaxed">
-                                                {latestCopy.explanation.psychology}
-                                            </p>
-                                        </div>
-
-                                        {/* Structure Card */}
-                                        <div className="bg-blue-900/10 border border-blue-500/20 rounded-xl p-6">
-                                            <div className="flex items-center gap-2 mb-3">
-                                                <div className="h-8 w-8 rounded-lg bg-blue-500/20 flex items-center justify-center">
-                                                    <Layers className="h-4 w-4 text-blue-400" />
-                                                </div>
-                                                <span className="font-bold text-blue-200">Structure</span>
-                                            </div>
-                                            <p className="text-sm text-blue-100/80 leading-relaxed">
-                                                {latestCopy.explanation.structure}
-                                            </p>
-                                        </div>
-
-                                        {/* Power Words Card */}
-                                        <div className="bg-yellow-900/10 border border-yellow-500/20 rounded-xl p-6">
-                                            <div className="flex items-center gap-2 mb-3">
-                                                <div className="h-8 w-8 rounded-lg bg-yellow-500/20 flex items-center justify-center">
-                                                    <Zap className="h-4 w-4 text-yellow-400" />
-                                                </div>
-                                                <span className="font-bold text-yellow-200">Power Words</span>
-                                            </div>
-                                            <div className="flex flex-wrap gap-2">
-                                                {latestCopy.explanation.power_words?.map((word: string, i: number) => (
-                                                    <span key={i} className="px-2 py-1 rounded bg-yellow-500/10 border border-yellow-500/20 text-xs text-yellow-200">
-                                                        {word}
-                                                    </span>
-                                                )) || (
-                                                        <span className="text-sm text-yellow-100/50">N/A</span>
-                                                    )}
-                                            </div>
-                                        </div>
-                                    </div>
-                                ) : (
-                                    <div className="bg-blue-900/10 rounded-xl p-6 border border-blue-500/20">
                                         <div className="text-gray-300 leading-relaxed whitespace-pre-wrap">
                                             {latestCopy.explanation}
                                         </div>
                                     </div>
                                 )}
-                            </div>
-                        )}
-                    </motion.div>
-                )}
-
-                {projects.length === 0 && !latestCopy && (
-                    <motion.div
-                        initial={{ opacity: 0, scale: 0.95 }}
-                        animate={{ opacity: 1, scale: 1 }}
-                        transition={{ duration: 0.5, delay: 0.1 }}
-                        className="h-[60vh] flex flex-col items-center justify-center rounded-3xl border border-dashed border-white/10 bg-white/5"
-                    >
-                        <div className="h-20 w-20 rounded-full bg-red-900/20 flex items-center justify-center mb-6 border border-red-500/20 shadow-[0_0_30px_-5px_rgba(220,38,38,0.2)]">
-                            <Sparkles className="h-10 w-10 text-red-500" />
-                        </div>
-                        <h2 className="text-2xl font-bold text-white mb-2">Ready to Master the Art?</h2>
-                        <p className="text-gray-400 max-w-md text-center mb-8">
-                            You haven't created any campaigns yet. Initialize the strategy engine to start generating high-converting copy.
-                        </p>
-                        <Link href="/create">
-                            <Button size="lg" className="h-12 px-8 rounded-full bg-red-600 hover:bg-red-700 text-white shadow-[0_0_30px_-5px_rgba(220,38,38,0.4)] transition-all hover:scale-105">
-                                Initialize Project <ArrowRight className="ml-2 h-4 w-4" />
-                            </Button>
-                        </Link>
-                    </motion.div>
-                )}
             </div>
-        </div>
+                        )}
+        </motion.div>
+    )
+}
+
+{
+    projects.length === 0 && !latestCopy && (
+        <motion.div
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.5, delay: 0.1 }}
+            className="h-[60vh] flex flex-col items-center justify-center rounded-3xl border border-dashed border-white/10 bg-white/5"
+        >
+            <div className="h-20 w-20 rounded-full bg-red-900/20 flex items-center justify-center mb-6 border border-red-500/20 shadow-[0_0_30px_-5px_rgba(220,38,38,0.2)]">
+                <Sparkles className="h-10 w-10 text-red-500" />
+            </div>
+            <h2 className="text-2xl font-bold text-white mb-2">Ready to Master the Art?</h2>
+            <p className="text-gray-400 max-w-md text-center mb-8">
+                You haven't created any campaigns yet. Initialize the strategy engine to start generating high-converting copy.
+            </p>
+            <Link href="/create">
+                <Button size="lg" className="h-12 px-8 rounded-full bg-red-600 hover:bg-red-700 text-white shadow-[0_0_30px_-5px_rgba(220,38,38,0.4)] transition-all hover:scale-105">
+                    Initialize Project <ArrowRight className="ml-2 h-4 w-4" />
+                </Button>
+            </Link>
+        </motion.div>
+    )
+}
+            </div >
+        </div >
     )
 }
