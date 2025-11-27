@@ -19,8 +19,7 @@ export const metadata: Metadata = {
   description: "Stop pitching. Start proving. The strategy engine for elite copywriters.",
 };
 
-import { Navbar } from "@/components/layout/Navbar"
-import { Footer } from "@/components/layout/Footer"
+
 
 export default function RootLayout({
   children,
@@ -32,9 +31,7 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased bg-black text-foreground`}
       >
-        <Navbar />
         {children}
-        <Footer />
         <Toaster position="top-center" theme="dark" />
       </body>
     </html>
