@@ -11,8 +11,8 @@ export function Footer() {
                             <img src="/verblynx-icon.png" alt="Verblynx" className="h-8 w-8 rounded-lg" />
                             <span className="text-xl font-black tracking-tighter text-white">VERBLYNX</span>
                         </Link>
-                        <p className="text-gray-500 text-xs font-mono uppercase tracking-widest mt-1">
-                            Precision Engineered Persuasion.
+                        <p className="text-gray-400 text-sm leading-relaxed max-w-xs mt-2">
+                            The first system that doesn't just write copy—it <span className="text-white font-bold">teaches you to dominate your market.</span> Every word. Every trigger. Every conversion.
                         </p>
                     </div>
 
