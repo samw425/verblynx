@@ -20,7 +20,7 @@ export default function LandingPage() {
       <nav className="fixed top-0 left-0 right-0 z-50 px-6 py-4 transition-all duration-300">
         <div className="max-w-6xl mx-auto bg-black/50 backdrop-blur-xl border border-white/10 rounded-full px-6 py-3 flex items-center justify-between">
           <div className="flex items-center gap-2 cursor-pointer" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
-            <img src="/verblynx-logo.png" alt="Verblynx Logo" className="h-8 w-auto" />
+            <img src="/verblynx-full-logo.png" alt="Verblynx Logo" className="h-10 w-auto" />
           </div>
 
           <div className="hidden md:flex items-center gap-8 text-sm font-medium text-gray-400">
@@ -292,7 +292,7 @@ export default function LandingPage() {
       {/* Footer */}
       <footer className="py-12 border-t border-white/5 bg-black/50 backdrop-blur-xl text-center">
         <div className="container mx-auto px-6 flex flex-col items-center gap-6">
-          <img src="/verblynx-logo.png" alt="Verblynx Logo" className="h-10 w-auto opacity-50 grayscale hover:grayscale-0 transition-all duration-500" />
+          <img src="/verblynx-full-logo.png" alt="Verblynx" className="h-12 w-auto opacity-50 grayscale hover:grayscale-0 transition-all duration-500" />
 
           <div className="flex items-center justify-center gap-2 opacity-50">
             <Lock className="h-4 w-4" />
