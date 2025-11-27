@@ -30,7 +30,7 @@ export default function SignupPage() {
                 options: {
                     data: {
                         full_name: fullName,
-                        beta_access: true, // Mark as beta user
+                        beta_access: true,
                     },
                 },
             })
@@ -38,6 +38,18 @@ export default function SignupPage() {
             if (error) {
                 toast.error(error.message)
                 return
+            }
+
+            // Send notification email to owner
+            try {
+                await fetch('/api/notify-signup', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email, full_name: fullName })
+                })
+            } catch (notifyError) {
+                console.error('Failed to send notification:', notifyError)
+                // Don't block signup if notification fails
             }
 
             toast.success("Welcome to Beta! Check your email to verify.")
