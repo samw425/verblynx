@@ -146,94 +146,150 @@ export default function LandingPage() {
       </section>
 
       {/* SECTION: THE PROTOCOL (How It Works) */}
-      <section id="protocol" className="py-32 relative border-t border-white/5 bg-black/50">
-        <div className="container mx-auto px-6">
-          <div className="text-center mb-20">
-            <h2 className="text-4xl md:text-5xl font-bold mb-6">The Protocol</h2>
-            <p className="text-xl text-gray-400">Three steps to dominance.</p>
+      <section id="protocol" className="py-32 relative border-t border-white/5 bg-black/50 overflow-hidden">
+        {/* Background Elements */}
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-7xl h-full pointer-events-none">
+          <div className="absolute top-[20%] left-[10%] w-96 h-96 bg-red-900/10 rounded-full blur-[100px]" />
+          <div className="absolute bottom-[20%] right-[10%] w-96 h-96 bg-blue-900/10 rounded-full blur-[100px]" />
+        </div>
+
+        <div className="container mx-auto px-6 relative z-10">
+          <div className="text-center mb-24">
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 text-gray-400 text-sm font-mono mb-6">
+              <Target className="h-4 w-4 text-red-500" />
+              <span>OPERATIONAL DOCTRINE</span>
+            </div>
+            <h2 className="text-4xl md:text-6xl font-black tracking-tighter text-white mb-6">
+              THE <span className="text-red-600">PROTOCOL</span>.
+            </h2>
+            <p className="text-xl text-gray-400 max-w-2xl mx-auto">
+              Three steps to total market dominance. We don't just write; we engineer outcome-driven assets.
+            </p>
           </div>
 
           <div className="grid md:grid-cols-3 gap-8 relative">
             {/* Connecting Line (Desktop) */}
-            <div className="hidden md:block absolute top-12 left-[16%] right-[16%] h-0.5 bg-gradient-to-r from-red-500/0 via-red-500/50 to-red-500/0 z-0" />
+            <div className="hidden md:block absolute top-12 left-[16%] right-[16%] h-px bg-gradient-to-r from-red-500/0 via-red-500/30 to-red-500/0 z-0" />
 
             {/* Step 1 */}
-            <div className="glass-card p-8 rounded-3xl relative z-10 bg-black group hover:bg-red-900/10 transition-colors duration-500">
-              <div className="h-16 w-16 rounded-2xl bg-red-900/20 flex items-center justify-center mb-6 border border-red-500/30 mx-auto group-hover:scale-110 transition-transform duration-500">
-                <Target className="h-8 w-8 text-red-500" />
+            <div className="glass-card p-8 rounded-3xl relative z-10 bg-black border border-white/10 group hover:border-red-500/50 transition-all duration-500 hover:-translate-y-2">
+              <div className="h-16 w-16 rounded-2xl bg-gradient-to-br from-gray-800 to-black flex items-center justify-center mb-8 border border-white/10 mx-auto group-hover:scale-110 transition-transform duration-500 shadow-lg shadow-red-900/20">
+                <Target className="h-8 w-8 text-white group-hover:text-red-500 transition-colors" />
               </div>
-              <h3 className="text-xl font-bold text-white mb-3 text-center">1. Define Mission</h3>
-              <p className="text-gray-400 leading-relaxed text-center group-hover:text-gray-300 transition-colors">
-                Input your objective, target, and tone. The System calibrates to your specific strategic needs.
+              <h3 className="text-xl font-bold text-white mb-4 text-center">1. Define Mission</h3>
+              <p className="text-gray-400 leading-relaxed text-center text-sm">
+                Input your objective, target audience, and desired tone. The System calibrates its neural pathways to your specific strategic needs.
               </p>
             </div>
 
             {/* Step 2 */}
-            <div className="glass-card p-8 rounded-3xl relative z-10 bg-black group hover:bg-red-900/10 transition-colors duration-500">
-              <div className="h-16 w-16 rounded-2xl bg-red-900/20 flex items-center justify-center mb-6 border border-red-500/30 mx-auto group-hover:scale-110 transition-transform duration-500">
-                <Brain className="h-8 w-8 text-red-500" />
+            <div className="glass-card p-8 rounded-3xl relative z-10 bg-black border border-white/10 group hover:border-red-500/50 transition-all duration-500 hover:-translate-y-2">
+              <div className="h-16 w-16 rounded-2xl bg-gradient-to-br from-gray-800 to-black flex items-center justify-center mb-8 border border-white/10 mx-auto group-hover:scale-110 transition-transform duration-500 shadow-lg shadow-red-900/20">
+                <Brain className="h-8 w-8 text-white group-hover:text-red-500 transition-colors" />
               </div>
-              <h3 className="text-xl font-bold text-white mb-3 text-center">2. Execute Generation</h3>
-              <p className="text-gray-400 leading-relaxed text-center group-hover:text-gray-300 transition-colors">
-                Our Engine processes your inputs through 50+ psychological frameworks to engineer the perfect asset.
+              <h3 className="text-xl font-bold text-white mb-4 text-center">2. Execute Generation</h3>
+              <p className="text-gray-400 leading-relaxed text-center text-sm">
+                Our Engine processes your inputs through 50+ psychological frameworks (PAS, AIDA, SLAP) to engineer the perfect persuasive asset.
               </p>
             </div>
 
             {/* Step 3 */}
-            <div className="glass-card p-8 rounded-3xl relative z-10 bg-black group hover:bg-red-900/10 transition-colors duration-500">
-              <div className="h-16 w-16 rounded-2xl bg-red-900/20 flex items-center justify-center mb-6 border border-red-500/30 mx-auto group-hover:scale-110 transition-transform duration-500">
-                <GraduationCap className="h-8 w-8 text-red-500" />
+            <div className="glass-card p-8 rounded-3xl relative z-10 bg-black border border-white/10 group hover:border-red-500/50 transition-all duration-500 hover:-translate-y-2">
+              <div className="h-16 w-16 rounded-2xl bg-gradient-to-br from-gray-800 to-black flex items-center justify-center mb-8 border border-white/10 mx-auto group-hover:scale-110 transition-transform duration-500 shadow-lg shadow-red-900/20">
+                <GraduationCap className="h-8 w-8 text-white group-hover:text-red-500 transition-colors" />
               </div>
-              <div className="grid md:grid-cols-2 gap-16 items-center">
-                <div className="space-y-8">
-                  <h2 className="text-5xl md:text-7xl font-black tracking-tighter text-white">
-                    THE END OF <br />
-                    <span className="text-red-600">GUESSWORK.</span>
-                  </h2>
-                  <p className="text-xl text-gray-400 leading-relaxed">
-                    Amateurs write until they think it sounds good. <strong className="text-white">Professionals engineer until it converts.</strong>
-                  </p>
-                  <p className="text-lg text-gray-500 leading-relaxed">
-                    Most tools are "black boxes". You put a prompt in, you get text out. You learn nothing. You remain dependent.
-                  </p>
-                  <p className="text-lg text-gray-500 leading-relaxed">
-                    Verblynx is a "glass box". We show you the mechanics of persuasion. We reveal the hidden triggers. We turn you into a master copywriter, with the System as your exoskeleton.
-                  </p>
+              <h3 className="text-xl font-bold text-white mb-4 text-center">3. Masterclass Review</h3>
+              <p className="text-gray-400 leading-relaxed text-center text-sm">
+                Receive not just copy, but a deep psychological breakdown of <em>why</em> it works. Learn the triggers. Master the craft.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
 
-                  <div className="grid grid-cols-2 gap-6 pt-4">
-                    <div className="p-6 rounded-2xl bg-white/5 border border-white/10">
-                      <div className="text-3xl font-bold text-white mb-1">10x</div>
-                      <div className="text-sm text-gray-400 uppercase tracking-wider">Speed to Market</div>
-                    </div>
-                    <div className="p-6 rounded-2xl bg-white/5 border border-white/10">
-                      <div className="text-3xl font-bold text-white mb-1">100%</div>
-                      <div className="text-sm text-gray-400 uppercase tracking-wider">Strategic Alignment</div>
-                    </div>
+      {/* SECTION: THE END OF GUESSWORK (New Section) */}
+      <section className="py-32 relative border-t border-white/5 bg-black">
+        <div className="container mx-auto px-6">
+          <div className="grid lg:grid-cols-2 gap-20 items-center">
+            <div className="space-y-10">
+              <h2 className="text-5xl md:text-7xl font-black tracking-tighter text-white leading-[0.9]">
+                THE END OF <br />
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-red-500 to-red-800">GUESSWORK.</span>
+              </h2>
+              <div className="space-y-6 text-lg text-gray-400 leading-relaxed">
+                <p>
+                  Amateurs write until they think it sounds good. <strong className="text-white">Professionals engineer until it converts.</strong>
+                </p>
+                <p>
+                  Most tools are "black boxes". You put a prompt in, you get text out. You learn nothing. You remain dependent.
+                </p>
+                <p>
+                  Verblynx is a <strong>Glass Box</strong>. We show you the mechanics of persuasion. We reveal the hidden triggers. We turn you into a master copywriter, with the System as your exoskeleton.
+                </p>
+              </div>
+
+              <div className="grid grid-cols-2 gap-6">
+                <div className="p-6 rounded-2xl bg-white/5 border border-white/10 hover:border-red-500/30 transition-colors">
+                  <div className="text-4xl font-black text-white mb-2">10x</div>
+                  <div className="text-xs font-bold text-gray-500 uppercase tracking-widest">Speed to Market</div>
+                </div>
+                <div className="p-6 rounded-2xl bg-white/5 border border-white/10 hover:border-red-500/30 transition-colors">
+                  <div className="text-4xl font-black text-white mb-2">100%</div>
+                  <div className="text-xs font-bold text-gray-500 uppercase tracking-widest">Strategic Alignment</div>
+                </div>
+              </div>
+            </div>
+
+            {/* Visual Representation */}
+            <div className="relative h-[700px] bg-gradient-to-br from-gray-900 to-black rounded-[2.5rem] border border-white/10 overflow-hidden shadow-2xl p-10 flex flex-col justify-between group hover:border-red-500/30 transition-colors duration-500">
+              <div className="absolute inset-0 bg-[url('/grid.svg')] opacity-20" />
+              <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-red-600/10 rounded-full blur-[120px] pointer-events-none" />
+
+              {/* Floating Cards Animation */}
+              <div className="space-y-6 relative z-10 mt-10">
+                <div className="p-6 rounded-2xl bg-gray-900/80 backdrop-blur-md border border-white/10 shadow-xl transform translate-x-4">
+                  <div className="flex items-center gap-3 mb-3">
+                    <div className="h-2 w-2 rounded-full bg-red-500 animate-pulse" />
+                    <span className="text-xs font-mono text-red-400">INFERENCE_ENGINE</span>
+                  </div>
+                  <div className="text-sm text-gray-300 font-mono">
+                    &gt; Analyzing Audience Psychology...<br />
+                    &gt; Detected: "Status-Driven" Avatar
                   </div>
                 </div>
 
-                {/* Visual Representation */}
-                <div className="relative h-[600px] bg-gradient-to-br from-gray-900 to-black rounded-3xl border border-white/10 overflow-hidden shadow-2xl p-8 flex flex-col justify-between group hover:border-red-500/30 transition-colors duration-500">
-                  <div className="absolute inset-0 bg-[url('/grid.svg')] opacity-20" />
-
-                  {/* Floating Cards Animation */}
-                  <div className="space-y-4 relative z-10">
-                    <div className="p-4 rounded-xl bg-red-900/20 border border-red-500/30 text-red-200 text-sm font-mono animate-pulse">
-                      &gt; Analyzing Audience Psychology...
-                    </div>
-                    <div className="p-4 rounded-xl bg-blue-900/20 border border-blue-500/30 text-blue-200 text-sm font-mono delay-150">
-                      &gt; Identifying Pain Points...
-                    </div>
-                    <div className="p-4 rounded-xl bg-green-900/20 border border-green-500/30 text-green-200 text-sm font-mono delay-300">
-                      &gt; Optimizing for Maximum Impact...
-                    </div>
+                <div className="p-6 rounded-2xl bg-gray-900/80 backdrop-blur-md border border-white/10 shadow-xl transform -translate-x-4 delay-100">
+                  <div className="flex items-center gap-3 mb-3">
+                    <div className="h-2 w-2 rounded-full bg-blue-500 animate-pulse" />
+                    <span className="text-xs font-mono text-blue-400">GENERATIVE_MATRIX</span>
                   </div>
+                  <div className="text-sm text-gray-300 font-mono">
+                    &gt; Identifying Pain Points...<br />
+                    &gt; Selecting Framework: PAS (Problem-Agitation-Solution)
+                  </div>
+                </div>
 
-                  <div className="mt-auto">
-                    <div className="h-2 w-full bg-gray-800 rounded-full overflow-hidden">
-                      <div className="h-full bg-gradient-to-r from-red-500 to-purple-500 w-full animate-[shimmer_2s_infinite]" />
-                    </div>
-                    <p className="text-xs text-gray-500 mt-3 font-mono text-right">SYSTEM ACTIVE // V.3.0.1</p>
+                <div className="p-6 rounded-2xl bg-gray-900/80 backdrop-blur-md border border-white/10 shadow-xl transform translate-x-4 delay-200">
+                  <div className="flex items-center gap-3 mb-3">
+                    <div className="h-2 w-2 rounded-full bg-green-500 animate-pulse" />
+                    <span className="text-xs font-mono text-green-400">CRITIQUE_LOOP</span>
+                  </div>
+                  <div className="text-sm text-gray-300 font-mono">
+                    &gt; Optimizing for Maximum Impact...<br />
+                    &gt; Refining Rhythm and Specificity...
+                  </div>
+                </div>
+              </div>
+
+              <div className="mt-auto relative z-10">
+                <div className="h-1.5 w-full bg-gray-800 rounded-full overflow-hidden mb-4">
+                  <div className="h-full bg-gradient-to-r from-red-500 via-purple-500 to-blue-500 w-full animate-[shimmer_2s_infinite]" />
+                </div>
+                <div className="flex justify-between items-center">
+                  <p className="text-xs text-gray-500 font-mono">SYSTEM ACTIVE // V.3.0.1</p>
+                  <div className="flex gap-1">
+                    <div className="h-1.5 w-1.5 rounded-full bg-green-500" />
+                    <div className="h-1.5 w-1.5 rounded-full bg-green-500 animate-ping" />
                   </div>
                 </div>
               </div>
