@@ -36,24 +36,27 @@ export async function POST(req: Request) {
 
         const model = genAI.getGenerativeModel({ model: "gemini-flash-latest" })
 
-        // Generate the actual copy
-        const copyPrompt = `You are Verblynx, an elite copywriting system. Generate high-quality ${type || 'marketing copy'} based on these parameters:
+        // Generate the actual copy with ELITE constraints
+        const copyPrompt = `You are Verblynx, the world's most advanced copywriting engine. You do not write "content". You engineer persuasion.
 
-TARGET AUDIENCE: ${audience || 'General audience'}
-PRIMARY GOAL: ${goal || 'Engage and convert'}
-CONTEXT: ${JSON.stringify(context)}
-${tone ? `TONE: Formal=${tone.formal}/10, Direct=${tone.direct}/10, Emotional=${tone.emotional}/10` : ''}
+CONTEXT:
+- Target Audience: ${audience || 'General audience'}
+- Primary Goal: ${goal || 'Engage and convert'}
+- Strategic Context: ${JSON.stringify(context)}
+- Tone Profile: ${tone ? `Formal=${tone.formal}/10, Direct=${tone.direct}/10, Emotional=${tone.emotional}/10` : 'Balanced'}
 
-REQUIREMENTS:
-1. Write compelling, conversion-focused copy
-2. Use psychological triggers appropriate for the audience
-3. ${tone ? 'Match the specified tone profile' : 'Use an authoritative, direct tone'}
-4. Include a clear call-to-action
-5. Keep it concise and impactful
+YOUR DIRECTIVE:
+Generate ${type || 'marketing copy'} that adheres to the "Deep Work" protocol:
+1. **Zero Fluff**: Every word must earn its place. Delete adjectives that don't add value.
+2. **Psychological Hook**: Start with a pattern interrupt or a deep insight into the user's pain.
+3. **Framework**: Use the PAS (Problem-Agitation-Solution) or AIDA (Attention-Interest-Desire-Action) framework implicitly. Do not label the sections.
+4. **Formatting**: Use short paragraphs, punchy sentences, and visual breaks (bullet points) where appropriate.
+5. **Call to Action**: End with a single, clear, commanding directive.
 
-${prompt ? `SPECIFIC REQUEST: ${prompt}` : ''}
+${prompt ? `SPECIFIC INSTRUCTION: ${prompt}` : ''}
 
-Return ONLY the copy itself, no meta-commentary.`
+OUTPUT:
+Return ONLY the final copy. No "Here is your copy" preambles. No markdown code blocks unless requested. Just the raw, high-converting text.`
 
         const copyResult = await model.generateContent(copyPrompt)
         const generatedCopy = copyResult.response.text()

@@ -19,21 +19,21 @@ export default function PricingPage() {
                     </p>
                 </div>
 
-                <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+                <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
                     {/* Free Tier */}
-                    <div className="p-10 rounded-3xl bg-white/5 border border-white/10 hover:border-white/20 transition-all group">
+                    <div className="glass-card p-10 rounded-3xl relative overflow-hidden">
                         <h3 className="text-2xl font-bold text-white mb-2">Initiate</h3>
                         <div className="text-4xl font-black text-white mb-6">$0</div>
-                        <p className="text-gray-400 mb-8 h-12">Perfect for testing the waters and understanding the power of strategic engineering.</p>
+                        <p className="text-gray-400 mb-8 h-12">Essential tools for early-stage validation.</p>
 
                         <ul className="space-y-4 mb-10">
                             <li className="flex items-center gap-3 text-gray-300">
                                 <CheckCircle2 className="h-5 w-5 text-gray-500" />
-                                <span>3 Strategy Generations / Day</span>
+                                <span>3 Daily Generations</span>
                             </li>
                             <li className="flex items-center gap-3 text-gray-300">
                                 <CheckCircle2 className="h-5 w-5 text-gray-500" />
-                                <span>Basic Framework Access</span>
+                                <span>Standard Processing</span>
                             </li>
                             <li className="flex items-center gap-3 text-gray-300">
                                 <CheckCircle2 className="h-5 w-5 text-gray-500" />
@@ -42,21 +42,21 @@ export default function PricingPage() {
                         </ul>
 
                         <Link href="/create">
-                            <Button variant="outline" className="w-full h-14 rounded-full border-white/20 hover:bg-white hover:text-black transition-all">
+                            <Button variant="outline" className="w-full h-14 rounded-full border-white/10 hover:bg-white hover:text-black transition-all">
                                 Start Free
                             </Button>
                         </Link>
                     </div>
 
                     {/* Pro Tier */}
-                    <div className="relative p-10 rounded-3xl bg-gradient-to-b from-red-950/30 to-black border border-red-500/30 hover:border-red-500/50 transition-all shadow-[0_0_50px_-20px_rgba(220,38,38,0.3)] group">
-                        <div className="absolute -top-4 left-1/2 -translate-x-1/2 px-4 py-1 bg-red-600 text-white text-xs font-bold uppercase tracking-widest rounded-full shadow-lg">
-                            Most Popular
+                    <div className="glass-card p-10 rounded-3xl relative overflow-hidden border-red-500/30 bg-red-900/5">
+                        <div className="absolute top-0 right-0 px-6 py-2 bg-red-600 text-white text-xs font-bold uppercase tracking-widest rounded-bl-2xl">
+                            Beta Access
                         </div>
 
                         <h3 className="text-2xl font-bold text-white mb-2">Dominion</h3>
-                        <div className="text-4xl font-black text-white mb-6">$0<span className="text-lg font-medium text-gray-500"> (Beta Access)</span></div>
-                        <p className="text-gray-400 mb-8 h-12">Uncapped access to the world's most powerful copywriting engine.</p>
+                        <div className="text-4xl font-black text-white mb-6">$0<span className="text-lg font-medium text-gray-500"> (Beta)</span></div>
+                        <p className="text-gray-400 mb-8 h-12">Unrestricted access for power users.</p>
 
                         <ul className="space-y-4 mb-10">
                             <li className="flex items-center gap-3 text-white">
@@ -65,11 +65,11 @@ export default function PricingPage() {
                             </li>
                             <li className="flex items-center gap-3 text-white">
                                 <CheckCircle2 className="h-5 w-5 text-red-500" />
-                                <span><strong>Masterclass</strong> Access (The "Why")</span>
+                                <span><strong>Priority</strong> Inference Engine</span>
                             </li>
                             <li className="flex items-center gap-3 text-white">
                                 <CheckCircle2 className="h-5 w-5 text-red-500" />
-                                <span>Priority Processing Speed</span>
+                                <span>Advanced Tone Control</span>
                             </li>
                             <li className="flex items-center gap-3 text-white">
                                 <CheckCircle2 className="h-5 w-5 text-red-500" />
@@ -77,11 +77,8 @@ export default function PricingPage() {
                             </li>
                         </ul>
 
-                        {/* <StripeButton priceId={process.env.NEXT_PUBLIC_STRIPE_PRICE_ID!} className="w-full h-14 rounded-full bg-red-600 hover:bg-red-700 text-white font-bold shadow-lg shadow-red-900/20 transition-all hover:scale-[1.02]">
-                            Upgrade to Pro
-                        </StripeButton> */}
                         <Link href="/create">
-                            <Button className="w-full h-14 rounded-full bg-red-600 hover:bg-red-700 text-white font-bold shadow-lg shadow-red-900/20 transition-all hover:scale-[1.02]">
+                            <Button className="w-full h-14 rounded-full bg-red-600 hover:bg-red-700 text-white font-bold shadow-[0_0_30px_-5px_rgba(220,38,38,0.4)] transition-all hover:scale-105">
                                 Get Beta Access
                             </Button>
                         </Link>
