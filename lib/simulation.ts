@@ -23,24 +23,35 @@ export const SIMULATION_DATA = {
             structure: "AIDA Framework:\n1. Attention: The 'Client-Chasing' Era is Over.\n2. Interest: The contrast between 'grind' and 'flip the script'.\n3. Desire: The promise of being the 'prize'.\n4. Action: Apply for Audit.",
             word_choice: "'Prize vs Pest' (powerful contrast), 'Flip the script' (paradigm shift), 'Demoralizing' (validates pain)."
         }
-    },
-    "default": {
+    }
+}
+
+function generateDynamicTemplate(audience: string, goal: string) {
+    // Capitalize first letter for better formatting
+    const formattedAudience = audience.charAt(0).toUpperCase() + audience.slice(1);
+    const formattedGoal = goal.toLowerCase();
+
+    return {
         framework: "PAS",
-        core_desire: "Growth",
-        main_objection: "Risk of failure",
-        strategic_angle: "The Low-Risk Growth Lever",
-        copy: "Subject: The one thing holding you back.\n\n[Name],\n\nI've been looking at your current approach, and I see a massive opportunity being missed.\n\nYou're doing 90% of things right. But that last 10% is costing you.\n\nWe've identified a 'Silent Leak' in your strategy that is draining your potential results.\n\nThe good news? It's fixable in under 48 hours.\n\nI recorded a quick video showing exactly where this leak is and how to plug it.\n\n[Link: Watch the Breakdown]\n\nDon't let this leak drain another dollar.\n\n- [Your Name]",
+        core_desire: `Achieve ${formattedGoal}`,
+        main_objection: "It's too complicated or risky",
+        strategic_angle: "The 'Hidden Lever' Strategy",
+        copy: `Subject: The #1 mistake ${formattedAudience} make when trying to ${formattedGoal}.\n\n[Name],\n\nI've been analyzing why so many ${formattedAudience} struggle to ${formattedGoal}.\n\nIt usually comes down to one "Silent Killer": Complexity.\n\nYou're likely doing 90% of things right, but that last 10% is where the friction lies.\n\nWe've developed a streamlined protocol specifically for ${formattedAudience} who want to ${formattedGoal} without the usual headaches.\n\nIt's not a magic pill. It's a strategic lever.\n\nI recorded a 3-minute breakdown of how it works.\n\n[Link: Watch the Strategy]\n\nBest,\n[Your Name]`,
         explanation: {
-            psychology: "Curiosity Gap. The concept of a 'Silent Leak' creates an open loop that the reader MUST close by clicking. It implies immediate loss if they don't act.",
-            structure: "PAS Framework:\n1. Problem: Missing a massive opportunity.\n2. Agitation: The 'Silent Leak' costing you results.\n3. Solution: The video breakdown.",
-            word_choice: "'Silent Leak' (creates anxiety/curiosity), 'Draining' (visceral loss), 'Plug it' (simple solution)."
+            psychology: "Identity & Specificity. By explicitly naming the audience (" + formattedAudience + ") and their goal (" + formattedGoal + "), we trigger the 'Cocktail Party Effect'—they have to pay attention because it's about THEM.",
+            structure: "PAS Framework:\n1. Problem: The struggle to " + formattedGoal + ".\n2. Agitation: The 'Silent Killer' of complexity.\n3. Solution: The streamlined protocol.",
+            word_choice: "'Silent Killer' (creates urgency), 'Friction' (validates their struggle), 'Strategic Lever' (implies high leverage/low effort)."
         }
     }
 }
 
 export function getSimulation(audience: string, goal: string) {
     const text = (audience + " " + goal).toLowerCase()
+
+    // Check for specific niches
     if (text.includes("saas") || text.includes("software") || text.includes("tech")) return SIMULATION_DATA.saas
-    if (text.includes("agency") || text.includes("service") || text.includes("coach")) return SIMULATION_DATA.agency
-    return SIMULATION_DATA.default
+    if (text.includes("agency") || text.includes("service") || text.includes("coach") || text.includes("consult")) return SIMULATION_DATA.agency
+
+    // Default to dynamic template
+    return generateDynamicTemplate(audience || "Business Owners", goal || "grow their revenue")
 }
