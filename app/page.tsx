@@ -73,7 +73,7 @@ export default function LandingPage() {
             className="text-6xl md:text-8xl lg:text-9xl font-black tracking-tighter text-white leading-[0.9]"
           >
             THEY LAUGHED WHEN I SAID <br />
-            <span className="text-transparent bg-clip-text bg-gradient-to-b from-red-500 to-red-800">A MACHINE COULD TEACH COPYWRITING...</span>
+            <span className="text-transparent bg-clip-text bg-gradient-to-b from-red-500 to-red-800">"COPYWRITING IS A SCIENCE..."</span>
           </motion.h1>
 
           <motion.p

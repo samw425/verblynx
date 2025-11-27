@@ -5,33 +5,29 @@ export async function POST(req: Request) {
         const { context, audience, goal, product } = await req.json();
         const apiKey = process.env.GEMINI_API_KEY || process.env.GOOGLE_API_KEY;
 
+        console.log("📝 Generate API called with:", { context, audience, goal, product });
+
+        // Safety check
+        if (!context || !audience || !goal) {
+            console.error("❌ Missing required fields");
+            return Response.json({
+                error: "Missing required fields (context, audience, or goal)"
+            }, { status: 400 });
+        }
+
         // 1. Bulletproof Simulation Mode
         if (!apiKey || process.env.NEXT_PUBLIC_DEMO_MODE === 'true') {
             console.log("⚠️ Using Simulation Mode (Generation)");
-            await new Promise(resolve => setTimeout(resolve, 3000)); // Simulate "Writing..."
+            await new Promise(resolve => setTimeout(resolve, 3000));
 
-            // Dynamic Simulation
-            const isSaaS = audience.toLowerCase().includes('saas');
-
-            if (isSaaS) {
-                return Response.json({
-                    copy: "## Stop Burning Cash on Ads That Don't Convert.\n\nYou built a great product. But nobody cares.\n\nWhy? Because you're talking about *features*. Your customers only care about *themselves*.\n\n**Introducing The Growth Engine.**\n\nThe first automated marketing system that doesn't just 'manage' leads—it closes them.\n\n*   **Automated Outreach:** Reach 1,000 prospects a day.\n*   **Neural Persuasion:** AI that writes better than your agency.\n*   **Instant ROI:** See results in 24 hours, not 24 days.\n\nStop playing small. Dominate your niche.",
-                    explanation: {
-                        psychology: "Used 'Loss Aversion' in the headline ('Burning Cash'). People fight harder to keep money than to make it.",
-                        structure: "Classic PAS (Problem-Agitation-Solution). We identified the pain (nobody cares), agitated it (features vs self), and solved it (The Growth Engine).",
-                        power_words: ["Burning", "Dominate", "Neural", "Instant"]
-                    }
-                });
-            } else {
-                return Response.json({
-                    copy: "## The Secret to 10x Productivity? It's Not Coffee.\n\nYou're working 12 hours a day. You're tired. You're overwhelmed.\n\nAnd yet, your to-do list keeps growing.\n\nIt's not your fault. The modern workflow is broken. It was designed for factories, not creatives.\n\n**Enter FlowState.**\n\nThe only productivity system designed for the biological reality of your brain.\n\n*   **Deep Work Blocks:** Scientifically timed focus sessions.\n*   **Distraction Shield:** Blocks noise before it hits you.\n\nReclaim your time. Reclaim your life.",
-                    explanation: {
-                        psychology: "We validated their struggle ('It's not your fault'). This builds instant trust and lowers defenses.",
-                        structure: "AIDA. Attention (Secret), Interest (Workflow is broken), Desire (Biological reality), Action (Reclaim).",
-                        power_words: ["Secret", "Broken", "Biological", "Reclaim"]
-                    }
-                });
-            }
+            return Response.json({
+                copy: `## Stop Drowning in Mediocre Marketing Copy.\n\nYour competition is using the same tired templates. The same boring formulas.\n\nMeanwhile, you're stuck wondering why your emails don't convert, your landing pages don't sell, and your ads get ignored.\n\n**Here's the truth:** Great copy isn't written. It's engineered.\n\n**Introducing ${product || 'Your Solution'}.**\n\nThis isn't another tool. It's a complete system that transforms how you communicate with ${audience || 'your audience'}.\n\n✓ **Strategy First** - We analyze your market before writing a single word\n✓ **Framework-Driven** - Every piece follows proven psychological patterns  \n✓ **Results-Focused** - Designed to ${goal || 'drive action'}, not just look pretty\n\nStop guessing. Start dominating.`,
+                explanation: {
+                    psychology: "Used 'Loss Aversion' in the opening ('Drowning'). Created contrast between their current state (stuck) and desired state (dominating). The phrase 'engineered' positions this as systematic, not random.",
+                    structure: `${context.framework} Framework: Problem (mediocre copy) → Agitation (emails don't convert) → Solution (engineered approach). Each benefit is concrete and actionable.`,
+                    power_words: ["Drowning", "Engineered", "Dominating", "Transforms", "System"]
+                }
+            });
         }
 
         // 2. Real "Generative Matrix"
@@ -39,14 +35,14 @@ export async function POST(req: Request) {
         const model = genAI.getGenerativeModel({ model: "gemini-1.5-pro" });
 
         const prompt = `
-      ACT AS A WORLD-CLASS COPYWRITER (Gary Halbert / David Ogilvy).
+      ACT AS A WORLD-CLASS COPYWRITER (Gary Halbert / David Ogilvy / Eugene Schwartz).
 
       Your task is to write a piece of HIGH-CONVERTING copy based on the following strategy.
 
       STRATEGIC BRIEF:
       - Audience: ${audience}
       - Goal: ${goal}
-      - Product: ${product}
+      - Product: ${product || 'Not specified'}
       - Framework: ${context.framework}
       - Awareness Level: ${context.awareness_level}
       - Sophistication Level: ${context.sophistication_level}
@@ -57,7 +53,10 @@ export async function POST(req: Request) {
 
       INSTRUCTIONS:
       1. **Drafting Phase**: Write the copy using the assigned Framework. Be visceral. Be specific. Use short sentences. Break patterns.
-      2. **Critique Phase (Internal)**: Review your draft. Remove jargon. Remove passive voice. Ensure the "Mechanism" is highlighted.
+      2. **Critique Phase (The Expert Filter)**:
+         - **The 'So What?' Test**: Does every sentence earn its keep? If not, cut it.
+         - **The 'Bar Stool' Test**: Does it sound like a human talking to a friend over a beer? If it sounds like a brochure, rewrite it.
+         - **The 'Specifics' Check**: Replace vague claims ("save time") with concrete numbers ("save 20 hours/week").
       3. **Final Polish**: Present the final, optimized copy.
 
       OUTPUT FORMAT (JSON ONLY):
@@ -71,25 +70,27 @@ export async function POST(req: Request) {
       }
     `;
 
+        console.log("🤖 Calling Gemini API...");
         const result = await model.generateContent(prompt);
-        const response = await result.response;
+        const response = result.response;
         const text = response.text();
 
-        const cleanedText = text.replace(/```json/g, '').replace(/```/g, '').trim();
-        const output = JSON.parse(cleanedText);
+        console.log("✅ Gemini responded with:", text.substring(0, 200));
 
-        return Response.json(output);
+        // Parse JSON from response
+        const jsonMatch = text.match(/\{[\s\S]*\}/);
+        if (!jsonMatch) {
+            throw new Error("Failed to parse JSON from Gemini response");
+        }
 
-    } catch (error) {
-        console.error("Generation Error:", error);
-        // Fallback
+        const parsed = JSON.parse(jsonMatch[0]);
+        return Response.json(parsed);
+
+    } catch (error: any) {
+        console.error("❌ Generate API Error:", error);
         return Response.json({
-            copy: "## Error in Neural Link.\n\nWe encountered a glitch in the matrix. Please try again.",
-            explanation: {
-                psychology: "N/A",
-                structure: "N/A",
-                power_words: []
-            }
-        });
+            error: "Generation failed",
+            details: error.message
+        }, { status: 500 });
     }
 }
