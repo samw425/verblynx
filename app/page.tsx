@@ -20,7 +20,8 @@ export default function LandingPage() {
       <nav className="fixed top-0 left-0 right-0 z-50 px-6 py-6 transition-all duration-300">
         <div className="max-w-7xl mx-auto bg-black/40 backdrop-blur-2xl border border-white/5 rounded-full px-8 py-4 flex items-center justify-between shadow-2xl shadow-black/50">
           <div className="flex items-center gap-3 cursor-pointer hover:opacity-80 transition-opacity" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
-            <img src="/verblynx-logo-v2.png" alt="Verblynx" className="h-12 w-auto" />
+            <img src="/verblynx-icon.png" alt="Verblynx Icon" className="h-10 w-10 rounded-xl" />
+            <span className="text-2xl font-black tracking-tighter text-white">VERBLYNX</span>
           </div>
 
           <div className="hidden md:flex items-center gap-8 text-sm font-medium text-gray-400">
@@ -53,20 +54,20 @@ export default function LandingPage() {
 
           {/* Headline */}
           <h1 className="text-6xl md:text-8xl font-black tracking-tighter text-white leading-[0.9] animate-slide-up">
-            The First AI Built for <br />
-            <span className="text-transparent bg-clip-text bg-gradient-to-b from-red-500 to-red-800">Strategic Copywriting.</span>
+            Write Copy That <br />
+            <span className="text-transparent bg-clip-text bg-gradient-to-b from-red-500 to-red-800">Actually Sells.</span>
           </h1>
 
           {/* Subheadline */}
           <p className="text-xl md:text-2xl text-gray-400 max-w-3xl mx-auto leading-relaxed animate-slide-up" style={{ animationDelay: '0.1s' }}>
-            Most AI guesses. Verblynx infers. We combine deep psychological frameworks with advanced LLMs to engineer copy that drives revenue, not just engagement.
+            Verblynx turns strategy into high-converting copy—then shows you exactly why it works. Stop guessing. Start closing.
           </p>
 
           {/* CTAs */}
           <div className="flex flex-col sm:flex-row items-center justify-center gap-6 pt-4 animate-slide-up" style={{ animationDelay: '0.3s' }}>
             <Link href="/create">
               <Button className="h-14 px-8 rounded-full bg-white text-black hover:bg-gray-200 font-bold text-lg transition-all hover:scale-105 shadow-[0_0_30px_-5px_rgba(255,255,255,0.3)]">
-                Initialize System <ChevronRight className="ml-2 h-5 w-5" />
+                Start Creating <ChevronRight className="ml-2 h-5 w-5" />
               </Button>
             </Link>
             <button onClick={() => scrollToSection('how-it-works')} className="text-gray-400 hover:text-white font-medium transition-colors flex items-center gap-2 group">
@@ -81,8 +82,8 @@ export default function LandingPage() {
       <section id="how-it-works" className="py-32 relative border-t border-white/5 bg-black/50">
         <div className="container mx-auto px-6">
           <div className="text-center mb-20">
-            <h2 className="text-4xl md:text-5xl font-bold mb-6">The Architecture of Persuasion</h2>
-            <p className="text-xl text-gray-400">A dual-engine approach to market dominance.</p>
+            <h2 className="text-4xl md:text-5xl font-bold mb-6">How It Works</h2>
+            <p className="text-xl text-gray-400">Three steps to copy that converts.</p>
           </div>
 
           <div className="grid md:grid-cols-3 gap-8 relative">
@@ -94,9 +95,9 @@ export default function LandingPage() {
               <div className="h-16 w-16 rounded-2xl bg-red-900/20 flex items-center justify-center mb-6 border border-red-500/30 mx-auto group-hover:scale-110 transition-transform duration-500">
                 <Target className="h-8 w-8 text-red-500" />
               </div>
-              <h3 className="text-xl font-bold text-white mb-3 text-center">1. Define The Strategy</h3>
+              <h3 className="text-xl font-bold text-white mb-3 text-center">1. Define Your Goal</h3>
               <p className="text-gray-400 leading-relaxed text-center group-hover:text-gray-300 transition-colors">
-                You don't just ask for "an email". You define the Objective, Audience, and Tone. Our system forces you to think like a strategist before you begin.
+                Tell us what you're selling, who you're selling to, and what tone fits your brand. Be specific—this is where strategy begins.
               </p>
             </div>
 
@@ -105,9 +106,9 @@ export default function LandingPage() {
               <div className="h-16 w-16 rounded-2xl bg-red-900/20 flex items-center justify-center mb-6 border border-red-500/30 mx-auto group-hover:scale-110 transition-transform duration-500">
                 <Brain className="h-8 w-8 text-red-500" />
               </div>
-              <h3 className="text-xl font-bold text-white mb-3 text-center">2. Generate The Asset</h3>
+              <h3 className="text-xl font-bold text-white mb-3 text-center">2. Get High-Converting Copy</h3>
               <p className="text-gray-400 leading-relaxed text-center group-hover:text-gray-300 transition-colors">
-                Powered by Gemini 3, our engine analyzes your inputs against 50+ proven frameworks (PAS, AIDA, StoryBrand) to generate copy that doesn't just read well—it sells.
+                Our system analyzes your inputs against 50+ proven frameworks to generate copy designed to drive clicks, sales, and conversions.
               </p>
             </div>
 
@@ -116,9 +117,9 @@ export default function LandingPage() {
               <div className="h-16 w-16 rounded-2xl bg-red-900/20 flex items-center justify-center mb-6 border border-red-500/30 mx-auto group-hover:scale-110 transition-transform duration-500">
                 <GraduationCap className="h-8 w-8 text-red-500" />
               </div>
-              <h3 className="text-xl font-bold text-white mb-3 text-center">3. Analyze The Psychology</h3>
+              <h3 className="text-xl font-bold text-white mb-3 text-center">3. Learn The "Why"</h3>
               <p className="text-gray-400 leading-relaxed text-center group-hover:text-gray-300 transition-colors">
-                We don't just hand you the asset. We provide a <strong>line-by-line psychological breakdown</strong> of the strategy, empowering you to understand the "Why" behind the win.
+                We break down every line, showing you the psychology and strategy behind what makes it work. You're not just getting copy—you're learning the craft.
               </p>
             </div>
           </div>
@@ -269,7 +270,8 @@ export default function LandingPage() {
       <footer className="py-12 border-t border-white/5 bg-black/50 backdrop-blur-xl text-center">
         <div className="container mx-auto px-6 flex flex-col items-center gap-6">
           <div className="flex items-center gap-3 opacity-50 grayscale hover:grayscale-0 transition-all duration-500">
-            <img src="/verblynx-logo-v2.png" alt="Verblynx" className="h-12 w-auto rounded-lg" />
+            <img src="/verblynx-icon.png" alt="Verblynx Icon" className="h-8 w-8 rounded-lg" />
+            <span className="text-xl font-black tracking-tighter text-white">VERBLYNX</span>
           </div>
 
           <div className="flex items-center justify-center gap-2 opacity-50">
