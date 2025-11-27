@@ -54,7 +54,7 @@ export async function POST(req: NextRequest) {
                 "Authorization": `Bearer ${process.env.RESEND_API_KEY}`,
             },
             body: JSON.stringify({
-                from: "Verblynx <onboarding@verblynx.com>",
+                from: "Verblynx <onboarding@resend.dev>",
                 to: ["saziz4250@gmail.com"],
                 subject: subject,
                 html: htmlContent,

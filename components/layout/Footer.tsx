@@ -7,17 +7,12 @@ export function Footer() {
                 <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
                     {/* Brand Column */}
                     <div className="space-y-4">
-                        <Link href="/" className="flex items-center gap-2 group">
-                            <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-red-600 to-red-900 flex items-center justify-center shadow-lg shadow-red-900/20 group-hover:shadow-red-600/40 transition-all duration-300">
-                                <span className="font-bold text-white text-lg">V</span>
-                            </div>
-                            <span className="text-xl font-bold text-white tracking-tight group-hover:text-red-500 transition-colors">
-                                VERBLYNX
-                            </span>
+                        <Link href="/" className="flex items-center gap-3 group">
+                            <img src="/verblynx-icon.png" alt="Verblynx" className="h-8 w-8 rounded-lg" />
+                            <span className="text-xl font-black tracking-tighter text-white">VERBLYNX</span>
                         </Link>
-                        <p className="text-gray-400 text-sm leading-relaxed">
-                            The Elite Copywriting System. <br />
-                            No Talk. Just Walk.
+                        <p className="text-gray-400 text-sm leading-relaxed max-w-xs">
+                            The Elite Copywriting System.
                         </p>
                     </div>
 
