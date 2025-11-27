@@ -2,7 +2,7 @@
 
 import { DashboardHeader } from "@/components/dashboard/header"
 import { Button } from "@/components/ui/button"
-import { Plus, Sparkles, ArrowRight, Copy, Check } from "lucide-react"
+import { Plus, Sparkles, ArrowRight, Copy, Check, Brain, Layers, Zap } from "lucide-react"
 import Link from "next/link"
 import * as motion from "framer-motion/client"
 import { useEffect, useState } from "react"
@@ -96,16 +96,62 @@ export default function DashboardPage() {
                             </div>
                         </div>
 
-                        {/* The "Why" Explanation */}
+                        {/* The "Why" Explanation - Masterclass Breakdown */}
                         {latestCopy.explanation && (
-                            <div className="bg-blue-900/10 rounded-xl p-6 border border-blue-500/20">
-                                <h3 className="text-sm font-semibold text-blue-400 uppercase tracking-wider mb-3 flex items-center gap-2">
-                                    <Sparkles className="h-4 w-4" />
-                                    Why This Works
+                            <div className="space-y-4">
+                                <h3 className="text-sm font-semibold text-gray-400 uppercase tracking-wider flex items-center gap-2">
+                                    <Sparkles className="h-4 w-4 text-red-500" />
+                                    Masterclass Breakdown
                                 </h3>
-                                <div className="text-gray-300 leading-relaxed whitespace-pre-wrap">
-                                    {latestCopy.explanation}
-                                </div>
+
+                                {typeof latestCopy.explanation === 'object' ? (
+                                    <div className="grid md:grid-cols-3 gap-6">
+                                        {/* Psychology Card */}
+                                        <div className="bg-purple-900/10 border border-purple-500/20 rounded-xl p-6">
+                                            <div className="flex items-center gap-2 mb-3">
+                                                <div className="h-8 w-8 rounded-lg bg-purple-500/20 flex items-center justify-center">
+                                                    <Brain className="h-4 w-4 text-purple-400" />
+                                                </div>
+                                                <span className="font-bold text-purple-200">Psychology</span>
+                                            </div>
+                                            <p className="text-sm text-purple-100/80 leading-relaxed">
+                                                {latestCopy.explanation.psychology}
+                                            </p>
+                                        </div>
+
+                                        {/* Structure Card */}
+                                        <div className="bg-blue-900/10 border border-blue-500/20 rounded-xl p-6">
+                                            <div className="flex items-center gap-2 mb-3">
+                                                <div className="h-8 w-8 rounded-lg bg-blue-500/20 flex items-center justify-center">
+                                                    <Layers className="h-4 w-4 text-blue-400" />
+                                                </div>
+                                                <span className="font-bold text-blue-200">Structure</span>
+                                            </div>
+                                            <p className="text-sm text-blue-100/80 leading-relaxed">
+                                                {latestCopy.explanation.structure}
+                                            </p>
+                                        </div>
+
+                                        {/* Power Words Card */}
+                                        <div className="bg-yellow-900/10 border border-yellow-500/20 rounded-xl p-6">
+                                            <div className="flex items-center gap-2 mb-3">
+                                                <div className="h-8 w-8 rounded-lg bg-yellow-500/20 flex items-center justify-center">
+                                                    <Zap className="h-4 w-4 text-yellow-400" />
+                                                </div>
+                                                <span className="font-bold text-yellow-200">Power Words</span>
+                                            </div>
+                                            <p className="text-sm text-yellow-100/80 leading-relaxed">
+                                                {latestCopy.explanation.word_choice}
+                                            </p>
+                                        </div>
+                                    </div>
+                                ) : (
+                                    <div className="bg-blue-900/10 rounded-xl p-6 border border-blue-500/20">
+                                        <div className="text-gray-300 leading-relaxed whitespace-pre-wrap">
+                                            {latestCopy.explanation}
+                                        </div>
+                                    </div>
+                                )}
                             </div>
                         )}
                     </motion.div>
