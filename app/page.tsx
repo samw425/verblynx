@@ -73,7 +73,7 @@ export default function LandingPage() {
             className="text-6xl md:text-8xl lg:text-9xl font-black tracking-tighter text-white leading-[0.9]"
           >
             THEY LAUGHED WHEN I SAID <br />
-            <span className="text-transparent bg-clip-text bg-gradient-to-b from-red-500 to-red-800">AI COULD TEACH COPYWRITING...</span>
+            <span className="text-transparent bg-clip-text bg-gradient-to-b from-red-500 to-red-800">A MACHINE COULD TEACH COPYWRITING...</span>
           </motion.h1>
 
           <motion.p
@@ -91,7 +91,7 @@ export default function LandingPage() {
             transition={{ duration: 0.6, delay: 0.25 }}
             className="text-xl text-gray-400 max-w-3xl mx-auto leading-relaxed pt-4"
           >
-            The only AI that doesn't just write copy—it <span className="text-white font-bold">turns you into a master copywriter</span>. Every word. Every trigger. Every framework. Explained.
+            The only system that doesn't just write copy—it <span className="text-white font-bold">turns you into a master copywriter</span>. Every word. Every trigger. Every framework. Explained.
           </motion.p>
 
           <motion.div
@@ -575,7 +575,7 @@ export default function LandingPage() {
             <div className="p-10 rounded-3xl relative overflow-hidden border border-white/10 hover:border-white/30 transition-colors bg-white/5">
               <h3 className="text-2xl font-bold text-white mb-2">Initiate</h3>
               <div className="text-5xl font-black text-white mb-2">$0</div>
-              <div className="text-sm text-gray-500 mb-8">Forever free. No credit card required.</div>
+              <div className="text-sm text-gray-500 mb-8">Free during beta. No credit card required.</div>
               <p className="text-gray-400 mb-8 leading-relaxed">
                 Perfect for testing the system and learning the fundamentals of strategic copywriting.
               </p>
@@ -615,12 +615,12 @@ export default function LandingPage() {
                 Most Popular
               </div>
 
-              <h3 className="text-2xl font-bold text-white mb-2 mt-8">Dominion</h3>
+              <h3 className="text-2xl font-bold text-white mb-2 mt-8">Elite</h3>
               <div className="flex items-baseline gap-3 mb-2">
                 <div className="text-5xl font-black text-white">$0</div>
                 <div className="text-2xl font-medium text-gray-500 line-through">$49</div>
               </div>
-              <div className="text-sm text-red-400 mb-8 font-bold">Limited Beta Access • Locking in $0/mo forever</div>
+              <div className="text-sm text-red-400 mb-8 font-bold">Limited Beta • Lock in $0/mo for life</div>
               <p className="text-gray-300 mb-8 leading-relaxed">
                 For professionals who demand unlimited power, deep psychological insights, and mastery-level education.
               </p>
@@ -726,7 +726,7 @@ export default function LandingPage() {
             <div className="flex items-center justify-center gap-8 text-sm text-gray-500 pt-8">
               <div className="flex items-center gap-2">
                 <CheckCircle2 className="h-4 w-4 text-red-500" />
-                <span>Free Forever Tier</span>
+                <span>Free Beta Access</span>
               </div>
               <div className="flex items-center gap-2">
                 <CheckCircle2 className="h-4 w-4 text-red-500" />

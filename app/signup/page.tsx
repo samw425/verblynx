@@ -8,7 +8,7 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
-import { Sparkles, Loader2 } from "lucide-react"
+import { Sparkles, Loader2, Lock } from "lucide-react"
 import { toast } from "sonner"
 
 export default function SignupPage() {
@@ -30,6 +30,7 @@ export default function SignupPage() {
                 options: {
                     data: {
                         full_name: fullName,
+                        beta_access: true, // Mark as beta user
                     },
                 },
             })
@@ -39,8 +40,8 @@ export default function SignupPage() {
                 return
             }
 
-            toast.success("Account created! Please check your email.")
-            router.push("/login")
+            toast.success("Welcome to Beta! Check your email to verify.")
+            router.push("/dashboard")
         } catch (error) {
             toast.error("Something went wrong")
         } finally {
@@ -58,13 +59,13 @@ export default function SignupPage() {
                 <CardHeader className="space-y-1 text-center">
                     <div className="flex justify-center mb-6">
                         <div className="inline-flex items-center gap-2 rounded-full border border-red-500/20 bg-red-950/30 px-4 py-1.5 text-sm font-medium text-red-400">
-                            <Sparkles className="h-3.5 w-3.5" />
-                            <span>Verblynx</span>
+                            <Lock className="h-3.5 w-3.5" />
+                            <span>EXCLUSIVE BETA ACCESS</span>
                         </div>
                     </div>
-                    <CardTitle className="text-3xl font-black tracking-tight text-white">Join the Elite</CardTitle>
+                    <CardTitle className="text-3xl font-black tracking-tight text-white">Claim Your Beta Spot</CardTitle>
                     <CardDescription className="text-gray-400">
-                        Create your account to start mastering persuasion.
+                        Limited slots available. Get full access while it's free.
                     </CardDescription>
                 </CardHeader>
                 <CardContent>
@@ -103,48 +104,24 @@ export default function SignupPage() {
                                 className="bg-gray-900/50 border-white/10 text-white focus:border-red-500/50 focus:ring-red-500/20"
                             />
                         </div>
+
+                        <div className="p-3 rounded-lg bg-red-900/10 border border-red-500/20">
+                            <p className="text-xs text-red-400 leading-relaxed">
+                                <strong>Beta Pricing:</strong> $0/month now. Lock in this rate forever when we launch.
+                            </p>
+                        </div>
+
                         <Button type="submit" className="w-full bg-red-600 hover:bg-red-700 text-white font-medium shadow-[0_0_20px_-5px_rgba(220,38,38,0.4)] transition-all" disabled={isLoading}>
                             {isLoading ? (
                                 <>
                                     <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                                    Creating account...
+                                    Claiming spot...
                                 </>
                             ) : (
-                                "Sign Up"
+                                "Claim Beta Access"
                             )}
                         </Button>
                     </form>
-                    <div className="relative my-6">
-                        <div className="absolute inset-0 flex items-center">
-                            <span className="w-full border-t border-white/10" />
-                        </div>
-                        <div className="relative flex justify-center text-xs uppercase">
-                            <span className="bg-black px-2 text-gray-500">
-                                Or continue with
-                            </span>
-                        </div>
-                    </div>
-                    <Button variant="outline" className="w-full bg-transparent border-white/10 text-white hover:bg-white/5 hover:text-white" type="button" onClick={async () => {
-                        setIsLoading(true)
-                        try {
-                            const { error } = await supabase.auth.signInWithOAuth({
-                                provider: 'google',
-                                options: {
-                                    redirectTo: `${location.origin}/auth/callback`,
-                                },
-                            })
-                            if (error) throw error
-                            toast.success("Redirecting to Google...")
-                            router.push("/dashboard")
-                        } catch (error) {
-                            toast.error("Failed to start Google login")
-                        } finally {
-                            setIsLoading(false)
-                        }
-                    }}>
-                        <svg className="mr-2 h-4 w-4" aria-hidden="true" focusable="false" data-prefix="fab" data-icon="google" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 488 512"><path fill="currentColor" d="M488 261.8C488 403.3 391.1 504 248 504 110.8 504 0 393.2 0 256S110.8 8 248 8c66.8 0 123 24.5 166.3 64.9l-67.5 64.9C258.5 52.6 94.3 116.6 94.3 256c0 86.5 69.1 156.6 153.7 156.6 98.2 0 135-70.4 140.8-106.9H248v-85.3h236.1c2.3 12.7 3.9 24.9 3.9 41.4z"></path></svg>
-                        Google
-                    </Button>
                 </CardContent>
                 <CardFooter className="flex justify-center">
                     <p className="text-sm text-gray-500">
