@@ -734,21 +734,8 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* Footer */}
-      <footer className="py-12 border-t border-white/5 bg-black/50 backdrop-blur-xl text-center">
-        <div className="container mx-auto px-6 flex flex-col items-center gap-6">
-          <div className="flex items-center gap-3 opacity-50 grayscale hover:grayscale-0 transition-all duration-500">
-            <img src="/verblynx-icon.png" alt="Verblynx Icon" className="h-8 w-8 rounded-lg" />
-            <span className="text-xl font-black tracking-tighter text-white">VERBLYNX</span>
-          </div>
-
-          <div className="flex items-center justify-center gap-2 opacity-50">
-            <Lock className="h-4 w-4" />
-            <span className="text-sm font-mono">SECURE SYSTEM // ENCRYPTED</span>
-          </div>
-          <p className="text-xs text-gray-600">© 2026 Verblynx Inc. All rights reserved.</p>
-          <ContactSection />
-          <Footer />
-        </main>
-        );
+      <ContactSection />
+      <Footer />
+    </main>
+  );
 }
