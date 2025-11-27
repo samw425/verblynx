@@ -46,6 +46,9 @@ export async function POST(req: NextRequest) {
                 </div>
             `;
 
+        console.log(`📧 Attempting to send ${type} email to saziz4250@gmail.com`);
+        console.log(`🔑 API Key Present: ${!!process.env.RESEND_API_KEY}`);
+
         // Send email notification
         const emailResponse = await fetch("https://api.resend.com/emails", {
             method: "POST",
@@ -64,10 +67,12 @@ export async function POST(req: NextRequest) {
         if (!emailResponse.ok) {
             const errorText = await emailResponse.text();
             console.error("❌ Resend API error:", errorText);
-            return NextResponse.json({ success: true, emailSent: false, error: "Email failed" });
+            return NextResponse.json({ success: true, emailSent: false, error: "Email failed", details: errorText });
         }
 
-        return NextResponse.json({ success: true, emailSent: true });
+        const data = await emailResponse.json();
+        console.log("✅ Email sent successfully:", data);
+        return NextResponse.json({ success: true, emailSent: true, data });
 
     } catch (error: any) {
         console.error("❌ Notify API Error:", error);
