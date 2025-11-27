@@ -747,9 +747,8 @@ export default function LandingPage() {
             <span className="text-sm font-mono">SECURE SYSTEM // ENCRYPTED</span>
           </div>
           <p className="text-xs text-gray-600">© 2026 Verblynx Inc. All rights reserved.</p>
-        </div>
-      </footer>
-    </div>
-  );
+          <ContactSection />
+          <Footer />
+        </main>
+        );
 }
-```
