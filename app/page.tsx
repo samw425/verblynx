@@ -238,104 +238,106 @@ export default function LandingPage() {
                 </div>
               </div>
             </div>
-          </section>
+          </div>
+        </div>
+      </section>
 
-          {/* PROOF SECTION */}
-          <div id="proof">
-            <NoTalkJustWalkSection />
+      {/* PROOF SECTION */}
+      <div id="proof">
+        <NoTalkJustWalkSection />
+      </div>
+
+      {/* SECTION: WHAT WE OFFER */}
+      <section id="what-we-offer" className="py-32 relative overflow-hidden bg-black/50 border-t border-white/5">
+        <div className="container mx-auto px-6 relative z-10">
+          <div className="text-center mb-20">
+            <h2 className="text-4xl md:text-5xl font-bold mb-6">The Verblynx Ecosystem</h2>
+            <p className="text-xl text-gray-400">More than a tool. A complete operating system for growth.</p>
           </div>
 
-          {/* SECTION: WHAT WE OFFER */}
-          <section id="what-we-offer" className="py-32 relative overflow-hidden bg-black/50 border-t border-white/5">
-            <div className="container mx-auto px-6 relative z-10">
-              <div className="text-center mb-20">
-                <h2 className="text-4xl md:text-5xl font-bold mb-6">The Verblynx Ecosystem</h2>
-                <p className="text-xl text-gray-400">More than a tool. A complete operating system for growth.</p>
-              </div>
+          <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+            {/* Free Tier */}
+            <div className="glass-card p-10 rounded-3xl relative overflow-hidden">
+              <h3 className="text-2xl font-bold text-white mb-2">Initiate</h3>
+              <div className="text-4xl font-black text-white mb-6">$0</div>
+              <p className="text-gray-400 mb-8">Essential tools for early-stage validation.</p>
 
-              <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-                {/* Free Tier */}
-                <div className="glass-card p-10 rounded-3xl relative overflow-hidden">
-                  <h3 className="text-2xl font-bold text-white mb-2">Initiate</h3>
-                  <div className="text-4xl font-black text-white mb-6">$0</div>
-                  <p className="text-gray-400 mb-8">Essential tools for early-stage validation.</p>
+              <ul className="space-y-4 mb-10">
+                <li className="flex items-center gap-3 text-gray-300">
+                  <CheckCircle2 className="h-5 w-5 text-gray-500" />
+                  <span>3 Daily Generations</span>
+                </li>
+                <li className="flex items-center gap-3 text-gray-300">
+                  <CheckCircle2 className="h-5 w-5 text-gray-500" />
+                  <span>Basic "Why It Works" Analysis</span>
+                </li>
+                <li className="flex items-center gap-3 text-gray-300">
+                  <CheckCircle2 className="h-5 w-5 text-gray-500" />
+                  <span>Standard Processing</span>
+                </li>
+              </ul>
 
-                  <ul className="space-y-4 mb-10">
-                    <li className="flex items-center gap-3 text-gray-300">
-                      <CheckCircle2 className="h-5 w-5 text-gray-500" />
-                      <span>3 Daily Generations</span>
-                    </li>
-                    <li className="flex items-center gap-3 text-gray-300">
-                      <CheckCircle2 className="h-5 w-5 text-gray-500" />
-                      <span>Basic "Why It Works" Analysis</span>
-                    </li>
-                    <li className="flex items-center gap-3 text-gray-300">
-                      <CheckCircle2 className="h-5 w-5 text-gray-500" />
-                      <span>Standard Processing</span>
-                    </li>
-                  </ul>
-
-                  <Link href="/signup">
-                    <Button variant="outline" className="w-full h-14 rounded-full border-white/10 hover:bg-white hover:text-black transition-all">
-                      Start Free
-                    </Button>
-                  </Link>
-                </div>
-
-                {/* Pro Tier (Beta) */}
-                <div className="glass-card p-10 rounded-3xl relative overflow-hidden border-red-500/30 bg-red-900/5">
-                  <div className="absolute top-0 right-0 px-6 py-2 bg-red-600 text-white text-xs font-bold uppercase tracking-widest rounded-bl-2xl">
-                    Beta Access
-                  </div>
-
-                  <h3 className="text-2xl font-bold text-white mb-2">Dominion</h3>
-                  <div className="text-4xl font-black text-white mb-6">$0 <span className="text-lg font-medium text-gray-500 line-through">$49</span></div>
-                  <p className="text-gray-400 mb-8">Unrestricted access for power users.</p>
-
-                  <ul className="space-y-4 mb-10">
-                    <li className="flex items-center gap-3 text-white">
-                      <CheckCircle2 className="h-5 w-5 text-red-500" />
-                      <span><strong>Unlimited</strong> Generations</span>
-                    </li>
-                    <li className="flex items-center gap-3 text-white">
-                      <CheckCircle2 className="h-5 w-5 text-red-500" />
-                      <span><strong>Deep Dive</strong> Psychological Breakdowns</span>
-                    </li>
-                    <li className="flex items-center gap-3 text-white">
-                      <CheckCircle2 className="h-5 w-5 text-red-500" />
-                      <span><strong>Priority</strong> Inference Engine</span>
-                    </li>
-                    <li className="flex items-center gap-3 text-white">
-                      <CheckCircle2 className="h-5 w-5 text-red-500" />
-                      <span>Advanced Tone Control</span>
-                    </li>
-                  </ul>
-
-                  <Link href="/signup">
-                    <Button className="w-full h-14 rounded-full bg-red-600 hover:bg-red-700 text-white font-bold shadow-[0_0_30px_-5px_rgba(220,38,38,0.4)] transition-all hover:scale-105">
-                      Get Full Access
-                    </Button>
-                  </Link>
-                </div>
-              </div>
+              <Link href="/signup">
+                <Button variant="outline" className="w-full h-14 rounded-full border-white/10 hover:bg-white hover:text-black transition-all">
+                  Start Free
+                </Button>
+              </Link>
             </div>
-          </section>
 
-          {/* Footer */}
-          <footer className="py-12 border-t border-white/5 bg-black/50 backdrop-blur-xl text-center">
-            <div className="container mx-auto px-6 flex flex-col items-center gap-6">
-              <div className="flex items-center gap-3 opacity-50 grayscale hover:grayscale-0 transition-all duration-500">
-                <img src="/verblynx-icon.png" alt="Verblynx Icon" className="h-8 w-8 rounded-lg" />
-                <span className="text-xl font-black tracking-tighter text-white">VERBLYNX</span>
+            {/* Pro Tier (Beta) */}
+            <div className="glass-card p-10 rounded-3xl relative overflow-hidden border-red-500/30 bg-red-900/5">
+              <div className="absolute top-0 right-0 px-6 py-2 bg-red-600 text-white text-xs font-bold uppercase tracking-widest rounded-bl-2xl">
+                Beta Access
               </div>
 
-              <div className="flex items-center justify-center gap-2 opacity-50">
-                <Lock className="h-4 w-4" />
-                <span className="text-sm font-mono">SECURE SYSTEM // ENCRYPTED</span>
-              </div>
-              <p className="text-xs text-gray-600">© 2026 Verblynx Inc. All rights reserved.</p>
+              <h3 className="text-2xl font-bold text-white mb-2">Dominion</h3>
+              <div className="text-4xl font-black text-white mb-6">$0 <span className="text-lg font-medium text-gray-500 line-through">$49</span></div>
+              <p className="text-gray-400 mb-8">Unrestricted access for power users.</p>
+
+              <ul className="space-y-4 mb-10">
+                <li className="flex items-center gap-3 text-white">
+                  <CheckCircle2 className="h-5 w-5 text-red-500" />
+                  <span><strong>Unlimited</strong> Generations</span>
+                </li>
+                <li className="flex items-center gap-3 text-white">
+                  <CheckCircle2 className="h-5 w-5 text-red-500" />
+                  <span><strong>Deep Dive</strong> Psychological Breakdowns</span>
+                </li>
+                <li className="flex items-center gap-3 text-white">
+                  <CheckCircle2 className="h-5 w-5 text-red-500" />
+                  <span><strong>Priority</strong> Inference Engine</span>
+                </li>
+                <li className="flex items-center gap-3 text-white">
+                  <CheckCircle2 className="h-5 w-5 text-red-500" />
+                  <span>Advanced Tone Control</span>
+                </li>
+              </ul>
+
+              <Link href="/signup">
+                <Button className="w-full h-14 rounded-full bg-red-600 hover:bg-red-700 text-white font-bold shadow-[0_0_30px_-5px_rgba(220,38,38,0.4)] transition-all hover:scale-105">
+                  Get Full Access
+                </Button>
+              </Link>
             </div>
-          </footer>
+          </div>
         </div>
-        );
+      </section>
+
+      {/* Footer */}
+      <footer className="py-12 border-t border-white/5 bg-black/50 backdrop-blur-xl text-center">
+        <div className="container mx-auto px-6 flex flex-col items-center gap-6">
+          <div className="flex items-center gap-3 opacity-50 grayscale hover:grayscale-0 transition-all duration-500">
+            <img src="/verblynx-icon.png" alt="Verblynx Icon" className="h-8 w-8 rounded-lg" />
+            <span className="text-xl font-black tracking-tighter text-white">VERBLYNX</span>
+          </div>
+
+          <div className="flex items-center justify-center gap-2 opacity-50">
+            <Lock className="h-4 w-4" />
+            <span className="text-sm font-mono">SECURE SYSTEM // ENCRYPTED</span>
+          </div>
+          <p className="text-xs text-gray-600">© 2026 Verblynx Inc. All rights reserved.</p>
+        </div>
+      </footer>
+    </div>
+  );
 }
