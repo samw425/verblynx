@@ -1,6 +1,8 @@
 "use client"
 
 import Link from "next/link"
+import { Footer } from "@/components/layout/Footer";
+import { ContactSection } from "@/components/landing/ContactSection";
 import { Button } from "@/components/ui/button"
 import { ArrowRight, CheckCircle2, ChevronRight, Target, Brain, Zap, Lock, BarChart3, Search, PenTool, GraduationCap, BookOpen, Users, Trophy, Play, X, Check, Gauge, Layers, Sparkles, AlertTriangle, TrendingUp, Shield, Code2, Lightbulb, FileText, Eye } from "lucide-react"
 import { useState } from "react"
@@ -750,3 +752,4 @@ export default function LandingPage() {
     </div>
   );
 }
+```
