@@ -2,14 +2,45 @@
 
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
-import { ArrowRight, Sparkles, Zap, Shield, CheckCircle2, Play, Lock, ChevronRight, Star } from "lucide-react"
+import { ArrowRight, Sparkles, Zap, Shield, CheckCircle2, Play, Lock, ChevronRight, Star, Target, Brain, Gauge, BookOpen, GraduationCap, Layers } from "lucide-react"
 import { NoTalkJustWalkSection } from "@/components/landing/no-talk-just-walk"
 
 export default function LandingPage() {
+  const scrollToSection = (id: string) => {
+    const element = document.getElementById(id);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   return (
     <div className="flex flex-col min-h-screen bg-black text-white overflow-hidden font-sans selection:bg-red-500/30">
 
-      {/* Hero Section - Aether Style */}
+      {/* Navbar - Sticky Glass */}
+      <nav className="fixed top-0 left-0 right-0 z-50 px-6 py-4 transition-all duration-300">
+        <div className="max-w-6xl mx-auto bg-black/50 backdrop-blur-xl border border-white/10 rounded-full px-6 py-3 flex items-center justify-between">
+          <div className="flex items-center gap-2 cursor-pointer" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
+            <img src="/verblynx-logo.png" alt="Verblynx Logo" className="h-8 w-auto" />
+          </div>
+
+          <div className="hidden md:flex items-center gap-8 text-sm font-medium text-gray-400">
+            <button onClick={() => scrollToSection('how-it-works')} className="hover:text-white transition-colors">How it Works</button>
+            <button onClick={() => scrollToSection('why-verblynx')} className="hover:text-white transition-colors">Why Verblynx</button>
+            <button onClick={() => scrollToSection('what-we-offer')} className="hover:text-white transition-colors">What We Offer</button>
+          </div>
+
+          <div className="flex items-center gap-4">
+            <Link href="/login" className="text-sm font-medium text-gray-400 hover:text-white hidden sm:block">Login</Link>
+            <Link href="/signup">
+              <Button size="sm" className="rounded-full bg-white text-black hover:bg-gray-200 font-bold">
+                Get Access
+              </Button>
+            </Link>
+          </div>
+        </div>
+      </nav>
+
+      {/* Hero Section */}
       <section className="relative min-h-screen flex items-center justify-center px-6 pt-32 pb-20 overflow-hidden">
 
         {/* Animated Background Blobs */}
@@ -33,37 +64,34 @@ export default function LandingPage() {
           {/* Headline */}
           <h1 className="text-6xl md:text-8xl font-bold tracking-tight leading-[1.1] animate-slide-up" style={{ animationDelay: '0.1s' }}>
             <span className="bg-clip-text text-transparent bg-gradient-to-b from-white via-white to-gray-500">
-              Architect Your
+              Master The Art of
             </span>
             <br />
             <span className="bg-clip-text text-transparent bg-gradient-to-r from-red-500 via-red-600 to-red-800">
-              Revenue Engine.
+              Persuasion.
             </span>
           </h1>
 
           {/* Subheadline */}
           <p className="text-xl text-gray-400 max-w-2xl mx-auto leading-relaxed animate-slide-up" style={{ animationDelay: '0.2s' }}>
-            Verblynx is the elite copywriting system for founders who demand precision.
-            Stop guessing. Start commanding.
+            Verblynx is the only system that <strong>generates elite copy</strong> AND <strong>teaches you the psychology behind it</strong>. Don't just get the fish. Learn to hunt.
           </p>
 
           {/* CTAs */}
           <div className="flex flex-col sm:flex-row items-center justify-center gap-6 pt-4 animate-slide-up" style={{ animationDelay: '0.3s' }}>
-            <Link href="/create">
+            <Link href="/signup">
               <Button className="h-14 px-8 rounded-full bg-white text-black hover:bg-gray-200 font-bold text-lg transition-all hover:scale-105 shadow-[0_0_30px_-5px_rgba(255,255,255,0.3)]">
                 Initialize System <ChevronRight className="ml-2 h-5 w-5" />
               </Button>
             </Link>
-            <Link href="#proof">
-              <Button variant="ghost" className="h-14 px-8 rounded-full text-gray-400 hover:text-white hover:bg-white/5 border border-white/10 text-lg">
-                View Proof
-              </Button>
-            </Link>
+            <button onClick={() => scrollToSection('how-it-works')} className="h-14 px-8 rounded-full text-gray-400 hover:text-white hover:bg-white/5 border border-white/10 text-lg transition-all flex items-center justify-center">
+              See How It Works
+            </button>
           </div>
 
           {/* Social Proof */}
           <div className="pt-12 animate-fade-in" style={{ animationDelay: '0.5s' }}>
-            <p className="text-sm text-gray-500 mb-4 uppercase tracking-widest">Powering Elite Founders</p>
+            <p className="text-sm text-gray-500 mb-4 uppercase tracking-widest">Deployed By Elite Founders</p>
             <div className="flex justify-center gap-2">
               {[1, 2, 3, 4, 5].map((i) => (
                 <Star key={i} className="h-5 w-5 text-red-500 fill-red-500" />
@@ -73,41 +101,108 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* THE PHILOSOPHY */}
-      <section className="py-32 bg-black relative overflow-hidden border-t border-white/5">
+      {/* SECTION: HOW IT WORKS */}
+      <section id="how-it-works" className="py-32 relative border-t border-white/5 bg-black/50">
+        <div className="container mx-auto px-6">
+          <div className="text-center mb-20">
+            <h2 className="text-4xl md:text-5xl font-bold mb-6">How It Works</h2>
+            <p className="text-xl text-gray-400">A dual-engine approach to mastery.</p>
+          </div>
+
+          <div className="grid md:grid-cols-3 gap-8 relative">
+            {/* Connecting Line (Desktop) */}
+            <div className="hidden md:block absolute top-12 left-[16%] right-[16%] h-0.5 bg-gradient-to-r from-red-500/0 via-red-500/50 to-red-500/0 z-0" />
+
+            {/* Step 1 */}
+            <div className="glass-card p-8 rounded-3xl relative z-10 bg-black group hover:bg-red-900/10 transition-colors duration-500">
+              <div className="h-16 w-16 rounded-2xl bg-red-900/20 flex items-center justify-center mb-6 border border-red-500/30 mx-auto group-hover:scale-110 transition-transform duration-500">
+                <Target className="h-8 w-8 text-red-500" />
+              </div>
+              <h3 className="text-xl font-bold text-white mb-3 text-center">1. Strategic Input</h3>
+              <p className="text-gray-400 leading-relaxed text-center group-hover:text-gray-300 transition-colors">
+                You don't just ask for "an email". You define the Objective, Audience, and Tone. Our system forces you to think like a strategist before you begin.
+              </p>
+            </div>
+
+            {/* Step 2 */}
+            <div className="glass-card p-8 rounded-3xl relative z-10 bg-black group hover:bg-red-900/10 transition-colors duration-500">
+              <div className="h-16 w-16 rounded-2xl bg-red-900/20 flex items-center justify-center mb-6 border border-red-500/30 mx-auto group-hover:scale-110 transition-transform duration-500">
+                <Brain className="h-8 w-8 text-red-500" />
+              </div>
+              <h3 className="text-xl font-bold text-white mb-3 text-center">2. Inference & Generation</h3>
+              <p className="text-gray-400 leading-relaxed text-center group-hover:text-gray-300 transition-colors">
+                Our Gemini 3-powered engine analyzes your inputs against 50+ proven copywriting frameworks (PAS, AIDA, StoryBrand) to generate high-converting copy.
+              </p>
+            </div>
+
+            {/* Step 3 */}
+            <div className="glass-card p-8 rounded-3xl relative z-10 bg-black group hover:bg-red-900/10 transition-colors duration-500">
+              <div className="h-16 w-16 rounded-2xl bg-red-900/20 flex items-center justify-center mb-6 border border-red-500/30 mx-auto group-hover:scale-110 transition-transform duration-500">
+                <GraduationCap className="h-8 w-8 text-red-500" />
+              </div>
+              <h3 className="text-xl font-bold text-white mb-3 text-center">3. The Breakdown</h3>
+              <p className="text-gray-400 leading-relaxed text-center group-hover:text-gray-300 transition-colors">
+                Here is the magic. We don't just give you the text. We provide a <strong>line-by-line psychological breakdown</strong> of WHY it works, so you learn the craft.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* SECTION: WHY VERBLYNX */}
+      <section id="why-verblynx" className="py-32 relative overflow-hidden">
         <div className="container mx-auto px-6 relative z-10">
           <div className="grid md:grid-cols-2 gap-16 items-center">
             <div className="space-y-8">
               <h2 className="text-5xl md:text-7xl font-black tracking-tighter text-white">
-                NOT JUST <br />
-                <span className="text-red-600">ANOTHER LLM.</span>
+                THE END OF <br />
+                <span className="text-red-600">GUESSWORK.</span>
               </h2>
               <p className="text-xl text-gray-400 leading-relaxed">
-                Standard models guess. <strong className="text-white">Verblynx calculates.</strong>
+                Amateurs write until they think it sounds good. <strong className="text-white">Professionals engineer until it converts.</strong>
               </p>
               <p className="text-lg text-gray-500 leading-relaxed">
-                We built a proprietary "Strategic Inference Layer" that sits between you and the AI. It forces a professional workflow—Objective, Audience, Tone—before a single word is generated. The result? Copy that converts, not just copy that reads well.
+                Most tools are "black boxes". You put a prompt in, you get text out. You learn nothing. You remain dependent.
+              </p>
+              <p className="text-lg text-gray-500 leading-relaxed">
+                Verblynx is a "glass box". We show you the mechanics of persuasion. We reveal the hidden triggers. We turn you into a master copywriter, with AI as your exoskeleton.
               </p>
 
               <div className="grid grid-cols-2 gap-6 pt-4">
                 <div className="p-6 rounded-2xl bg-white/5 border border-white/10">
                   <div className="text-3xl font-bold text-white mb-1">10x</div>
-                  <div className="text-sm text-gray-400 uppercase tracking-wider">Conversion Lift</div>
+                  <div className="text-sm text-gray-400 uppercase tracking-wider">Speed to Market</div>
                 </div>
                 <div className="p-6 rounded-2xl bg-white/5 border border-white/10">
-                  <div className="text-3xl font-bold text-white mb-1">0%</div>
-                  <div className="text-sm text-gray-400 uppercase tracking-wider">Hallucination</div>
+                  <div className="text-3xl font-bold text-white mb-1">100%</div>
+                  <div className="text-sm text-gray-400 uppercase tracking-wider">Strategic Alignment</div>
                 </div>
               </div>
             </div>
-            <div className="glass-card p-8 rounded-3xl">
-              <div className="h-12 w-12 rounded-2xl bg-purple-500/10 flex items-center justify-center mb-6 border border-purple-500/20">
-                <Sparkles className="h-6 w-6 text-purple-500" />
+
+            {/* Visual Representation */}
+            <div className="relative h-[600px] bg-gradient-to-br from-gray-900 to-black rounded-3xl border border-white/10 overflow-hidden shadow-2xl p-8 flex flex-col justify-between group hover:border-red-500/30 transition-colors duration-500">
+              <div className="absolute inset-0 bg-[url('/grid.svg')] opacity-20" />
+
+              {/* Floating Cards Animation */}
+              <div className="space-y-4 relative z-10">
+                <div className="p-4 rounded-xl bg-red-900/20 border border-red-500/30 text-red-200 text-sm font-mono animate-pulse">
+                  &gt; Analyzing Audience Psychology...
+                </div>
+                <div className="p-4 rounded-xl bg-blue-900/20 border border-blue-500/30 text-blue-200 text-sm font-mono delay-150">
+                  &gt; Identifying Pain Points...
+                </div>
+                <div className="p-4 rounded-xl bg-green-900/20 border border-green-500/30 text-green-200 text-sm font-mono delay-300">
+                  &gt; Optimizing for Maximum Impact...
+                </div>
               </div>
-              <h3 className="text-xl font-bold text-white mb-3">Tone Calibration</h3>
-              <p className="text-gray-400 leading-relaxed">
-                Dial in the exact emotional resonance. From "Authoritative & Direct" to "Empathetic & Warm", you control the voice of your brand.
-              </p>
+
+              <div className="mt-auto">
+                <div className="h-2 w-full bg-gray-800 rounded-full overflow-hidden">
+                  <div className="h-full bg-gradient-to-r from-red-500 to-purple-500 w-full animate-[shimmer_2s_infinite]" />
+                </div>
+                <p className="text-xs text-gray-500 mt-3 font-mono text-right">SYSTEM ACTIVE // V.3.0.1</p>
+              </div>
             </div>
           </div>
         </div>
@@ -118,12 +213,12 @@ export default function LandingPage() {
         <NoTalkJustWalkSection />
       </div>
 
-      {/* Pricing Section - Aether Style */}
-      <section className="py-32 relative overflow-hidden">
+      {/* SECTION: WHAT WE OFFER */}
+      <section id="what-we-offer" className="py-32 relative overflow-hidden bg-black/50 border-t border-white/5">
         <div className="container mx-auto px-6 relative z-10">
           <div className="text-center mb-20">
-            <h2 className="text-4xl md:text-5xl font-bold mb-6">Select Your Protocol</h2>
-            <p className="text-xl text-gray-400">Join the elite. Scale your output.</p>
+            <h2 className="text-4xl md:text-5xl font-bold mb-6">The Verblynx Ecosystem</h2>
+            <p className="text-xl text-gray-400">More than a tool. A complete operating system for growth.</p>
           </div>
 
           <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
@@ -140,11 +235,15 @@ export default function LandingPage() {
                 </li>
                 <li className="flex items-center gap-3 text-gray-300">
                   <CheckCircle2 className="h-5 w-5 text-gray-500" />
+                  <span>Basic "Why It Works" Analysis</span>
+                </li>
+                <li className="flex items-center gap-3 text-gray-300">
+                  <CheckCircle2 className="h-5 w-5 text-gray-500" />
                   <span>Standard Processing</span>
                 </li>
               </ul>
 
-              <Link href="/create">
+              <Link href="/signup">
                 <Button variant="outline" className="w-full h-14 rounded-full border-white/10 hover:bg-white hover:text-black transition-all">
                   Start Free
                 </Button>
@@ -168,6 +267,10 @@ export default function LandingPage() {
                 </li>
                 <li className="flex items-center gap-3 text-white">
                   <CheckCircle2 className="h-5 w-5 text-red-500" />
+                  <span><strong>Deep Dive</strong> Psychological Breakdowns</span>
+                </li>
+                <li className="flex items-center gap-3 text-white">
+                  <CheckCircle2 className="h-5 w-5 text-red-500" />
                   <span><strong>Priority</strong> Inference Engine</span>
                 </li>
                 <li className="flex items-center gap-3 text-white">
@@ -176,7 +279,7 @@ export default function LandingPage() {
                 </li>
               </ul>
 
-              <Link href="/create">
+              <Link href="/signup">
                 <Button className="w-full h-14 rounded-full bg-red-600 hover:bg-red-700 text-white font-bold shadow-[0_0_30px_-5px_rgba(220,38,38,0.4)] transition-all hover:scale-105">
                   Get Full Access
                 </Button>
@@ -188,8 +291,10 @@ export default function LandingPage() {
 
       {/* Footer */}
       <footer className="py-12 border-t border-white/5 bg-black/50 backdrop-blur-xl text-center">
-        <div className="container mx-auto px-6">
-          <div className="flex items-center justify-center gap-2 mb-4 opacity-50">
+        <div className="container mx-auto px-6 flex flex-col items-center gap-6">
+          <img src="/verblynx-logo.png" alt="Verblynx Logo" className="h-10 w-auto opacity-50 grayscale hover:grayscale-0 transition-all duration-500" />
+
+          <div className="flex items-center justify-center gap-2 opacity-50">
             <Lock className="h-4 w-4" />
             <span className="text-sm font-mono">SECURE SYSTEM // ENCRYPTED</span>
           </div>

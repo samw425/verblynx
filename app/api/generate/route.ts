@@ -61,14 +61,19 @@ Return ONLY the final copy. No "Here is your copy" preambles. No markdown code b
         const copyResult = await model.generateContent(copyPrompt)
         const generatedCopy = copyResult.response.text()
 
-        // Generate explanation of WHY this copy works
-        const explanationPrompt = `Analyze this ${type || 'marketing copy'} and explain in 2-3 sentences WHY it works from a psychological perspective. What persuasion principles are being used?
-
-COPY:
-${generatedCopy}
-
-AUDIENCE: ${audience || 'General audience'}
-GOAL: ${goal || 'Engage and convert'}`
+        // Generate explanation of WHY this copy works (The "Teaching" Engine)
+        const explanationPrompt = `You are a world-class copywriting mentor. The user has just generated the following copy:
+    
+    "${generatedCopy}"
+    
+    Your goal is to TEACH the user why this copy is effective. 
+    
+    Provide a "Masterclass Breakdown" in 3 bullet points:
+    1. **Psychological Trigger**: Identify the core psychological lever used (e.g., Scarcity, Social Proof, Fear of Missing Out).
+    2. **Structural Analysis**: Explain why the sentence structure or formatting works (e.g., "Short sentences build momentum").
+    3. **The "Why"**: Explain the strategic reasoning behind the tone or specific word choices.
+    
+    Keep it concise, educational, and empowering. Make the user feel like they are learning the craft.`
 
         const explanationResult = await model.generateContent(explanationPrompt)
         const explanation = explanationResult.response.text()
