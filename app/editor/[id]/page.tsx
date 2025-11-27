@@ -16,10 +16,18 @@ export default function EditorPage() {
     useEffect(() => {
         const stored = localStorage.getItem('verblynx_latest_copy')
         if (stored) {
-            const data = JSON.parse(stored)
-            setCopy(data.copy || "")
-            setStrategy(data.strategy || {})
-            setProjectName(data.projectName || "Untitled Project")
+            try {
+                const data = JSON.parse(stored)
+                if (data && data.copy) {
+                    setCopy(data.copy)
+                    setStrategy(data.strategy || {})
+                    setProjectName(data.projectName || "Untitled Project")
+                } else {
+                    console.error("Invalid data in localStorage")
+                }
+            } catch (e) {
+                console.error("Failed to parse localStorage data", e)
+            }
         }
         setIsLoaded(true)
     }, [])

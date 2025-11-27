@@ -119,6 +119,10 @@ export default function CreateProjectPage() {
             addLog("> FINALIZING OUTPUT...")
             await new Promise(r => setTimeout(r, 500))
 
+            if (!result || !result.copy) {
+                throw new Error("Generation failed: No copy returned")
+            }
+
             // Store result in localStorage for the editor page
             localStorage.setItem('verblynx_latest_copy', JSON.stringify({
                 ...result,
