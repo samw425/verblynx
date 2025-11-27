@@ -20,7 +20,7 @@ export default function LandingPage() {
       <nav className="fixed top-0 left-0 right-0 z-50 px-6 py-6 transition-all duration-300">
         <div className="max-w-7xl mx-auto bg-black/40 backdrop-blur-2xl border border-white/5 rounded-full px-8 py-4 flex items-center justify-between shadow-2xl shadow-black/50">
           <div className="flex items-center gap-3 cursor-pointer hover:opacity-80 transition-opacity" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
-            <img src="/verblynx-icon.png" alt="Verblynx Icon" className="h-10 w-10 rounded-xl" />
+            <img src="/verblynx-icon-new.png" alt="Verblynx Icon" className="h-10 w-10 rounded-xl" />
             <span className="text-2xl font-black tracking-tighter text-white">VERBLYNX</span>
           </div>
 
@@ -51,23 +51,16 @@ export default function LandingPage() {
         </div>
 
         <div className="z-10 max-w-5xl mx-auto text-center relative space-y-10">
-          {/* Badge */}
-          <div className="inline-flex items-center gap-2 rounded-full border border-red-500/20 bg-red-950/30 px-4 py-1.5 text-sm font-medium text-red-400 animate-fade-in backdrop-blur-md">
-            <div className="h-2 w-2 rounded-full bg-red-500 animate-pulse" />
-            SYSTEM V3.0 ONLINE
-          </div>
 
           {/* Headline */}
           <h1 className="text-6xl md:text-8xl font-black tracking-tighter text-white leading-[0.9] animate-slide-up">
-            Dominate With <br />
-            <span className="text-transparent bg-clip-text bg-gradient-to-b from-red-500 to-red-800">Psychological Precision.</span>
+            The Architecture of <br />
+            <span className="text-transparent bg-clip-text bg-gradient-to-b from-red-500 to-red-800">Influence.</span>
           </h1>
 
           {/* Subheadline */}
           <p className="text-xl md:text-2xl text-gray-400 max-w-3xl mx-auto leading-relaxed animate-slide-up" style={{ animationDelay: '0.1s' }}>
-            Verblynx is the world's first <strong>Strategic Inference Engine</strong>. We don't just generate copy; we engineer high-converting assets backed by deep psychological frameworks.
-            <br /><br />
-            <span className="text-white font-medium">Stop guessing. Start converting. Deploy elite strategy at scale.</span>
+            Deploy the world's most advanced persuasion engine. Verblynx fuses deep psychological inference with generative precision to engineer copy that converts.
           </p>
 
           {/* CTAs */}
@@ -277,7 +270,7 @@ export default function LandingPage() {
       <footer className="py-12 border-t border-white/5 bg-black/50 backdrop-blur-xl text-center">
         <div className="container mx-auto px-6 flex flex-col items-center gap-6">
           <div className="flex items-center gap-3 opacity-50 grayscale hover:grayscale-0 transition-all duration-500">
-            <img src="/verblynx-icon.png" alt="Verblynx Icon" className="h-8 w-8 rounded-lg" />
+            <img src="/verblynx-icon-new.png" alt="Verblynx Icon" className="h-8 w-8 rounded-lg" />
             <span className="text-xl font-black tracking-tighter text-white">VERBLYNX</span>
           </div>
 
