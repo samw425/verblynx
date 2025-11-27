@@ -62,10 +62,20 @@ export default function LandingPage() {
             className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 text-gray-400 text-xs font-mono mb-4"
           >
             <span className="relative flex h-2 w-2">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
-              <span className="relative inline-flex rounded-full h-2 w-2 bg-red-500"></span>
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
             </span>
-            SYSTEM ONLINE // V3.0.1
+            <span className="tracking-wider text-green-500">NEURAL ENGINE: ONLINE</span>
+            <span className="text-gray-700 mx-2">||</span>
+            <a
+              href="https://aether-architect.vercel.app/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-purple-400 transition-colors uppercase tracking-wider flex items-center gap-1 group"
+            >
+              ARCHITECTED BY AETHER
+              <span className="opacity-0 group-hover:opacity-100 transition-opacity text-[10px]">↗</span>
+            </a>
           </motion.div>
 
           <motion.h1
@@ -221,20 +231,6 @@ export default function LandingPage() {
                       <div className="font-bold text-white mb-1">Desire Isolation</div>
                       <div className="text-sm text-gray-400">We pinpoint the core emotional driver (Status, Safety, Freedom, Greed) that will move them to action.</div>
                     </div>
-                  </div>
-                  <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 backdrop-blur-md mb-8">
-                    <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse shadow-[0_0_10px_#22c55e]" />
-                    <span className="text-xs font-mono text-green-500 tracking-wider">NEURAL ENGINE: ONLINE</span>
-                    <span className="text-xs font-mono text-gray-700 mx-1">||</span>
-                    <a
-                      href="https://aether-architect.vercel.app/"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-xs font-mono text-gray-500 hover:text-purple-400 transition-colors uppercase tracking-wider flex items-center gap-1 group"
-                    >
-                      ARCHITECTED BY AETHER
-                      <span className="opacity-0 group-hover:opacity-100 transition-opacity text-[10px]">↗</span>
-                    </a>
                   </div>
                   <div className="flex items-start gap-4 p-4 rounded-xl bg-white/5 border border-white/10">
                     <div className="h-10 w-10 rounded-lg bg-green-500/20 flex items-center justify-center shrink-0">
