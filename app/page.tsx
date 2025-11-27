@@ -59,22 +59,19 @@ export default function LandingPage() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 text-gray-400 text-xs font-mono mb-4"
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 text-gray-400 text-xs font-mono mb-4 hover:border-purple-500/30 hover:bg-purple-500/10 transition-all group cursor-pointer"
           >
-            <span className="relative flex h-2 w-2">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
-              <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
-            </span>
-            <span className="tracking-wider text-green-500">NEURAL ENGINE: ONLINE</span>
-            <span className="text-gray-700 mx-2">||</span>
             <a
               href="https://aether-architect.vercel.app/"
               target="_blank"
               rel="noopener noreferrer"
-              className="hover:text-purple-400 transition-colors uppercase tracking-wider flex items-center gap-1 group"
+              className="flex items-center gap-2"
             >
-              ARCHITECTED BY AETHER
-              <span className="opacity-0 group-hover:opacity-100 transition-opacity text-[10px]">↗</span>
+              <span className="relative flex h-2 w-2">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-purple-400 opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-purple-500"></span>
+              </span>
+              <span className="tracking-widest text-gray-400 group-hover:text-white transition-colors uppercase">ARCHITECTED BY AETHER</span>
             </a>
           </motion.div>
 
