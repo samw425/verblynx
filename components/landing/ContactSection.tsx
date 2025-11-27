@@ -11,6 +11,7 @@ import * as motion from "framer-motion/client"
 
 export function ContactSection() {
     const [isLoading, setIsLoading] = useState(false)
+    const [status, setStatus] = useState<'idle' | 'success' | 'error'>('idle')
     const [formData, setFormData] = useState({
         name: "",
         email: "",
