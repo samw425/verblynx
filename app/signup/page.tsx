@@ -122,7 +122,7 @@ export default function SignupPage() {
 
                         <div className="p-3 rounded-lg bg-red-900/10 border border-red-500/20">
                             <p className="text-xs text-red-400 leading-relaxed">
-                                <strong>Beta Pricing:</strong> $0/month now. Lock in this rate forever when we launch.
+                                <strong>Beta Access:</strong> Free during development. Pricing TBD after launch.
                             </p>
                         </div>
 
