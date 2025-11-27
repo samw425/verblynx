@@ -1,3 +1,5 @@
+"use client"
+
 import { ChatInterface } from "@/components/editor/chat-interface"
 import { DocumentEditor } from "@/components/editor/document-editor"
 import { ArrowLeft } from "lucide-react"
