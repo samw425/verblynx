@@ -736,6 +736,6 @@ export default function LandingPage() {
 
       <ContactSection />
       <Footer />
-    </main>
+    </div>
   );
 }
