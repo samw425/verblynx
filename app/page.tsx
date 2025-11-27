@@ -73,27 +73,32 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* Features Grid - Glass Cards */}
-      <section className="py-32 relative">
-        <div className="container mx-auto px-6">
-          <div className="grid md:grid-cols-3 gap-8">
-            <div className="glass-card p-8 rounded-3xl">
-              <div className="h-12 w-12 rounded-2xl bg-red-500/10 flex items-center justify-center mb-6 border border-red-500/20">
-                <Zap className="h-6 w-6 text-red-500" />
-              </div>
-              <h3 className="text-xl font-bold text-white mb-3">Strategic Inference</h3>
-              <p className="text-gray-400 leading-relaxed">
-                Our engine doesn't just write. It analyzes your goal, audience, and tone to build a psychological profile before generating a single word.
+      {/* THE PHILOSOPHY */}
+      <section className="py-32 bg-black relative overflow-hidden border-t border-white/5">
+        <div className="container mx-auto px-6 relative z-10">
+          <div className="grid md:grid-cols-2 gap-16 items-center">
+            <div className="space-y-8">
+              <h2 className="text-5xl md:text-7xl font-black tracking-tighter text-white">
+                NOT JUST <br />
+                <span className="text-red-600">ANOTHER LLM.</span>
+              </h2>
+              <p className="text-xl text-gray-400 leading-relaxed">
+                Standard models guess. <strong className="text-white">Verblynx calculates.</strong>
               </p>
-            </div>
-            <div className="glass-card p-8 rounded-3xl">
-              <div className="h-12 w-12 rounded-2xl bg-blue-500/10 flex items-center justify-center mb-6 border border-blue-500/20">
-                <Shield className="h-6 w-6 text-blue-500" />
-              </div>
-              <h3 className="text-xl font-bold text-white mb-3">Zero Hallucination</h3>
-              <p className="text-gray-400 leading-relaxed">
-                Built on the Gemini 1.5 Pro architecture, Verblynx is grounded in proven copywriting frameworks (AIDA, PAS) to ensure high-converting output.
+              <p className="text-lg text-gray-500 leading-relaxed">
+                We built a proprietary "Strategic Inference Layer" that sits between you and the AI. It forces a professional workflow—Objective, Audience, Tone—before a single word is generated. The result? Copy that converts, not just copy that reads well.
               </p>
+
+              <div className="grid grid-cols-2 gap-6 pt-4">
+                <div className="p-6 rounded-2xl bg-white/5 border border-white/10">
+                  <div className="text-3xl font-bold text-white mb-1">10x</div>
+                  <div className="text-sm text-gray-400 uppercase tracking-wider">Conversion Lift</div>
+                </div>
+                <div className="p-6 rounded-2xl bg-white/5 border border-white/10">
+                  <div className="text-3xl font-bold text-white mb-1">0%</div>
+                  <div className="text-sm text-gray-400 uppercase tracking-wider">Hallucination</div>
+                </div>
+              </div>
             </div>
             <div className="glass-card p-8 rounded-3xl">
               <div className="h-12 w-12 rounded-2xl bg-purple-500/10 flex items-center justify-center mb-6 border border-purple-500/20">
