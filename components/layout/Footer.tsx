@@ -88,14 +88,23 @@ export function Footer() {
                         &copy; {new Date().getFullYear()} Verblynx. All rights reserved.
                     </div>
 
-                    <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/5 border border-white/10">
-                        <div className="relative flex h-2 w-2">
-                            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
-                            <span className="relative inline-flex rounded-full h-2 w-2 bg-red-500"></span>
+                    <div className="flex flex-col items-end gap-2">
+                        <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/5 border border-white/10">
+                            <div className="relative flex h-2 w-2">
+                                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
+                                <span className="relative inline-flex rounded-full h-2 w-2 bg-red-500"></span>
+                            </div>
+                            <span className="text-xs font-mono text-gray-400 uppercase tracking-widest">
+                                POWERED BY GEMINI 3
+                            </span>
                         </div>
-                        <span className="text-xs font-mono text-gray-400 uppercase tracking-widest">
-                            POWERED BY GEMINI 3
-                        </span>
+
+                        <a href="https://aether-architect.vercel.app/" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 group opacity-60 hover:opacity-100 transition-opacity">
+                            <span className="text-[10px] text-gray-500 uppercase tracking-widest group-hover:text-white transition-colors">
+                                An Aether Built Product
+                            </span>
+                            <div className="h-3 w-3 rounded-sm bg-gradient-to-tr from-blue-500 to-purple-500 opacity-80 group-hover:opacity-100 transition-opacity" />
+                        </a>
                     </div>
                 </div>
             </div>
