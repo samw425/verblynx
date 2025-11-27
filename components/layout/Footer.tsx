@@ -12,7 +12,7 @@ export function Footer() {
                             <span className="text-xl font-black tracking-tighter text-white">VERBLYNX</span>
                         </Link>
                         <p className="text-gray-400 text-sm leading-relaxed max-w-xs font-medium">
-                            No Talk. All Walk.
+                            Built for those who refuse to guess.
                         </p>
                     </div>
 
