@@ -83,9 +83,9 @@ export default function EnginePage() {
                             </div>
                             <div className="absolute bottom-0 left-0 right-0 p-6 bg-black/80 backdrop-blur-xl border-t border-white/10">
                                 <div className="font-mono text-xs text-green-400 mb-2">
-                            > SYSTEM STATUS: OPTIMAL<br />
-                            > MODEL: GEMINI 1.5 PRO (ELITE)<br />
-                            > LATENCY: 42ms
+                                    {'>'} SYSTEM STATUS: OPTIMAL<br />
+                                    {'>'} MODEL: GEMINI 1.5 PRO (ELITE)<br />
+                                    {'>'} LATENCY: 42ms
                                 </div>
                             </div>
                         </div>
