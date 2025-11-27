@@ -72,8 +72,8 @@ export default function LandingPage() {
             transition={{ duration: 0.6, delay: 0.1 }}
             className="text-6xl md:text-8xl lg:text-9xl font-black tracking-tighter text-white leading-[0.9]"
           >
-            THEY LAUGHED WHEN I SAID <br />
-            <span className="text-transparent bg-clip-text bg-gradient-to-b from-red-500 to-red-800">"COPYWRITING IS A SCIENCE..."</span>
+            WRITE COPY THAT <br />
+            <span className="text-transparent bg-clip-text bg-gradient-to-b from-red-500 to-red-800">PRINTS MONEY.</span>
           </motion.h1>
 
           <motion.p
@@ -82,7 +82,7 @@ export default function LandingPage() {
             transition={{ duration: 0.6, delay: 0.2 }}
             className="text-3xl md:text-4xl font-bold text-white max-w-4xl mx-auto leading-tight"
           >
-            Until They Saw My Conversion Rates.
+            While Your Competitors Are Still Guessing.
           </motion.p>
 
           <motion.p
@@ -91,7 +91,7 @@ export default function LandingPage() {
             transition={{ duration: 0.6, delay: 0.25 }}
             className="text-xl text-gray-400 max-w-3xl mx-auto leading-relaxed pt-4"
           >
-            The only system that doesn't just write copy—it <span className="text-white font-bold">turns you into a master copywriter</span>. Every word. Every trigger. Every framework. Explained.
+            The first system that doesn't just write copy—it <span className="text-white font-bold">teaches you to dominate your market</span>. Every word. Every trigger. Every conversion.
           </motion.p>
 
           <motion.div
