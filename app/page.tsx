@@ -67,7 +67,7 @@ export default function LandingPage() {
           <div className="flex flex-col sm:flex-row items-center justify-center gap-6 pt-4 animate-slide-up" style={{ animationDelay: '0.3s' }}>
             <Link href="/create">
               <Button className="h-14 px-8 rounded-full bg-white text-black hover:bg-gray-200 font-bold text-lg transition-all hover:scale-105 shadow-[0_0_30px_-5px_rgba(255,255,255,0.3)]">
-                Start Creating <ChevronRight className="ml-2 h-5 w-5" />
+                Access The Engine <ChevronRight className="ml-2 h-5 w-5" />
               </Button>
             </Link>
             <button onClick={() => scrollToSection('how-it-works')} className="text-gray-400 hover:text-white font-medium transition-colors flex items-center gap-2 group">
