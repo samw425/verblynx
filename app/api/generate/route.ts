@@ -53,19 +53,23 @@ export async function POST(req: Request) {
 
       INSTRUCTIONS:
       1. **Drafting Phase**: Write the copy using the assigned Framework. Be visceral. Be specific. Use short sentences. Break patterns.
-      2. **Critique Phase (The Expert Filter)**:
-         - **The 'So What?' Test**: Does every sentence earn its keep? If not, cut it.
-         - **The 'Bar Stool' Test**: Does it sound like a human talking to a friend over a beer? If it sounds like a brochure, rewrite it.
-         - **The 'Specifics' Check**: Replace vague claims ("save time") with concrete numbers ("save 20 hours/week").
-      3. **Final Polish**: Present the final, optimized copy.
+      2. **CRITIQUE PHASE (INTERNAL MONOLOGUE)**:
+         - Look at your draft. Is it boring? Is it generic?
+         - Does it sound like "AI"? If yes, destroy it.
+         - Are there weak words like "unlock", "unleash", "elevate"? Replace them with concrete verbs.
+      3. **REFINEMENT PHASE**: 
+         - Rewrite the copy based on your critique. 
+         - Make it 30% shorter. 
+         - Make it 2x more punchy.
+      4. **Final Output**: Present ONLY the refined, elite version.
 
       OUTPUT FORMAT (JSON ONLY):
       {
-        "copy": "The full markdown formatted copy.",
+        "copy": "The full markdown formatted copy (Refined Version).",
         "explanation": {
-          "psychology": "Explain the psychological triggers used (e.g., Scarcity, Social Proof, Authority).",
-          "structure": "Explain how the copy follows the framework step-by-step.",
-          "power_words": ["List", "of", "strong", "words", "used"]
+            "critique": "What you fixed from the first draft (e.g. 'Removed generic fluff, added specific revenue numbers').",
+            "psychology": "Explain the psychological triggers used.",
+            "structure": "Explain how the copy follows the framework step-by-step."
         }
       }
     `;
