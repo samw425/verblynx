@@ -36,7 +36,7 @@ export default function LandingPage() {
 
           <div className="flex items-center gap-4">
             <Link href="/login" className="text-sm font-medium text-gray-400 hover:text-white hidden sm:block">Login</Link>
-            <Link href="/create">
+            <Link href="/pricing">
               <Button size="sm" className="rounded-full bg-white text-black hover:bg-gray-200 font-bold">
                 Get Access
               </Button>
